@@ -1,3 +1,60 @@
-<p>
-  categorias works!
-</p>
+<h2 class="main-container">Categorias</h2>
+<hr>
+
+<div class="row">
+  <div class="col-md-6 space-elements">
+      <div class="input-group">
+          
+          <input type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" id="btnGroupAddon">Buscar</button>
+          </div>
+
+        </div>
+  </div>
+
+  <div class="col-md-6 text-right space-elements">
+      <a [routerLink]="['/nuevaCategoria']" class="btn btn-outline-success">Nueva Categoría</a>
+  </div>
+
+</div>
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col" class="text-center" >Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Faena 1</td>
+        <th scope="col" class="text-center">
+          <button class="btn btn-outline-info">Ver</button>
+          <button class="btn btn-outline-primary">Editar</button>
+          <button class="btn btn-outline-danger">Eliminar</button>
+        </th>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Faena 2</td>
+        <th scope="col" class="text-center">
+          <button class="btn btn-outline-info">Ver</button>
+          <button class="btn btn-outline-primary">Editar</button>
+          <button class="btn btn-outline-danger">Eliminar</button>
+        </th>        
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Faena 3</td>
+        <th scope="col"  class="text-center">
+            <button class="btn btn-outline-info">Ver</button>
+            <button class="btn btn-outline-primary">Editar</button>
+            <button class="btn btn-outline-danger">Eliminar</button>
+          </th>
+      </tr>
+    </tbody>
+  </table>
