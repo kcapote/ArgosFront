@@ -1,0 +1,69 @@
+<form [formGroup]="form">
+<h2 class="main-container">{{ title }}</h2>
+<hr>
+
+  <div class="form-group">
+    <label>Nombre: </label>
+    <input type="text" class="form-control" formControlName ="name" >
+  </div>
+
+  <div class="form-group">
+    <label>Tipo </label>
+    <select name="" id="" class="form-control" formControlName="type">
+      <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
+
+    </select>
+  </div>
+
+</form>  
+
+  <h3>Tareas</h3>
+
+
+  <div class="row space-elements"> 
+    
+    
+    <div class="col-md-12 space-elements">
+      <div class="input-group">
+          <input type="text" 
+                            [(ngModel)]="nameSubTask" 
+                            class="form-control"
+                            placeholder="Ingrese una tarea" 
+                            aria-label="Input group example" 
+                            aria-describedby="btnGroupAddon">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-primary" 
+                    (click)="addSubTask()" >Agregar</button>
+          </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+
+
+  <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col" class="text-center" >Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of collection; let i=index">
+          <th scope="row">1</th>
+          <td> {{ item.name }} </td>
+          <th scope="col" class="text-center">
+            <button class="btn btn-outline-danger" (click)="deleteSubTask(i)" >Eliminar</button>
+          </th>
+        </tr>
+        
+      </tbody>
+    </table>
+
+
+

@@ -1,14 +1,17 @@
 import { Routes, RouterModule, RoutesRecognized } from '@angular/router';
-import { CategoriasComponent } from './categorias/categorias.component';
 import { PagesComponent } from './pages.component';
-import { NewCategoriaComponent } from './categorias/new-categoria.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { NewTaskComponent } from './tasks/new-task.component';
+import { NewSubtaskComponent } from './sub-task/new-subtask.component';
+import { EditTaskComponent } from './tasks/edit-task.component';
 
 
 const app_pages_routes: Routes = [
     {path: '', component: PagesComponent,
       children: [
-        {path: 'categorias', component: CategoriasComponent},
-        {path: 'nuevaCategoria', component: NewCategoriaComponent }                    
+        {path: 'tasks', component: TasksComponent},
+        {path: 'newTask', component: NewTaskComponent },                    
+        {path: 'editTask/:id', component: EditTaskComponent },
         
     ]     
     }

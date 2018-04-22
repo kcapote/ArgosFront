@@ -6,20 +6,14 @@
   <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
           <li class="nav-item " routerLinkActive="active">
-              <a class="nav-link"  [routerLink]="['categorias']">Categorías</a>
+              <a class="nav-link"  [routerLink]="['/tasks']">Categorías</a>
           </li>
           <li class="nav-item " routerLinkActive="active">
-              <a class="nav-link" href="#">Normas</a>
+              <a class="nav-link" [routerLink]="['/newTask']" >Normas</a>
           </li>
           <li class="nav-item " routerLinkActive="active">
-              <a class="nav-link" href="#">Normas</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" href="#">Catalogos</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" href="#">Manuales</a>
-          </li>
+            <a class="nav-link" [routerLink]="['/editTask']" >Normas</a>
+        </li>
       </ul>
       <span class="navbar-text">
     <button class="btn btn-outline-dark">

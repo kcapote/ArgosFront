@@ -14,7 +14,7 @@
   </div>
 
   <div class="col-md-6 text-right space-elements">
-      <a [routerLink]="['/nuevaCategoria']" class="btn btn-outline-success">Nueva Categoría</a>
+      <a [routerLink]="['/newTask']" class="btn btn-outline-success">Nueva Categoría</a>
   </div>
 
 </div>
@@ -29,32 +29,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Faena 1</td>
+      <tr *ngFor="let item of collection; let i = index">
+        <th scope="row"> {{ i+1 }} </th>
+        <td>{{ item.name }}</td>
         <th scope="col" class="text-center">
           <button class="btn btn-outline-info">Ver</button>
-          <button class="btn btn-outline-primary">Editar</button>
+          <button class="btn btn-outline-primary" 
+                  (click)="edit(item._id)">Editar</button>
           <button class="btn btn-outline-danger">Eliminar</button>
         </th>
       </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Faena 2</td>
-        <th scope="col" class="text-center">
-          <button class="btn btn-outline-info">Ver</button>
-          <button class="btn btn-outline-primary">Editar</button>
-          <button class="btn btn-outline-danger">Eliminar</button>
-        </th>        
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Faena 3</td>
-        <th scope="col"  class="text-center">
-            <button class="btn btn-outline-info">Ver</button>
-            <button class="btn btn-outline-primary">Editar</button>
-            <button class="btn btn-outline-danger">Eliminar</button>
-          </th>
-      </tr>
+
     </tbody>
   </table>
