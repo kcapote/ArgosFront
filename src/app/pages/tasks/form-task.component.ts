@@ -37,11 +37,6 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
       'type': new FormControl('', Validators.required)
     });
  
-     console.log('el id es ', this.idTask);
-
-
-   
-    console.log(this.item);
     
 
   }
@@ -54,10 +49,27 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
    }
 
    ngAfterViewInit() {
-    console.log('el id afterasd', this.idTask);
+    console.log('el id ngAfterViewInit', this.idTask);
+    this._ps.getObject(Util.URL_TASKS, this.idTask).subscribe(
+        res => {
+            
+            this.item = res.task;
+            this.collection = this.item.subTask;
+            this.form.setValue({
+              'name': this.item.name ,
+              'type': this.item.type
+              }
+
+            )    
+
+        }
+        
+    )
+
     
    }
-  
+
+
   addSubTask() {
 
     if(!this.nameSubTask){

@@ -31,7 +31,7 @@ export class EditTaskComponent implements OnInit {
 
       );
 
-    console.log('el id en el edit es  ', this.idTask);
+    
     
 
   }
