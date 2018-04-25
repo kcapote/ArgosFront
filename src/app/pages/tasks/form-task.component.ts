@@ -46,26 +46,28 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     
-   }
+  }
 
    ngAfterViewInit() {
-    console.log('el id ngAfterViewInit', this.idTask);
-    this._ps.getObject(Util.URL_TASKS, this.idTask).subscribe(
-        res => {
-            
-            this.item = res.task;
-            this.collection = this.item.subTask;
-            this.form.setValue({
-              'name': this.item.name ,
-              'type': this.item.type
-              }
 
-            )    
+    if(this.idTask){
 
-        }
-        
-    )
-
+      this._ps.getObject(Util.URL_TASKS, this.idTask).subscribe(
+          res => {
+              
+              this.item = res.task;
+              this.collection = this.item.subTask;
+              this.form.setValue({
+                'name': this.item.name ,
+                'type': this.item.type
+                }
+  
+              )    
+  
+          }
+          
+      )
+    }
     
    }
 
@@ -95,7 +97,12 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
 
  
   getTask():Task {
+    
     this.item = this.form.value;
+    
+    if(this.idTask){
+      this.item._id = this.idTask;
+    }
     this.item.subTask = this.collection;
     return this.item;   
   }

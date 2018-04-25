@@ -2,43 +2,42 @@
 <hr>
 
 <div class="row">
-  <div class="col-md-6 space-elements">
-      <div class="input-group">
-          
-          <input type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
-          <div class="input-group-prepend">
-            <button class="btn btn-outline-secondary" id="btnGroupAddon">Buscar</button>
-          </div>
+    <div class="col-md-6 space-elements">
+        <div class="input-group">
+
+            <input type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" id="btnGroupAddon">Buscar</button>
+            </div>
 
         </div>
-  </div>
+    </div>
 
-  <div class="col-md-6 text-right space-elements">
-      <a [routerLink]="['/newTask']" class="btn btn-outline-success">Nueva Categoría</a>
-  </div>
+    <div class="col-md-6 text-right space-elements">
+        <a [routerLink]="['/newTask']" class="btn btn-outline-success">Nueva Categoría</a>
+    </div>
 
 </div>
 
 
 <table class="table">
     <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col" class="text-center" >Opciones</th>
-      </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col" class="text-center">Opciones</th>
+        </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of collection; let i = index">
-        <th scope="row"> {{ i+1 }} </th>
-        <td>{{ item.name }}</td>
-        <th scope="col" class="text-center">
-          <button class="btn btn-outline-info">Ver</button>
-          <button class="btn btn-outline-primary" 
-                  (click)="edit(item._id)">Editar</button>
-          <button class="btn btn-outline-danger">Eliminar</button>
-        </th>
-      </tr>
+        <tr *ngFor="let item of collection; let i = index">
+            <th scope="row"> {{ i+1 }} </th>
+            <td>{{ item.name }}</td>
+            <th scope="col" class="text-center">
+                <button class="btn btn-outline-info"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-outline-primary" (click)="edit(item._id)"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>
+            </th>
+        </tr>
 
     </tbody>
-  </table>
+</table>

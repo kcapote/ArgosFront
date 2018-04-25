@@ -41,18 +41,18 @@ export class EditTaskComponent implements OnInit {
 
 
   save(task:Task) {
-  
-    this._ps.saveObject(Util.URL_TASKS,task).subscribe(
+
+    this._ps.updateObject(Util.URL_TASKS,task._id,task).subscribe(
         res => {
           console.log(res);         
 
         }    
     ) 
 
-      
-
   }
   
+
+
   back() {
     this.location.back();
 

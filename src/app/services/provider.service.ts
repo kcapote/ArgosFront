@@ -28,10 +28,26 @@ export class ProviderService {
     
     let headers: HttpHeaders = new  HttpHeaders();
     headers.append('Content-Type', 'aplication/json');
+    let urlTemp = `${url}?${ Util.TOKEN }`;
   
-    return this.http.post( `${url}?${ Util.TOKEN }`, obj, {headers});
+    return this.http.post( urlTemp, obj, {headers});
     
 
+  }
+
+  public updateObject(url: string, id: string ,obj: any ): Observable<any>{
+    let headers: HttpHeaders = new  HttpHeaders();
+    headers.append('Content-Type', 'aplication/json');
+    let urlTemp = `${ url }/${ id }?${ Util.TOKEN }`;
+  
+    return this.http.put(urlTemp,obj, {headers});
+
+  } 
+
+  public deleteObject(url:string, id:string ): Observable<any>{
+    let urlTemp = `${ url }/${ id }?${ Util.TOKEN }`;
+    
+    return this.http.delete(urlTemp);
   }
 
 }
