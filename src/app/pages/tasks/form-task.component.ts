@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Task } from '../../interfaces/task.interface';
 import { SubTask } from '../../interfaces/subTask.interface';
@@ -13,9 +13,9 @@ import { ValidTypesTasks } from '../../enums/valid-types-tasks.enum';
   templateUrl: './form-task.component.html',
   styles: []
 })
-export class FormTaskComponent implements OnInit {
+export class FormTaskComponent implements OnInit, AfterViewInit {
   
-  @Input() itemTask: Task = {name: "", subTask: [], type: ValidTypesTasks.AREAS_COMUNES } ;  
+  @Input() idTask: string;  
   @Input() title: string = "Crear Categoría";
   
   
@@ -30,25 +30,18 @@ export class FormTaskComponent implements OnInit {
       }
   ) ;
 
-  constructor() { 
+  constructor(private _ps:ProviderService) { 
 
     this.form = new FormGroup({
       'name': new FormControl('', Validators.required),
       'type': new FormControl('', Validators.required)
     });
  
-    console.log('el item task es ', this.itemTask);
-    
+     console.log('el id es ', this.idTask);
 
-    if (this.itemTask){
-      
-      this.form.setValue(this.itemTask);
-      this.collection = this.itemTask.subTask
-      
-      
-    }
+
    
-
+    console.log(this.item);
     
 
   }
@@ -60,10 +53,16 @@ export class FormTaskComponent implements OnInit {
     
    }
 
+   ngAfterViewInit() {
+    console.log('el id afterasd', this.idTask);
+    
+   }
   
   addSubTask() {
-    console.log(this.nameSubTask);
-       
+
+    if(!this.nameSubTask){
+      return
+    }  
 
     let temp: SubTask = {
       name: this.nameSubTask,
@@ -71,7 +70,6 @@ export class FormTaskComponent implements OnInit {
     }
        
     this.collection.push(temp);
-    //this.nameSubTask = "";
     this.nameSubTask = "";
 
   }

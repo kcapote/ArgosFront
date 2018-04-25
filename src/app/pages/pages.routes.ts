@@ -2,7 +2,6 @@ import { Routes, RouterModule, RoutesRecognized } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { NewTaskComponent } from './tasks/new-task.component';
-import { NewSubtaskComponent } from './sub-task/new-subtask.component';
 import { EditTaskComponent } from './tasks/edit-task.component';
 
 

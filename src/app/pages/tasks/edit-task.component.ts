@@ -12,7 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditTaskComponent implements OnInit {
 
-  itemTask: Task;
+  //itemTask: Task;
+  idTask: string;
 
   constructor(private location: Location,
               private _ps:ProviderService,
@@ -21,14 +22,8 @@ export class EditTaskComponent implements OnInit {
       this.activatedRoute.params.subscribe(
           p =>{
             if(p['id']){
-              
-              _ps.getObject(Util.URL_TASKS,p['id']).subscribe(
-                  res =>{
-                    this.itemTask = res.task;
-                    
-                  }
+              this.idTask = p['id'];
 
-              )
 
             }
 
@@ -36,7 +31,8 @@ export class EditTaskComponent implements OnInit {
 
       );
 
-
+    console.log('el id en el edit es  ', this.idTask);
+    
 
   }
 

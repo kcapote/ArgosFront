@@ -20,12 +20,15 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "assets/b4/css/bootstrap.min.css"
+        "assets/b4/css/bootstrap.min.css",
+        "assets/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css"
       ],
       "scripts": [
         "assets/jquery/jquery.slim.min.js",
         "assets/tether/tether.min.js",
-        "assets/b4/js/bootstrap.min.js"
+        "assets/b4/js/bootstrap.min.js",
+        "assets/fontawesome/svg-with-js/js/fontawesome-all.min.js"
+        
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

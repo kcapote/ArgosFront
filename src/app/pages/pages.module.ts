@@ -6,9 +6,6 @@ import { TasksComponent } from './tasks/tasks.component';
 import { PagesComponent } from './pages.component';
 import { FormTaskComponent } from './tasks/form-task.component';
 import { NewTaskComponent } from './tasks/new-task.component';
-import { NewSubtaskComponent } from './sub-task/new-subtask.component';
-import { FormSubtaskComponent } from './sub-task/form-subtask.component';
-import { EditSubtaskComponent } from './sub-task/edit-subtask.component';
 import { EditTaskComponent } from './tasks/edit-task.component';
 
 
@@ -18,10 +15,6 @@ import { EditTaskComponent } from './tasks/edit-task.component';
      PagesComponent,
      FormTaskComponent,
      NewTaskComponent,
-     NewSubtaskComponent,
-     FormSubtaskComponent,
-     NewSubtaskComponent,
-     EditSubtaskComponent,
      EditTaskComponent    
 
    ],
@@ -30,10 +23,6 @@ import { EditTaskComponent } from './tasks/edit-task.component';
       PagesComponent,
       FormTaskComponent,
       NewTaskComponent,
-      NewSubtaskComponent,
-      FormSubtaskComponent,
-      NewSubtaskComponent,
-      EditSubtaskComponent,
       EditTaskComponent
       
 

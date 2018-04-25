@@ -1,6 +1,7 @@
-<div *ngIf="itemTask">
+<div *ngIf="idTask"> 
+     edit {{idTask}}
 
-      <app-form-task   #task title="Editar Faena" [itemTask] = "itemTask" ></app-form-task>
+      <app-form-task   #task title="Editar Faena" idTask = {{idTask}} > </app-form-task>
 
       <div class="row">
       <div class="col-md-12 text-right">
