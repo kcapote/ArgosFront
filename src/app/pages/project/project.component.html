@@ -1,0 +1,76 @@
+<form class="space-elements">
+  <h2 class="main-container">{{ title }}</h2>
+  <hr>
+
+  <div class="form-group">
+      <label>Nombre: </label>
+      <input type="text" class="form-control" >
+  </div>
+
+  <div class="form-group">
+     <label for="">Dirección</label> 
+     <textarea name="" id="" rows="3" class="form-control"></textarea> 
+  </div>
+
+
+</form>
+
+<h3>Pisos</h3>
+
+
+<div class="row space-elements">
+
+
+  <div class="col-md-12 space-elements">
+      <div class="input-group">
+        <select name="" id="" class="form-control" [(ngModel)]="typeSel" >
+            <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
+        </select>
+          <input  [(ngModel)]="quantitySel" type="number" class="form-control" placeholder="cantidad">
+
+          <div class="input-group-prepend">
+              <button class="btn btn-outline-primary" (click)="addPisos(typeSel, quantitySel)">Agregar</button>
+          </div>
+      </div>
+  </div>
+
+
+
+</div>
+
+
+
+
+<table class="table">
+  <thead class="thead-dark">
+      <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col" class="text-center">Opciones</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let item of collection; let i=index">
+          <th scope="row">1</th>
+          <td> {{ item.type }} </td>
+          <td> {{ item.quantity }} </td>
+          <th scope="col" class="text-center">
+              <button class="btn btn-outline-danger" ><i class="far fa-trash-alt"></i> </button>
+          </th>
+      </tr>
+
+  </tbody>
+</table>
+
+<hr>
+
+<div class="row">
+  <div class="col-md-12 text-right" >
+      <button class="btn btn-success" (click)=" goToContinue() ">
+        Continuar <i class="fas fa-angle-right"></i>
+      </button>
+
+  </div>
+
+</div>

@@ -7,6 +7,8 @@ import { PagesComponent } from './pages.component';
 import { FormTaskComponent } from './tasks/form-task.component';
 import { NewTaskComponent } from './tasks/new-task.component';
 import { EditTaskComponent } from './tasks/edit-task.component';
+import { ProjectComponent } from './project/project.component';
+import { ProjectFloorsComponent } from './project/project-floors.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { EditTaskComponent } from './tasks/edit-task.component';
      PagesComponent,
      FormTaskComponent,
      NewTaskComponent,
-     EditTaskComponent    
+     EditTaskComponent,
+     ProjectComponent,
+     ProjectFloorsComponent    
 
    ],
    exports: [
