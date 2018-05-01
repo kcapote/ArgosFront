@@ -15,6 +15,9 @@ import { ComboTasksComponent } from '../components/combo-tasks/combo-tasks.compo
 import { FormSubtaskComponent } from './sub-task/form-subtask.component';
 import { EditSubtaskComponent } from './sub-task/edit-subtask.component';
 import { ComboSubTasksComponent } from '../components/combo-sub-tasks/combo-sub-tasks.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { PositionComponent } from './position/position.component';
+import { FormPositionComponent } from './position/form-position.component';
 
 
 @NgModule({
@@ -31,7 +34,10 @@ import { ComboSubTasksComponent } from '../components/combo-sub-tasks/combo-sub-
      ComboTasksComponent,
      FormSubtaskComponent,
      EditSubtaskComponent,
-     ComboSubTasksComponent         
+     ComboSubTasksComponent,
+     EmployeeComponent,
+     PositionComponent,
+     FormPositionComponent         
 
    ],
    exports: [ 

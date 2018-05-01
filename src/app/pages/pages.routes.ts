@@ -8,6 +8,7 @@ import { ProjectFloorsComponent } from './project/project-floors.component';
 import { SubTaskComponent } from './sub-task/sub-task.component';
 import { NewSubTaskComponent } from './sub-task/new-sub-task.component';
 import { EditSubtaskComponent } from './sub-task/edit-subtask.component';
+import { PositionComponent } from './position/position.component';
 
 
 const app_pages_routes: Routes = [
@@ -21,6 +22,7 @@ const app_pages_routes: Routes = [
         {path: 'subTasks', component: SubTaskComponent },
         {path: 'newSubTask', component: NewSubTaskComponent },
         {path: 'editSubTask/:id', component: EditSubtaskComponent },
+        {path: 'positions', component: PositionComponent },
         
     ]     
     }

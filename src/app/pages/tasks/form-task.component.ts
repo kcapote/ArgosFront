@@ -76,9 +76,7 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
    }
 
 
-   log(){
-    console.log(this.form);
-   }
+
 
   // addSubTask() {
 
