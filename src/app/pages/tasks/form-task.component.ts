@@ -21,8 +21,8 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
   
   form: FormGroup;
   item: Task;
-  collection: SubTask[] = [];
-  nameSubTask: string ="";
+  //collection: SubTask[] = [];
+  //nameSubTask: string ="";
 
   enumType = Object.keys(ValidTypesTasks).map(
       r => {
@@ -34,7 +34,8 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
 
     this.form = new FormGroup({
       'name': new FormControl('', Validators.required),
-      'type': new FormControl('', Validators.required)
+      'type': new FormControl('', Validators.required),
+      'position': new FormControl('', Validators.required)
     });
  
     
@@ -56,10 +57,11 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
           res => {
               
               this.item = res.task;
-              this.collection = this.item.subTask;
+              //this.collection = this.item.subTask;
               this.form.setValue({
-                'name': this.item.name ,
-                'type': this.item.type
+                'name': this.item.name,
+                'type': this.item.type,
+                'position': this.item.position
                 }
   
               )    
@@ -72,26 +74,26 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
    }
 
 
-  addSubTask() {
+  // addSubTask() {
 
-    if(!this.nameSubTask){
-      return
-    }  
+  //   if(!this.nameSubTask){
+  //     return
+  //   }  
 
-    let temp: SubTask = {
-      name: this.nameSubTask,
+  //   let temp: SubTask = {
+  //     name: this.nameSubTask,
     
-    }
+  //   }
        
-    this.collection.push(temp);
-    this.nameSubTask = "";
+  //   this.collection.push(temp);
+  //   this.nameSubTask = "";
 
-  }
+  // }
 
 
-  deleteSubTask(idx: number) {
-     this.collection.splice(idx, 1);
-  }
+  // deleteSubTask(idx: number) {
+  //    this.collection.splice(idx, 1);
+  // }
 
 
 
@@ -103,7 +105,7 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
     if(this.idTask){
       this.item._id = this.idTask;
     }
-    this.item.subTask = this.collection;
+    // this.item.subTask = this.collection;
     return this.item;   
   }
 

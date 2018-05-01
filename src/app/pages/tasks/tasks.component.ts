@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class TasksComponent implements OnInit {
 
+  title = "Faenas";  
   collection: Task[] = []
 
   constructor(private _sp:ProviderService,
@@ -18,10 +19,8 @@ export class TasksComponent implements OnInit {
 
     this._sp.getObjects(Util.URL_TASKS).subscribe(
         res => {
-          console.log(res);
-          
-          this.collection = res.tasks;
-          console.log(this.collection);
+           this.collection = res.tasks;
+         
         }
 
     );

@@ -9,6 +9,12 @@ import { NewTaskComponent } from './tasks/new-task.component';
 import { EditTaskComponent } from './tasks/edit-task.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectFloorsComponent } from './project/project-floors.component';
+import { SubTaskComponent } from './sub-task/sub-task.component';
+import { NewSubTaskComponent } from './sub-task/new-sub-task.component';
+import { ComboTasksComponent } from '../components/combo-tasks/combo-tasks.component';
+import { FormSubtaskComponent } from './sub-task/form-subtask.component';
+import { EditSubtaskComponent } from './sub-task/edit-subtask.component';
+import { ComboSubTasksComponent } from '../components/combo-sub-tasks/combo-sub-tasks.component';
 
 
 @NgModule({
@@ -19,10 +25,16 @@ import { ProjectFloorsComponent } from './project/project-floors.component';
      NewTaskComponent,
      EditTaskComponent,
      ProjectComponent,
-     ProjectFloorsComponent    
+     ProjectFloorsComponent,
+     SubTaskComponent,
+     NewSubTaskComponent,
+     ComboTasksComponent,
+     FormSubtaskComponent,
+     EditSubtaskComponent,
+     ComboSubTasksComponent         
 
    ],
-   exports: [
+   exports: [ 
       TasksComponent,
       PagesComponent,
       FormTaskComponent,

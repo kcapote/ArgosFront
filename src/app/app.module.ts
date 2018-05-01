@@ -9,11 +9,13 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { ProviderService } from './services/provider.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    
     
   ],
   imports: [

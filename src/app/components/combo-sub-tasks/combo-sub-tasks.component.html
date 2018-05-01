@@ -1,0 +1,8 @@
+<div class="form-group" class="space-elements">
+    <label> {{ title }} </label>
+  
+    <select class="custom-select"  name="combo" (change)="onChange($event.target.value)" > 
+      <option *ngFor="let item of collection; let i = index" [value]="item._id">{{item.name}}</option>
+    </select>
+   
+  </div>

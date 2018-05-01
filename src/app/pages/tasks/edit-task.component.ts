@@ -23,8 +23,7 @@ export class EditTaskComponent implements OnInit {
           p =>{
             if(p['id']){
               this.idTask = p['id'];
-
-
+              
             }
 
           }

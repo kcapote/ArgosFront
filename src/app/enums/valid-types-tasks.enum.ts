@@ -1,8 +1,10 @@
 export enum ValidTypesTasks {
+    DEPARTAMENTOS = 'DEPARTAMENTOS',
+    EMPLAZAMIENTOS = 'EMPLAZAMIENTOS'  
     
-    PISOS = 'PISOS',
-    SUBTERRANEOS = 'SUBTERRANEOS', 
-    AREAS_COMUNES = 'AREAS COMUNES'
+    // PISOS = 'DEPARTAMENTOS',
+    // SERVICIOS_COMUNES = 'SERVICIOS COMUNES',
+    // LOCALES_COMERCIALES = 'LOCALES COMERCIALES'
 }
 
 // export namespace ValidTypesTasks {
@@ -13,3 +15,5 @@ export enum ValidTypesTasks {
 //       );
 //     }
 //   }
+
+//MANTENER ORDEN DE LAS FAENAS, CREAR CAMPO DE PRIORIDAD 
