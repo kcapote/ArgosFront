@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SubTask } from '../../interfaces/subTask.interface';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
@@ -23,9 +23,9 @@ export class FormSubtaskComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.form =  new FormGroup({
-      'name': new FormControl(),
-      'task': new FormControl(),
-      'position': new FormControl()
+      'name': new FormControl('',Validators.required),
+      'task': new FormControl('',Validators.required),
+      'position': new FormControl('',[Validators.required, Validators.max(1000), Validators.min(1)])
 
     })
 

@@ -35,7 +35,7 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
     this.form = new FormGroup({
       'name': new FormControl('', Validators.required),
       'type': new FormControl('', Validators.required),
-      'position': new FormControl('', Validators.required)
+      'position': new FormControl('', [Validators.required, Validators.min(1), Validators.max(1000) ])
     });
  
     
@@ -70,9 +70,15 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
           
       )
     }
+
+
     
    }
 
+
+   log(){
+    console.log(this.form);
+   }
 
   // addSubTask() {
 

@@ -27,7 +27,7 @@ export class ComboSubTasksComponent implements OnInit, ControlValueAccessor {
 
       if(this.idTask) {
         let url = `${ Util.URL_SUB_TASKS }/task/${ this.idTask }`;
-        console.log(url);
+        
         this._ps.getObjects( url ).subscribe(
           res => {
             this.collection = res.subTasks;
