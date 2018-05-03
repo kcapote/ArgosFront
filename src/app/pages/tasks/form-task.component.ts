@@ -49,7 +49,7 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
     
   }
 
-   ngAfterViewInit() {
+  ngAfterViewInit() {
 
     if(this.idTask){
 
@@ -71,8 +71,6 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
       )
     }
 
-
-    
    }
 
 

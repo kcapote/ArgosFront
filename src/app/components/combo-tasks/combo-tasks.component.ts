@@ -15,7 +15,7 @@ import { Util } from '../../util/util';
       useExisting: forwardRef(() => ComboTasksComponent),
       multi: true
     }]
-})
+}) 
 export class ComboTasksComponent implements OnInit, ControlValueAccessor {
 
   @Input() title:string = "Faenas"; 

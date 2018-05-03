@@ -9,6 +9,11 @@ import { SubTaskComponent } from './sub-task/sub-task.component';
 import { NewSubTaskComponent } from './sub-task/new-sub-task.component';
 import { EditSubtaskComponent } from './sub-task/edit-subtask.component';
 import { PositionComponent } from './position/position.component';
+import { NewPositionComponent } from './position/new-position.component';
+import { EditPositionComponent } from './position/edit-position.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { FormEmployeeComponent } from './employee/form-employee.component';
+import { NewEmployeeComponent } from './employee/new-employee.component';
 
 
 const app_pages_routes: Routes = [
@@ -23,6 +28,13 @@ const app_pages_routes: Routes = [
         {path: 'newSubTask', component: NewSubTaskComponent },
         {path: 'editSubTask/:id', component: EditSubtaskComponent },
         {path: 'positions', component: PositionComponent },
+        {path: 'newPosition', component: NewPositionComponent },
+        {path: 'editPosition/:id', component: EditPositionComponent },
+        {path: 'employees', component: EmployeeComponent },
+        {path: 'newEmployee', component: NewEmployeeComponent },
+        {path: 'employees', component: EmployeeComponent },
+
+        
         
     ]     
     }

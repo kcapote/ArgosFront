@@ -12,7 +12,9 @@ export class ProviderService {
   constructor(public http: HttpClient) { }
 
 
+
   public getObjects(url: string): Observable<any> {
+       
         return this.http.get( `${url}?${ Util.TOKEN }`);                
   }
 
@@ -35,7 +37,8 @@ export class ProviderService {
 
   }
 
-  public updateObject(url: string, id: string ,obj: any ): Observable<any>{
+  public updateObject(url: string, id: string ,obj: any ): Observable<any> {
+      
     let headers: HttpHeaders = new  HttpHeaders();
     headers.append('Content-Type', 'aplication/json');
     let urlTemp = `${ url }/${ id }?${ Util.TOKEN }`;

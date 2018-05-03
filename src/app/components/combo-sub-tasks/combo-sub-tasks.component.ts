@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ProviderService } from '../../services/provider.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SubTask } from '../../interfaces/subTask.interface';
@@ -7,7 +7,13 @@ import { Util } from '../../util/util';
 @Component({
   selector: 'combo-sub-tasks',
   templateUrl: './combo-sub-tasks.component.html',
-  styles: []
+  styles: [],
+  providers: [
+    { 
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ComboSubTasksComponent),
+      multi: true
+    }]
 })
 export class ComboSubTasksComponent implements OnInit, ControlValueAccessor {
 
@@ -35,7 +41,7 @@ export class ComboSubTasksComponent implements OnInit, ControlValueAccessor {
             this.propagateChange(this.itemId)
           }
         )
-      }
+      } 
   } 
 
   writeValue(obj: any): void {

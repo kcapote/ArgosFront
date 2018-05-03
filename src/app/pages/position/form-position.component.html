@@ -1,5 +1,8 @@
 <form class="space-elements" [formGroup]= "form">
-  <div class="form-group">
+    <h2> {{ title }} </h2>
+    <hr>
+
+    <div class="form-group">
       <label >Nombre: </label>
       <input  [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }"    
               type="text" class="form-control" formControlName="name" >
@@ -26,7 +29,7 @@
 
   <div class="form-group">
       <label >Descripción: </label>
-      <textarea rows="3" type="text" class="form-control" formControlName="name" > </textarea>
+      <textarea rows="3" type="text" class="form-control" formControlName="description" > </textarea>
 
   </div>
 

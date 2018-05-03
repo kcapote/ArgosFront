@@ -10,11 +10,13 @@ import { ProviderService } from './services/provider.service';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     PagenotfoundComponent,
+    
     
     
   ],

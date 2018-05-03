@@ -18,6 +18,12 @@ import { ComboSubTasksComponent } from '../components/combo-sub-tasks/combo-sub-
 import { EmployeeComponent } from './employee/employee.component';
 import { PositionComponent } from './position/position.component';
 import { FormPositionComponent } from './position/form-position.component';
+import { NewPositionComponent } from './position/new-position.component';
+import { EditPositionComponent } from './position/edit-position.component';
+import { ComboComponent } from '../components/combo/combo.component';
+import { FormEmployeeComponent } from './employee/form-employee.component';
+import { NewEmployeeComponent } from './employee/new-employee.component';
+import { FormatRutPipe } from '../pipes/format-rut.pipe';
 
 
 @NgModule({
@@ -37,7 +43,13 @@ import { FormPositionComponent } from './position/form-position.component';
      ComboSubTasksComponent,
      EmployeeComponent,
      PositionComponent,
-     FormPositionComponent         
+     FormPositionComponent,
+     NewPositionComponent,
+     EditPositionComponent,
+     ComboComponent,
+     FormEmployeeComponent,
+     NewEmployeeComponent,
+     FormatRutPipe         
 
    ],
    exports: [ 

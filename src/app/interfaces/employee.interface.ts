@@ -1,26 +1,21 @@
+import { ValidTypesSex } from "../enums/valid-types-sexs.enum";
+import { Positions } from './position.interface';
+
 export interface Employee {
     _id?: string;
     rut: string;
     name: string;
     lastName: string;
-    position: string;    
+    phone?: string;
+    mail?: string;
+    position?: any;
+    sex: ValidTypesSex;
+    contractStartDate?: Date;
+    contractEndDate?: Date;
+   
 
 }
 
 
 
-// const EmployeeSchema = mongoose.Schema({
-//     name: {
-//         type: String,
-//         required: [true, "El nombre del empleado es necesario"]
-//     },
-//     lastName: {
-//         type: String,
-//         required: [true, "El apellido del empleado es necesario"]
-//     },
-//     position: {
-//         type: Schema.Types.ObjectId,
-//         ref: 'Position'
-//     }
 
-// });
