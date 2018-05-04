@@ -3,22 +3,33 @@
   <h2 class="main-container">{{ title }}</h2>
   <hr>
 
-    <div class="form-group">
-        <label >Nombre: </label>
-        <input  [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }"    
-                type="text" class="form-control" formControlName="name" >
+    <div class="row">
+      <div class="form-group col-md-6">
+          <label >Nombre: </label>
+          <input  [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }"    
+                  type="text" class="form-control" formControlName="name" >
 
-        <div *ngIf="!form.get('name').errors?.valid && !form.get('name').pristine"
+          <div *ngIf="!form.get('name').errors?.valid && !form.get('name').pristine"
+                class="invalid-feedback">
+                El campo es obligatorio
+          </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label >Constructora: </label>
+        <input  [ngClass]="{'is-invalid':!form.controls['builder'].valid && !form.get('builder').pristine }"    
+                type="text" class="form-control" formControlName="builder" >
+
+        <div *ngIf="!form.get('builder').errors?.valid && !form.get('builder').pristine"
               class="invalid-feedback">
               El campo es obligatorio
         </div>
-    </div>
-
-
+      </div>
+    </div>  
 
     <div class="form-group">
       <label >Dirección: </label>
-      <textarea rows="3" [ngClass]="{'is-invalid':!form.controls['adress'].valid && !form.get('adress').pristine }"    
+      <textarea rows="2" [ngClass]="{'is-invalid':!form.controls['adress'].valid && !form.get('adress').pristine }"    
               type="text" class="form-control" formControlName="adress" ></textarea>
 
       <div *ngIf="!form.get('adress').errors?.valid && !form.get('adress').pristine"
@@ -27,16 +38,7 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label >Constructora: </label>
-      <input  [ngClass]="{'is-invalid':!form.controls['builder'].valid && !form.get('builder').pristine }"    
-              type="text" class="form-control" formControlName="builder" >
 
-      <div *ngIf="!form.get('builder').errors?.valid && !form.get('builder').pristine"
-            class="invalid-feedback">
-            El campo es obligatorio
-      </div>
-    </div>
 
 
     <div class="row">
