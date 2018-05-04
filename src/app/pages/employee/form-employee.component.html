@@ -3,7 +3,7 @@
     <h2 class="main-container">{{ title }}</h2>
     <hr>
 
-    <div class="form-group">Inicio
+    <div class="form-group">
         <label >RUT: </label>
         <input #rut [ngClass]="{'is-invalid':!form.controls['rut'].valid && !form.get('rut').pristine }"    
                 type="text" class="form-control" formControlName="rut" (change)="formatRut()"  >
