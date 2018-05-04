@@ -9,6 +9,9 @@ export class Util {
     public static  URL_SUB_TASKS  = `${ Util.URL_SERVER }/subtask` ;
     public static  URL_POSITIONS  = `${ Util.URL_SERVER }/position` ;
     public static  URL_EMPLOYEE  = `${ Util.URL_SERVER }/employee` ;
+    public static  URL_POJECTS  = `${ Util.URL_SERVER }/project` ;
+
+    
     private static serie = [2, 3, 4, 5, 6, 7];
     
     
@@ -56,12 +59,10 @@ export class Util {
 
 
     public static rutValid( control:FormControl ):{[s:string]:boolean} {
-
-        
+       
         let rut: string = control.value;
-     
 
-         if(!Util.isValidRUT(rut)){
+        if(!Util.isValidRUT(rut)){
              return {
                      rutValid: false
                     }

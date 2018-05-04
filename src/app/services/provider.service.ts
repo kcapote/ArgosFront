@@ -20,7 +20,7 @@ export class ProviderService {
 
   public getObject(url: string, id: string): Observable<any> {
     let urlTemp = `${url}/${ id }?${ Util.TOKEN }`;
-    console.log('la url es ', urlTemp);
+    //console.log('la url es ', urlTemp);
     
 
     return this.http.get( urlTemp );

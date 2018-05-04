@@ -14,6 +14,8 @@ import { EditPositionComponent } from './position/edit-position.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { FormEmployeeComponent } from './employee/form-employee.component';
 import { NewEmployeeComponent } from './employee/new-employee.component';
+import { EditEmployeeComponent } from './employee/edit-employee.component';
+import { FormProjectComponent } from './project/form-project.component';
 
 
 const app_pages_routes: Routes = [
@@ -22,6 +24,8 @@ const app_pages_routes: Routes = [
         {path: 'tasks', component: TasksComponent},
         {path: 'newTask', component: NewTaskComponent},
         {path: 'projects', component: ProjectComponent },                    
+        {path: 'newProjects', component: FormProjectComponent },
+        {path: 'editProjects/:id', component: FormProjectComponent },
         {path: 'projectsFloors', component: ProjectFloorsComponent },                    
         {path: 'editTask/:id', component: EditTaskComponent },
         {path: 'subTasks', component: SubTaskComponent },
@@ -32,6 +36,7 @@ const app_pages_routes: Routes = [
         {path: 'editPosition/:id', component: EditPositionComponent },
         {path: 'employees', component: EmployeeComponent },
         {path: 'newEmployee', component: NewEmployeeComponent },
+        {path: 'editEmployee/:id', component: EditEmployeeComponent },
         {path: 'employees', component: EmployeeComponent },
 
         

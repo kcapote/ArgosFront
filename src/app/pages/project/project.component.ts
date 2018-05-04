@@ -1,52 +1,43 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ValidTypesTasks } from '../../enums/valid-types-tasks.enum';
-import { Floors } from '../../interfaces/floors.interface';
 import {  Router } from '@angular/router';
+import { Project } from '../../interfaces/project.interface';
+import { ProviderService } from '../../services/provider.service';
+import { Util } from '../../util/util';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styles: []
 })
+
+
 export class ProjectComponent implements OnInit {
-
-  @Input() title = "Crear Proyecto";
   
-  quantitySel: number;
-  typeSel: string;
 
-  form: FormGroup;
-  enumType = Object.keys(ValidTypesTasks).map(
-    r => {
-      return ValidTypesTasks[r]
-    }
-  ) ;
-  collection: Floors[] = [];
+  collection: Project[] = [];
 
-  constructor( private router: Router) { }
+  constructor(private _sp:ProviderService,
+    private router: Router) {
+      this._sp.getObjects(Util.URL_POJECTS).subscribe(
+        res => {
+          console.log(res);
+          
+           this.collection = res.projects;
+         
+        }
+
+      );
+      
+
+    } 
 
 
   ngOnInit() {
   }
 
-  addPisos(type: string, quantity: number) {
-        let temp: Floors = {
-          quantity: quantity,
-          type: type
-        };     
-
-        this.collection.push(temp);
-
-  }
-
-
-  goToContinue() {
+  edit(id: string) {
     
-    console.log('asdasd');
-    
-    this.router.navigate(['/projectsFloors']);
-
+    this.router.navigate(['/editProjects',id])
 
   }
  

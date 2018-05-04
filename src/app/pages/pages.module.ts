@@ -24,6 +24,8 @@ import { ComboComponent } from '../components/combo/combo.component';
 import { FormEmployeeComponent } from './employee/form-employee.component';
 import { NewEmployeeComponent } from './employee/new-employee.component';
 import { FormatRutPipe } from '../pipes/format-rut.pipe';
+import { EditEmployeeComponent } from './employee/edit-employee.component';
+import { FormProjectComponent } from './project/form-project.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { FormatRutPipe } from '../pipes/format-rut.pipe';
      ComboComponent,
      FormEmployeeComponent,
      NewEmployeeComponent,
-     FormatRutPipe         
+     FormatRutPipe,
+     EditEmployeeComponent,
+     FormProjectComponent         
 
    ],
    exports: [ 

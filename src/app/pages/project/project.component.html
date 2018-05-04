@@ -1,4 +1,4 @@
-<form class="space-elements">
+<!-- <form class="space-elements">
   <h2 class="main-container">{{ title }}</h2>
   <hr>
 
@@ -19,6 +19,8 @@
 
 
 <div class="row space-elements">
+
+
 
 
   <div class="col-md-12 space-elements">
@@ -73,4 +75,57 @@
 
   </div>
 
+</div> -->
+
+
+<h2 class="main-container">{{ title }}</h2>
+<hr>
+
+<div class="row">
+    <div class="col-md-6 space-elements">
+        <div class="input-group">
+
+            <input type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" id="btnGroupAddon">Buscar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-6 text-right space-elements">
+        <a [routerLink]="['/newProjects']" class="btn btn-outline-success">Nuevo Proyecto</a>
+    </div>
+
 </div>
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Inicio</th>
+            <th scope="col">Status</th>
+            <th scope="col">Supervisores</th>            
+
+            <th scope="col" class="text-center">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of collection; let i = index">  
+            <th scope="row"> {{ i+1 }} </th>
+            <td>{{ item.name }}  </td>
+            <td>{{ item.startDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ item.status }}%</td>
+            <td>{{ item.supervisor1.name + ", " + item.supervisor2.name }} </td>
+ 
+            <th scope="col" class="text-center">
+                <button class="btn btn-outline-info"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-outline-primary" (click)="edit(item._id)"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>
+            </th>
+        </tr>
+
+    </tbody>
+</table>

@@ -1,15 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ValidTypesSex } from '../../enums/valid-types-sexs.enum';
 import { Util } from '../../util/util';
 import { Employee } from '../../interfaces/employee.interface';
+import { ProviderService } from '../../services/provider.service';
 
 @Component({
   selector: 'app-form-employee',
   templateUrl: './form-employee.component.html',
   styles: []
 })
-export class FormEmployeeComponent implements OnInit {
+
+export class FormEmployeeComponent implements OnInit, AfterViewInit {
 
   @Input() title: string;
   @Input()  idEmployee: string;
@@ -23,13 +25,13 @@ export class FormEmployeeComponent implements OnInit {
     }
   ) ;
 
-  constructor() { }
+  constructor(private _ps: ProviderService) { }
 
   ngOnInit() {
 
   
     this.form = new FormGroup({
-      id: new FormControl(''),
+      _id: new FormControl(''),
       rut: new FormControl('', [Validators.required, Util.rutValid] ),
       name: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -62,6 +64,39 @@ export class FormEmployeeComponent implements OnInit {
 
   }
 
+
+  ngAfterViewInit() {
+    console.log(this.idEmployee);
+    
+
+    if(this.idEmployee){
+
+      this._ps.getObject(Util.URL_EMPLOYEE, this.idEmployee).subscribe(
+          res => {
+              
+              this.item = res.employees[0];
+              //this.collection = this.item.subTask;
+              this.form.setValue({
+                _id: this.idEmployee,
+                rut: this.item.rut,
+                name: this.item.name,
+                lastName: this.item.lastName,
+                phone: this.item.phone,
+                mail: this.item.mail,
+                position: this.item.position['_id'],
+                sex: this.item.sex,
+                contractStartDate: this.item.contractStartDate.toString().substr(0,10) ,
+                contractEndDate: this.item.contractEndDate.toString().substr(0,10)
+                }
+  
+              )    
+  
+          }
+          
+      )
+    }
+
+   }
 
 
 
