@@ -6,6 +6,9 @@ export class MsgBoxService {
   readonly  infoAction: string = "INFO";
   readonly  questionAction:string = "QUESTION";  
   readonly  successAction:string = "SUCCESS";
+  readonly  deleteAction: string = "DELETEE";
+  readonly  updateAccion: string = "UPDATE";
+
 
   typeModal = "";
 

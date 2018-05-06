@@ -10,6 +10,7 @@ export class Util {
     public static  URL_POSITIONS  = `${ Util.URL_SERVER }/position` ;
     public static  URL_EMPLOYEE  = `${ Util.URL_SERVER }/employee` ;
     public static  URL_POJECTS  = `${ Util.URL_SERVER }/project` ;
+
     
     //Constantes MsgBox
     public static SAVE = "Guardar";
@@ -18,13 +19,25 @@ export class Util {
     public static DELETE_SUCCESS = "El regsitro ha sido eliminado exitosamente";
     public static ERROR = "ERROR";
 
+    
+
     //Tipos MsgBox
     public static  ACTION_INFO: string = "INFO";
     public static  ACTION_QUESTION: string = "QUESTION";  
     public static  ACTION_SUCCES: string = "SUCCESS";
     public static  ACTION_DELETE: string = "DELETEE";
+    public static  ACTION_UPDATE: string = "UPDATE";
+
     
-    
+    //Mensajes Validaciones 
+    public static  REQUIRED_FIELD: string = "El campo es obligatorio";
+    public static  NUMERIC_FIELD: string = "El campo debe ser numerico";
+    public static  RUT_INVALID: string = "El rut no es válido";
+    public static  PORCENTAJE_FIELD: string = "El campo acepta valor entre 0 - 100";
+
+
+
+
     
     private static serie = [2, 3, 4, 5, 6, 7];
     
