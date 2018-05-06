@@ -10,12 +10,24 @@ export class Util {
     public static  URL_POSITIONS  = `${ Util.URL_SERVER }/position` ;
     public static  URL_EMPLOYEE  = `${ Util.URL_SERVER }/employee` ;
     public static  URL_POJECTS  = `${ Util.URL_SERVER }/project` ;
+    
+    //Constantes MsgBox
+    public static SAVE = "Guardar";
+    public static SAVE_SUCCESS = "El registro ha sido guardado exitosamente";
+    public static DELETE = "Eliminar";
+    public static DELETE_SUCCESS = "El regsitro ha sido eliminado exitosamente";
+    public static ERROR = "ERROR";
 
+    //Tipos MsgBox
+    public static  ACTION_INFO: string = "INFO";
+    public static  ACTION_QUESTION: string = "QUESTION";  
+    public static  ACTION_SUCCES: string = "SUCCESS";
+    public static  ACTION_DELETE: string = "DELETEE";
+    
+    
     
     private static serie = [2, 3, 4, 5, 6, 7];
     
-    
-
     private static isValidRUT(rut: string):boolean {
 
         rut  = rut.replace(/\.|\-/g,""); 

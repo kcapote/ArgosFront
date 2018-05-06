@@ -26,6 +26,8 @@ import { NewEmployeeComponent } from './employee/new-employee.component';
 import { FormatRutPipe } from '../pipes/format-rut.pipe';
 import { EditEmployeeComponent } from './employee/edit-employee.component';
 import { FormProjectComponent } from './project/form-project.component';
+import { MsgBoxComponent } from '../components/msg-box/msg-box.component';
+import { MsgBoxService } from '../components/msg-box/msg-box.service';
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import { FormProjectComponent } from './project/form-project.component';
      NewEmployeeComponent,
      FormatRutPipe,
      EditEmployeeComponent,
-     FormProjectComponent         
+     FormProjectComponent,
+     MsgBoxComponent         
 
    ],
    exports: [ 
@@ -71,6 +74,10 @@ import { FormProjectComponent } from './project/form-project.component';
         ReactiveFormsModule,  
         PAGES_ROUTES
    ],
+   providers: [
+      MsgBoxService
+
+   ]
 
 
 

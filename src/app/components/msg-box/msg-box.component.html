@@ -1,0 +1,48 @@
+
+
+<div class="modal-background " [ngClass]="_msg.hideModal ">
+  <div class="modal animated  bounceInDown"  style="display: block" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><span><strong> {{ _msg.title }} </strong>  </span></h5>
+          <button (click)="_msg.hide()" type="button" class="close"  aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+          <div *ngIf="_msg.typeModal == _msg.questionAction" class="text-center space-elements">
+            <i class="fas fa-question-circle text-primary" style="font-size:64px "></i>    
+          </div>
+
+          <div *ngIf="_msg.typeModal == _msg.infoAction" class="text-center space-elements">
+            <i class="fas fa-info-circle text-info" style="font-size:64px"></i>    
+          </div>
+
+          <div *ngIf="_msg.typeModal == _msg.successAction " class="text-center space-elements">
+              <i class="fas fa-check-circle text-success" style="font-size:64px"></i>    
+            </div>
+
+          <div class="modal-body text-center">
+            
+          <p>{{ _msg.message }} </p> 
+          
+        </div>
+
+        <div class="modal-footer" *ngIf="_msg.typeModal == _msg.questionAction"> 
+          <button (click)="_msg.sendResponse()" type="button" class="btn btn-primary">Si</button>
+          <button (click)="_msg.hide()" type="button" class="btn btn-secondary">Cancelar</button>
+        </div>
+
+        <div class="modal-footer" *ngIf="_msg.typeModal == _msg.infoAction "> 
+            <button (click)="_msg.hide()" type="button" class="btn btn-info">OK</button>
+        </div>
+
+        <div class="modal-footer" *ngIf="_msg.typeModal == _msg.successAction "> 
+          <button (click)="_msg.hide()" type="button" class="btn btn-success">OK</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

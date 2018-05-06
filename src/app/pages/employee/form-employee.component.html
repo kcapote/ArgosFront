@@ -3,8 +3,10 @@
     <h2 class="main-container">{{ title }}</h2>
     <hr>
 
+
+
     <div class="row">
-        <div class="form-group col-md-6 col-md-offset-6">
+        <div class="form-group col-md-4 ">
             <label >RUT: </label>
             <input #rut [ngClass]="{'is-invalid':!form.controls['rut'].valid && !form.get('rut').pristine }"    
                     type="text" class="form-control" formControlName="rut" (change)="formatRut()"  >
@@ -20,12 +22,8 @@
                 El RUT no es válido
             </div>
         </div>
-    </div>
 
-    <div class="row">
-
-
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label >Nombre: </label>
             <input  [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }"    
                     type="text" class="form-control" formControlName="name" >
@@ -36,7 +34,7 @@
             </div>
         </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label >Apellido: </label>
             <input  [ngClass]="{'is-invalid':!form.get('lastName').valid && !form.get('lastName').pristine }"    
                     type="text" class="form-control" formControlName="lastName" >
