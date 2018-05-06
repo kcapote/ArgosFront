@@ -101,25 +101,25 @@
 
 
 <table class="table">
-    <thead class="thead-dark">
+    <thead class="">
         <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">Inicio</th>
             <th scope="col">Status</th>
-            <th scope="col">Supervisores</th>            
+            <th scope="col">Supervisores</th>
 
             <th scope="col" class="text-center">Opciones</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of collection; let i = index">  
+        <tr *ngFor="let item of collection; let i = index">
             <th scope="row"> {{ i+1 }} </th>
-            <td>{{ item.name }}  </td>
+            <td>{{ item.name }} </td>
             <td>{{ item.startDate | date:'dd/MM/yyyy' }}</td>
             <td>{{ item.status }}%</td>
             <td>{{ item.supervisor1.name + ", " + item.supervisor2.name }} </td>
- 
+
             <th scope="col" class="text-center">
                 <button class="btn btn-outline-info"><i class="fas fa-eye"></i></button>
                 <button class="btn btn-outline-primary" (click)="edit(item._id)"><i class="fas fa-edit"></i></button>
