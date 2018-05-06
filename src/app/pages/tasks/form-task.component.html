@@ -1,47 +1,46 @@
-
-<form [formGroup]="form" class="space-elements needs-validation" >
+<form [formGroup]="form" class="space-elements needs-validation">
     <h2 class="main-container">{{ title }}</h2>
-    <hr>    
-    <div class="form-group">
-        <label >Nombre: </label>
-        <input  [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }"    
-                type="text" class="form-control" formControlName="name" >
+    <hr>
 
-        <div *ngIf="!form.get('name').errors?.valid && !form.get('name').pristine"
-              class="invalid-feedback">
-            El nombre es obligatorio
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-wrench configureIcon"></i> Datos de la Faena</h5>
+
+            <div class="row">
+
+                <div class="form-group col-md-4">
+                    <label>Nombre: </label>
+                    <input [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }" type="text" class="form-control" formControlName="name">
+
+                    <div *ngIf="!form.get('name').errors?.valid && !form.get('name').pristine" class="invalid-feedback">
+                        El nombre es obligatorio
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Tipo: </label>
+                    <select [ngClass]="{'is-invalid':!form.controls['type'].valid && !form.get('type').pristine } " name="" id="" class="form-control" formControlName="type">
+                                <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
+                            </select>
+                    <div *ngIf="!form.get('type').errors?.valid && !form.get('type').pristine" class="invalid-feedback">
+                        Debe seleccionar un tipo de faena
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Posición:</label>
+                    <input [ngClass]="{'is-invalid':!form.get('position').valid && !form.get('position').pristine } " type="number" class="form-control" min="1" max="10000" formControlName="position" />
+                    <div *ngIf=" form.get('position').errors?.required && !form.get('position').pristine" class="invalid-feedback">
+                        El campo no puede estar vacío y debe ser numerico
+                    </div>
+                    <div *ngIf="(form.get('position').errors?.max || form.get('position').errors?.min)  && !form.get('position').pristine" class="invalid-feedback">
+                        Valores permitidos entre 1 - 1000
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
-
-    <div class="form-group">
-        <label>Tipo: </label>
-        <select [ngClass]="{'is-invalid':!form.controls['type'].valid && !form.get('type').pristine } "   
-                name="" id="" class="form-control" formControlName="type">
-            <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
-        </select>
-        <div *ngIf="!form.get('type').errors?.valid && !form.get('type').pristine"
-              class="invalid-feedback">
-            Debe seleccionar un tipo de faena
-        </div>
-
-    </div>    
-
-    <div class="form-group">
-        <label>Posición:</label>
-        <input  [ngClass]="{'is-invalid':!form.get('position').valid && !form.get('position').pristine } "   
-                type="number" class="form-control" min="1" max="10000" formControlName="position"/> 
-
-        <div *ngIf=" form.get('position').errors?.required && !form.get('position').pristine"
-            class="invalid-feedback">
-            El campo no puede estar vacío y debe ser numerico 
-        </div> 
-        <div *ngIf="(form.get('position').errors?.max || form.get('position').errors?.min)  && !form.get('position').pristine"
-          class="invalid-feedback">
-          Valores permitidos entre 1 - 1000 
-        </div> 
-
-    </div>
-
 
 </form>
-
