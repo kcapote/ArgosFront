@@ -12,6 +12,8 @@ import { Util } from '../../util/util';
 export class SubTaskComponent implements OnInit {
   title: string = "Tareas";
   collection: SubTask;
+  idTasks: string;
+  idxSel: number;
 
   constructor(private router: Router,
               private _ps: ProviderService  ) { 
@@ -24,10 +26,6 @@ export class SubTaskComponent implements OnInit {
           }
 
       );          
-
-
-
-
 
   }
 
