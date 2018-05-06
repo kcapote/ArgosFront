@@ -20,6 +20,7 @@ export class Util {
     public static ERROR = "ERROR";
     public static MSJ_DELETE_QUESTION = "¿Está seguro que desea eliminar el registro?";
     public static MSJ_UPDATE_QUESTION = "¿Está seguro que desea actualizar el registro?";
+    public static OK_RESPONSE = "OK";
      
     
 
