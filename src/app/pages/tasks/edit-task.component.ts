@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { Task } from '../../interfaces/task.interface';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 
 @Component({
@@ -20,7 +20,8 @@ export class EditTaskComponent implements OnInit {
   constructor(private location: Location,
               private _ps:ProviderService,
               private activatedRoute:ActivatedRoute,
-              private _msg: MsgBoxService ) {
+              private _msg: MsgBoxService,
+              private router: Router ) {
 
       this.activatedRoute.params.subscribe(
           p =>{
@@ -37,11 +38,15 @@ export class EditTaskComponent implements OnInit {
         res => {
             console.log(res);
             if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
+              
+              console.log(this.task);
+              
               this._ps.updateObject(Util.URL_TASKS,this.task._id,this.task).subscribe(
                 res => {
                      console.log(res);                      
                   if(res.success == true){
-                       this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);   
+                       this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
+                       router.navigate(['/tasks']);   
                   }          
                            
         
