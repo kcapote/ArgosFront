@@ -36,11 +36,13 @@ export class FormEmployeeComponent implements OnInit, AfterViewInit {
       name: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       phone: new FormControl(''),
-      mail: new FormControl('', [Validators.required, Validators.email]),
+      mail: new FormControl('', [Validators.email]),
       position:new FormControl('', Validators.required),
       sex: new FormControl('', Validators.required),
       contractStartDate:new FormControl('', Validators.required),
-      contractEndDate:new FormControl('') 
+      contractEndDate:new FormControl(''),
+      address:new FormControl('') 
+
 
     })
 
@@ -54,7 +56,6 @@ export class FormEmployeeComponent implements OnInit, AfterViewInit {
       this.item._id = this.idEmployee;
       
     }
-    console.log(this.item);
       
     return this.item;
   }
@@ -66,9 +67,7 @@ export class FormEmployeeComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    console.log(this.idEmployee);
-    
-
+  
     if(this.idEmployee){
 
       this._ps.getObject(Util.URL_EMPLOYEE, this.idEmployee).subscribe(
@@ -86,8 +85,9 @@ export class FormEmployeeComponent implements OnInit, AfterViewInit {
                 position: this.item.position['_id'],
                 sex: this.item.sex,
                 contractStartDate: this.item.contractStartDate.toString().substr(0,10) ,
-                contractEndDate: this.item.contractEndDate.toString().substr(0,10)
-                }
+                contractEndDate: this.item.contractEndDate?this.item.contractEndDate.toString().substr(0,10):null,
+                address: this.item.address?this.item.address:"", 
+              }
   
               )    
   

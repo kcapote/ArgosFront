@@ -1,132 +1,123 @@
-<form [formGroup]="form" class="space-elements needs-validation" >
-    
+<form [formGroup]="form" class="space-elements needs-validation">
+
     <h2 class="main-container">{{ title }}</h2>
     <hr>
 
+    <div class="card" style="width: 100%;">
 
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-user configureIcon"></i> Datos Personales</h5>
+            <div class="row">
 
-    <div class="row">
-        <div class="form-group col-md-4 ">
-            <label >RUT: </label>
-            <input #rut [ngClass]="{'is-invalid':!form.controls['rut'].valid && !form.get('rut').pristine }"    
-                    type="text" class="form-control" formControlName="rut" (change)="formatRut()"  >
-                
+                <div class="form-group col-md-4 ">
+                    <label>RUT: </label>
+                    <input #rut [ngClass]="{'is-invalid':!form.controls['rut'].valid && !form.get('rut').pristine }" type="text" class="form-control" formControlName="rut" (change)="formatRut()">
+                    <div *ngIf=" form.get('rut').errors?.required && !form.get('rut').pristine" class="invalid-feedback">
+                        El RUT es obligatorio
+                    </div>
+                    <div *ngIf="!form.get('rut').errors?.rutValid && !form.get('rut').pristine" class="invalid-feedback">
+                        El RUT no es válido
+                    </div>
+                </div>
 
-            <div *ngIf=" form.get('rut').errors?.required && !form.get('rut').pristine"
-                    class="invalid-feedback">
-                El nombre es obligatorio
+                <div class="form-group col-md-4">
+                    <label>Nombre: </label>
+                    <input [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }" type="text" class="form-control" formControlName="name">
+                    <div *ngIf="!form.get('name').errors?.valid && !form.get('name').pristine" class="invalid-feedback">
+                        El nombre es obligatorio
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Apellido: </label>
+                    <input [ngClass]="{'is-invalid':!form.get('lastName').valid && !form.get('lastName').pristine }" type="text" class="form-control" formControlName="lastName">
+
+                    <div *ngIf="!form.get('lastName').errors?.valid && !form.get('lastName').pristine" class="invalid-feedback">
+                        El Apellido es obligatorio
+                    </div>
+                </div>
+
             </div>
 
-            <div *ngIf="!form.get('rut').errors?.rutValid && !form.get('rut').pristine"
-                    class="invalid-feedback">
-                El RUT no es válido
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label>Teléfono: </label>
+                    <input [ngClass]="{'is-invalid':!form.get('phone').valid && !form.get('phone').pristine }" type="text" class="form-control" formControlName="phone">
+                    <div *ngIf="!form.get('phone').errors?.valid && !form.get('phone').pristine" class="invalid-feedback">
+                        El Teléfono es obligatorio
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Correo: </label>
+                    <input [ngClass]="{'is-invalid':!form.get('mail').valid && !form.get('mail').pristine }" type="email" class="form-control" formControlName="mail">
+                    <div *ngIf=" form.get('mail').errors?.required && !form.get('mail').pristine" class="invalid-feedback">
+                        El Correo es obligatorio
+                    </div>
+                    <div *ngIf=" form.get('mail').errors?.email && !form.get('mail').pristine" class="invalid-feedback">
+                        El Correo es no es valido
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Sexo: </label>
+                    <select [ngClass]="{'is-invalid':!form.get('sex').valid && !form.get('sex').pristine } " name="" id="" class="form-control" formControlName="sex">
+                                <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
+                            </select>
+                    <div *ngIf="!form.get('sex').errors?.valid && !form.get('sex').pristine" class="invalid-feedback">
+                        Es un sexo obligatorio
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-md-12">
+                    <label>Dirección: </label>
+                    <textarea [ngClass]="{'is-invalid':!form.get('address').valid && !form.get('address').pristine }" type="text" class="form-control" formControlName="address"></textarea>
+
+                    <div *ngIf="!form.get('address').errors?.valid && !form.get('address').pristine" class="invalid-feedback">
+                        La dirección es obligatorio
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-briefcase configureIcon"></i> Datos Laborales</h5>
+            <div class="row">
+
+                <div class="form-group col-md-4">
+                    <label>Cargo: </label>
+                    <combo [url]="urlCombo" labelField="name" nameCollection="positions" formControlName="position"> </combo>
+                    <div *ngIf="!form.get('position').errors?.valid && !form.get('position').pristine" class="invalid-feedback">
+                        Es un Cargo obligatorio
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Fecha de Inicio: </label>
+                    <input [ngClass]="{'is-invalid':!form.get('contractStartDate').valid && !form.get('contractStartDate').pristine }" type="date" class="form-control" formControlName="contractStartDate">
+                    <div *ngIf="!form.get('contractStartDate').errors?.valid && !form.get('contractStartDate').pristine" class="invalid-feedback">
+                        Fecha incorrecta
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Fecha de Baja: </label>
+                    <input [ngClass]="{'is-invalid':!form.get('contractEndDate').valid && !form.get('contractEndDate').pristine }" type="date" class="form-control" formControlName="contractEndDate">
+                    <div *ngIf="!form.get('contractEndDate').errors?.valid && !form.get('contractEndDate').pristine" class="invalid-feedback">
+                        Fecha incorrecta
+                    </div>
+                </div>
+
             </div>
         </div>
-
-        <div class="form-group col-md-4">
-            <label >Nombre: </label>
-            <input  [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }"    
-                    type="text" class="form-control" formControlName="name" >
-
-            <div *ngIf="!form.get('name').errors?.valid && !form.get('name').pristine"
-                class="invalid-feedback">
-                El nombre es obligatorio
-            </div>
-        </div>
-
-        <div class="form-group col-md-4">
-            <label >Apellido: </label>
-            <input  [ngClass]="{'is-invalid':!form.get('lastName').valid && !form.get('lastName').pristine }"    
-                    type="text" class="form-control" formControlName="lastName" >
-
-            <div *ngIf="!form.get('lastName').errors?.valid && !form.get('lastName').pristine"
-                class="invalid-feedback">
-                El Apellido es obligatorio
-            </div>
-        </div>
-    </div>    
-
-    <div class="row">
-        <div class="form-group col-md-4">
-            <label >Teléfono: </label>
-            <input  [ngClass]="{'is-invalid':!form.get('phone').valid && !form.get('phone').pristine }"    
-                    type="text" class="form-control" formControlName="phone" >
-
-            <div *ngIf="!form.get('phone').errors?.valid && !form.get('phone').pristine"
-                class="invalid-feedback">
-                El Apellido es obligatorio
-            </div>
-        </div>
-
-        <div class="form-group col-md-4">
-            <label >E-mail: </label>
-            <input  [ngClass]="{'is-invalid':!form.get('mail').valid && !form.get('mail').pristine }"    
-                    type="email" class="form-control" formControlName="mail" >
-
-            <div *ngIf=" form.get('mail').errors?.required && !form.get('mail').pristine"
-                class="invalid-feedback">
-                El email es obligatorio
-            </div>
-            <div *ngIf=" form.get('mail').errors?.email && !form.get('mail').pristine"
-                class="invalid-feedback">
-                El email es no es valido
-            </div>
-        </div>
-
-
-        <div class="form-group col-md-4">
-            <label>Cargo: </label>
-            <combo [url] = "urlCombo" labelField="name"  nameCollection = "positions" formControlName="position"> </combo>
-            
-            <div *ngIf="!form.get('position').errors?.valid && !form.get('position').pristine"
-                class="invalid-feedback">
-                Es un campo obligatorio
-            </div>
-
-        </div>   
-    </div>    
-
-
-    <div class="row">
-
-        <div class="form-group col-md-4">
-            <label>Sexo: </label>
-            <select [ngClass]="{'is-invalid':!form.get('sex').valid && !form.get('sex').pristine } "   
-                    name="" id="" class="form-control" formControlName="sex">
-                <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
-            </select>
-            <div *ngIf="!form.get('sex').errors?.valid && !form.get('sex').pristine"
-                class="invalid-feedback">
-                Es un campo obligatorio
-            </div>
-
-        </div>    
-
-        <div class="form-group col-md-4">
-            <label >Fecha de Inicio: </label>
-            <input  [ngClass]="{'is-invalid':!form.get('contractStartDate').valid && !form.get('contractStartDate').pristine }"    
-                    type="date" class="form-control" formControlName="contractStartDate" >
-
-            <div *ngIf="!form.get('contractStartDate').errors?.valid && !form.get('contractStartDate').pristine"
-                class="invalid-feedback">
-                Fecha incorrecta
-            </div>
-        </div>
-
-        <div class="form-group col-md-4">
-            <label >Fecha de Baja: </label>
-            <input  [ngClass]="{'is-invalid':!form.get('contractEndDate').valid && !form.get('contractEndDate').pristine }"    
-                    type="date" class="form-control" formControlName="contractEndDate" >
-
-            <div *ngIf="!form.get('contractEndDate').errors?.valid && !form.get('contractEndDate').pristine"
-                class="invalid-feedback">
-                Fecha incorrecta
-            </div>
-        </div>
-    </div>    
+    </div>
 
 </form>
-
-
-
-

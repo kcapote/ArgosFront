@@ -12,7 +12,7 @@ export interface Employee {
     sex: ValidTypesSex;
     contractStartDate?: Date;
     contractEndDate?: Date;
-   
+    address?: String;
 
 }
 
