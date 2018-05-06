@@ -13,12 +13,14 @@ export class Util {
 
     
     //Constantes MsgBox
-    public static SAVE = "Guardar";
+    public static SAVE_TITLE = "Guardar";
     public static SAVE_SUCCESS = "El registro ha sido guardado exitosamente";
-    public static DELETE = "Eliminar";
+    public static DELETE_TITLE = "Eliminar";
     public static DELETE_SUCCESS = "El regsitro ha sido eliminado exitosamente";
     public static ERROR = "ERROR";
-
+    public static MSJ_DELETE_QUESTION = "¿Está seguro que desea eliminar el registro?";
+    public static MSJ_UPDATE_QUESTION = "¿Está seguro que desea actualizar el registro?";
+     
     
 
     //Tipos MsgBox

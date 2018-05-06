@@ -41,7 +41,7 @@
 
 
         <!-- Success option -->
-        <div *ngIf="_msg.typeModal == _msg.deleteAction ">
+        <div *ngIf="_msg.typeModal == _msg.successAction ">
 
           <div  class="text-center space-elements">
             <i class="fas fa-check-circle text-danger" style="font-size:64px"></i>    
@@ -50,7 +50,7 @@
               <p>{{ _msg.message }} </p>             
           </div>          
           <div class="modal-footer" > 
-            <button (click)="_msg.hide()" type="button" class="btn btn-danger">OK</button>
+            <button (click)="_msg.hide()" type="button" class="btn btn-success">OK</button>
           </div>
                     
         </div> 

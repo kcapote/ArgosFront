@@ -29,7 +29,10 @@ export class TasksComponent implements OnInit {
 
     this._msg.notify.subscribe(
         res => {
-            console.log(res);
+            if(res.type == Util.ACTION_DELETE){
+
+                
+            }
             
 
         }
@@ -50,7 +53,7 @@ export class TasksComponent implements OnInit {
 
 
   delete(){
-      this._msg.show("Eliminar","¿Está seguro que desea eliminar el registro?",this._msg.questionAction);
+      this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE);
 
   }
 
