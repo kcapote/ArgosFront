@@ -4,6 +4,7 @@ import { Task } from '../../interfaces/task.interface';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { ActivatedRoute } from '@angular/router';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 
 @Component({
   selector: 'app-edit-task',
@@ -14,10 +15,12 @@ export class EditTaskComponent implements OnInit {
 
   //itemTask: Task;
   idTask: string;
+  task: Task;
 
   constructor(private location: Location,
               private _ps:ProviderService,
-              private activatedRoute:ActivatedRoute) {
+              private activatedRoute:ActivatedRoute,
+              private _msg: MsgBoxService ) {
 
       this.activatedRoute.params.subscribe(
           p =>{
@@ -30,7 +33,24 @@ export class EditTaskComponent implements OnInit {
 
       );
 
-    
+    this._msg.notify.subscribe(
+        res => {
+            console.log(res);
+            if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
+              this._ps.updateObject(Util.URL_TASKS,this.task._id,this.task).subscribe(
+                res => {
+                     console.log(res);                      
+                  if(res.success == true){
+                       this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);   
+                  }          
+                           
+        
+                }    
+            )            
+            } 
+          
+        }
+    )
     
 
   }
@@ -40,13 +60,10 @@ export class EditTaskComponent implements OnInit {
 
 
   save(task:Task) {
+    this.task = task;    
+    this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
 
-    this._ps.updateObject(Util.URL_TASKS,task._id,task).subscribe(
-        res => {
-          console.log(res);         
-
-        }    
-    ) 
+     
 
   }
   

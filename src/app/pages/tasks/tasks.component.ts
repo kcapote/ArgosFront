@@ -14,6 +14,8 @@ export class TasksComponent implements OnInit {
 
   title = "Faenas";  
   collection: Task[] = []
+  idTasks: string;
+  idxSel: number;
 
   constructor(private _sp:ProviderService,
                       private router: Router,
@@ -29,9 +31,17 @@ export class TasksComponent implements OnInit {
 
     this._msg.notify.subscribe(
         res => {
-            if(res.type == Util.ACTION_DELETE && res.response == Util.ok ){
-                console.log(res);
+            if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
+                this._sp.deleteObject(Util.URL_TASKS,this.idTasks).subscribe(
+                    res => {
                         
+                        if(res.success == true) {
+                            this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
+                            this.collection.splice(this.idxSel,1); 
+                        } 
+                        
+                    }
+                )                        
 
             }
             
@@ -53,7 +63,9 @@ export class TasksComponent implements OnInit {
   }
 
 
-  delete(){
+  delete(idx:number ){
+      this.idTasks = this.collection[idx]._id;
+      this.idxSel = idx;
       this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE);
 
   }

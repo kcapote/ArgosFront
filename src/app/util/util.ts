@@ -14,12 +14,14 @@ export class Util {
     
     //Constantes MsgBox
     public static SAVE_TITLE = "Guardar";
-    public static SAVE_SUCCESS = "El registro ha sido guardado exitosamente";
     public static DELETE_TITLE = "Eliminar";
-    public static DELETE_SUCCESS = "El regsitro ha sido eliminado exitosamente";
-    public static ERROR = "ERROR";
-    public static MSJ_DELETE_QUESTION = "¿Está seguro que desea eliminar el registro?";
+    public static UPDATE_TITLE = "Editar";
+    public static MSJ_SAVE_SUCCESS = "El registro ha sido guardado exitosamente";
+    public static MSJ_UPDATE_SUCCESS = "El registro ha sido actualizado exitosamente";
+    public static MSJ_DELETE_SUCCESS = "El regsitro ha sido eliminado exitosamente";
     public static MSJ_UPDATE_QUESTION = "¿Está seguro que desea actualizar el registro?";
+    public static MSJ_DELETE_QUESTION = "¿Está seguro que desea eliminar el registro?";
+    public static ERROR = "ERROR";
     public static OK_RESPONSE = "OK";
      
     
@@ -27,7 +29,7 @@ export class Util {
     //Tipos MsgBox
     public static  ACTION_INFO: string = "INFO";
     public static  ACTION_QUESTION: string = "QUESTION";  
-    public static  ACTION_SUCCES: string = "SUCCESS";
+    public static  ACTION_SUCCESS: string = "SUCCESS";
     public static  ACTION_DELETE: string = "DELETEE";
     public static  ACTION_UPDATE: string = "UPDATE";
 
