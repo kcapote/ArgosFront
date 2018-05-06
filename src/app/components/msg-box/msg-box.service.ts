@@ -39,13 +39,13 @@ export class MsgBoxService {
 
 
   sendResponse() {
-       let response = {
+       let output = {
           type: this.typeModal,
-          resp: "OK"
+          response: "OK"
 
        } 
 
-      this.notify.emit(response);
+      this.notify.emit(output);
     this.hide();
   }
 

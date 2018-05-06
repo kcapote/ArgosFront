@@ -30,8 +30,9 @@ export class TasksComponent implements OnInit {
     this._msg.notify.subscribe(
         res => {
             if(res.type == Util.ACTION_DELETE){
+                console.log(res);
+                        
 
-                
             }
             
 
