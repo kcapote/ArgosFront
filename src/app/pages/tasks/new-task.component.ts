@@ -38,17 +38,13 @@ export class NewTaskComponent implements OnInit {
 
   save(task:Task) {
     this.task = task;    
-    this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
-
+    
     this._ps.saveObject(Util.URL_TASKS,task).subscribe(
         res => {
           if( res.success == true ) {
             this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );      
           }
-        },error => {
-          this._msg.show(Util.ERROR,error,Util.ACTION_INFO)  
-
-        }     
+        }  
     ) 
 
     

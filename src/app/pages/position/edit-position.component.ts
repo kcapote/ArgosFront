@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Positions } from '../../interfaces/position.interface';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 
 @Component({
   selector: 'app-edit-position',
@@ -13,10 +14,13 @@ import { Positions } from '../../interfaces/position.interface';
 export class EditPositionComponent implements OnInit {
 
   idPosition: string;
-
+  item: Positions; 
+  
   constructor(private activatedRoute: ActivatedRoute,
               private _ps: ProviderService,
-              private location: Location ) {
+              private location: Location,
+              private _msg: MsgBoxService,
+              private router: Router ) {
     
     this.activatedRoute.params.subscribe(
       p => {
@@ -25,7 +29,23 @@ export class EditPositionComponent implements OnInit {
         }
       }
 
-    )
+    );
+
+    this._msg.notify.subscribe(
+      res => {
+          
+          if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
+                      
+            this._ps.updateObject(Util.URL_POSITIONS,this.idPosition,this.item).subscribe(
+              res => {                    
+                if(res.success == true){
+                     this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
+                     router.navigate(['/positions']);   
+                }
+              })           
+          } 
+      }
+    );
 
   }
 
@@ -34,13 +54,8 @@ export class EditPositionComponent implements OnInit {
   }
 
   save(position: Positions) {
-    console.log('LA POSITION ES ', position);
-    this._ps.updateObject(Util.URL_POSITIONS,this.idPosition ,position).subscribe(
-        res => {
-          console.log(res);         
-
-        }    
-    ) 
+    this.item = position;     
+    this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
 
   }
   

@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { Employee } from '../../interfaces/employee.interface';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +15,19 @@ import { Employee } from '../../interfaces/employee.interface';
 export class NewEmployeeComponent implements OnInit {
 
   constructor(private location: Location,
-              private _ps:ProviderService) { }
+              private _ps:ProviderService,
+              private _msg: MsgBoxService,
+              private router: Router) { 
+
+      this._msg.notify.subscribe(
+        res => {
+          if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
+            router.navigate(['/employees']);  
+  
+          }
+      });            
+
+    }
 
   ngOnInit() {
 
@@ -24,7 +38,9 @@ export class NewEmployeeComponent implements OnInit {
   
     this._ps.saveObject(Util.URL_EMPLOYEE,employee).subscribe(
         res => {
-          console.log(res);         
+          if( res.success == true ) {
+            this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );      
+          }          
 
         }    
     ) 

@@ -3,6 +3,7 @@ import { SubTask } from '../../interfaces/subTask.interface';
 import { Router } from '@angular/router';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 
 @Component({
   selector: 'app-sub-task',
@@ -11,21 +12,35 @@ import { Util } from '../../util/util';
 })
 export class SubTaskComponent implements OnInit {
   title: string = "Tareas";
-  collection: SubTask;
-  idTasks: string;
+  collection: SubTask[] = [];
+  idSubTasks: string;
   idxSel: number;
 
   constructor(private router: Router,
-              private _ps: ProviderService  ) { 
+              private _ps: ProviderService,
+              private _msg: MsgBoxService) { 
       
       _ps.getObjects(Util.URL_SUB_TASKS).subscribe(
           res => {
-   
-            this.collection = res.subTasks;
-
+               this.collection = res.subTasks;
           }
 
-      );          
+      );
+
+      this._msg.notify.subscribe(
+        res => {
+            if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
+                this._ps.deleteObject(Util.URL_SUB_TASKS,this.idSubTasks).subscribe(
+                    res => {                        
+                        if(res.success == true) {
+                            this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
+                            this.collection.splice(this.idxSel,1); 
+                        }
+                    }
+                )
+            }
+        }
+    );
 
   }
 
@@ -36,6 +51,15 @@ export class SubTaskComponent implements OnInit {
   edit(id: string) {
     
     this.router.navigate(['/editSubTask',id])
+
+  }
+
+  
+  delete(idx:number ){
+    this.idSubTasks = this.collection[idx]._id;
+    this.idxSel = idx;
+    
+    this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE);
 
   }
 

@@ -31,21 +31,20 @@ export class TasksComponent implements OnInit {
 
     this._msg.notify.subscribe(
         res => {
-            if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
+            if(res.type === Util.ACTION_DELETE && res.response === Util.OK_RESPONSE ){
+                              
                 this._sp.deleteObject(Util.URL_TASKS,this.idTasks).subscribe(
                     res => {
-                        
+                        console.log("aja", this.idTasks);
+                                               
                         if(res.success == true) {
                             this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
-                            this.collection.splice(this.idxSel,1); 
-                        } 
-                        
+                            this.collection.splice(this.idxSel,1);
+                                                        
+                        }
                     }
-                )                        
-
+                ) 
             }
-            
-
         }
 
     )
@@ -73,3 +72,5 @@ export class TasksComponent implements OnInit {
 
  
 }
+
+

@@ -1,5 +1,5 @@
 export interface Positions {
-    id_?: string;
+    _id?: string;
     name: string;
     code: string;
     description?: string;

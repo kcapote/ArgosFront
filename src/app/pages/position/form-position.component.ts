@@ -42,7 +42,7 @@ export class FormPositionComponent implements OnInit {
     this.item = this.form.value;
     
     if(this.idPosition) {
-        this.item.id_ = this.idPosition;
+        this.item._id = this.idPosition;
         
     }
 

@@ -42,7 +42,6 @@ export class FormSubtaskComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    console.log(this.idSubTask);
     
       if(this.idSubTask){
         this._ps.getObject(Util.URL_SUB_TASKS, this.idSubTask).subscribe(

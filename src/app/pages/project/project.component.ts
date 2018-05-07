@@ -3,6 +3,7 @@ import {  Router } from '@angular/router';
 import { Project } from '../../interfaces/project.interface';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 
 @Component({
   selector: 'app-project',
@@ -13,20 +14,37 @@ import { Util } from '../../util/util';
 
 export class ProjectComponent implements OnInit {
   
-
+  title: string = "Proyectos";
   collection: Project[] = [];
+  id: string;
+  idxSel: number;
 
-  constructor(private _sp:ProviderService,
-    private router: Router) {
-      this._sp.getObjects(Util.URL_POJECTS).subscribe(
+  constructor(private _ps:ProviderService,
+              private router: Router,
+              private _msg: MsgBoxService) {
+
+      this._ps.getObjects(Util.URL_POJECTS).subscribe(
         res => {
-          console.log(res);
-          
            this.collection = res.projects;
          
         }
-
       );
+
+
+      this._msg.notify.subscribe(
+        res => {
+            if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
+                this._ps.deleteObject(Util.URL_POJECTS,this.id).subscribe(
+                    res => {                        
+                        if(res.success == true) {
+                            this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
+                            this.collection.splice(this.idxSel,1); 
+                        }
+                    }
+                )
+            }
+        }
+    );
       
 
     } 
@@ -38,6 +56,13 @@ export class ProjectComponent implements OnInit {
   edit(id: string) {
     
     this.router.navigate(['/editProjects',id])
+
+  }
+
+  delete(idx:number ){
+    this.id = this.collection[idx]._id;
+    this.idxSel = idx;
+    this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE);
 
   }
  

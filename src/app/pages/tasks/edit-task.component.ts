@@ -36,14 +36,11 @@ export class EditTaskComponent implements OnInit {
 
     this._msg.notify.subscribe(
         res => {
-            console.log(res);
+           
             if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
-              
-              console.log(this.task);
               
               this._ps.updateObject(Util.URL_TASKS,this.task._id,this.task).subscribe(
                 res => {
-                     console.log(res);                      
                   if(res.success == true){
                        this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
                        router.navigate(['/tasks']);   

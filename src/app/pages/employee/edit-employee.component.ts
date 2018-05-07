@@ -3,7 +3,8 @@ import { Location } from '@angular/common';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { Employee } from '../../interfaces/employee.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 
 
 @Component({
@@ -14,9 +15,13 @@ import { ActivatedRoute } from '@angular/router';
 export class EditEmployeeComponent implements OnInit {
 
   idEmployee: string;
+  item: Employee; 
+
   constructor(private location: Location,
               private _ps:ProviderService,
-              private activatedRoute: ActivatedRoute) { 
+              private activatedRoute: ActivatedRoute,
+              private _msg: MsgBoxService,
+              private router: Router ) { 
 
       activatedRoute.params.subscribe(
           p => {
@@ -25,7 +30,22 @@ export class EditEmployeeComponent implements OnInit {
               }  
             
           }
-      )
+      );
+      
+      this._msg.notify.subscribe(
+        res => {            
+            if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
+                        
+              this._ps.updateObject(Util.URL_EMPLOYEE,this.idEmployee,this.item).subscribe(
+                res => {                    
+                  if(res.success == true){
+                       this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
+                       router.navigate(['/employees']);   
+                  }
+                })           
+            } 
+        }
+      );
 
 
   }
@@ -34,13 +54,10 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   save(employee: Employee) {
-  
-    this._ps.updateObject(Util.URL_EMPLOYEE, this.idEmployee,employee).subscribe(
-        res => {
-          console.log(res);         
+    this.item = employee;     
+    this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
 
-        }    
-    ) 
+
 
       
 
