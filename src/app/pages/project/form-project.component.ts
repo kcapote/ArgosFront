@@ -34,7 +34,7 @@ export class FormProjectComponent implements OnInit {
                           res => {
                              this.item = res.projects[0];
                              this.item.startDate = this.item.startDate.toString().substr(0,10);
-                             this.item.endDate = this.item.endDate.toString().substr(0,10)
+                             this.item.endDate = this.item.endDate?this.item.endDate.toString().substr(0,10):null,
                              this.item._id = this.idProject;
                              this.form.setValue(this.item);                             
                                  
