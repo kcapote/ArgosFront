@@ -1,0 +1,17 @@
+<nav aria-label="...">
+  <ul class="pagination justify-content-center">
+    
+    <li class="page-item ">
+      <button #pre (click) = "previous()" class="page-link" [disabled]="( numberPage == 0 )" ><i class="fas fa-angle-left"></i></button>
+    </li>
+
+    <li class="page-item">
+      <label class="page-link" > {{numberPage>0?(numberPage/10)+1:1 }} de {{ getMaxpages() }}</label>
+    </li>
+
+    <li class="page-item">
+      <button (click)="next()" class="page-link" [disabled]="( !(numberPage+10 < totalRecords)  )" ><i class="fas fa-angle-right"></i></button>
+    </li>
+  </ul>
+</nav>
+

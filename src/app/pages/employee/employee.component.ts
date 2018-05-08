@@ -4,6 +4,7 @@ import { Util } from '../../util/util';
 import { Router } from '@angular/router';
 import { Employee } from '../../interfaces/employee.interface';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { URL_EMPLOYEE } from '../../services/config';
 
 @Component({
   selector: 'app-employee',
@@ -16,7 +17,9 @@ export class EmployeeComponent implements OnInit {
   collection: Employee[] = []
   id: string;
   idxSel: number;
-
+  term: string;
+  model: string =  URL_EMPLOYEE;
+  totalRecords: number;  
 
   constructor(private _ps:ProviderService,
               private router: Router,
@@ -24,7 +27,8 @@ export class EmployeeComponent implements OnInit {
       
       this._ps.getObjects(Util.URL_EMPLOYEE).subscribe(
         res => {
-           this.collection = res.employees;         
+           this.collection = res.employees;
+           this.totalRecords = res.totalRecords;         
         }
       );
       
@@ -63,5 +67,23 @@ export class EmployeeComponent implements OnInit {
     this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE);
 
   }
+
+  search() {
+    if(this.term.length>0){
+       this._ps.getObjects(Util.URL_EMPLOYEE,0 ,this.term ).subscribe(
+           res => {
+               this.collection = res.employees;
+               this.totalRecords = res.totalRecords;
+           }   
+       )       
+   }else{
+       this._ps.getObjects(Util.URL_EMPLOYEE).subscribe(
+           res => {
+              this.collection = res.employees;
+              this.totalRecords = res.totalRecords;
+           }
+       );
+   } 
+ }   
 
 }

@@ -5,6 +5,7 @@ import { Util } from '../../util/util';
 import { Router } from '@angular/router';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 
+
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -16,15 +17,19 @@ export class TasksComponent implements OnInit {
   collection: Task[] = []
   idTasks: string;
   idxSel: number;
+  term: string;
+  model: string;
+  totalRecords: number;
 
-  constructor(private _sp:ProviderService,
+  constructor(private _ps:ProviderService,
                       private router: Router,
                       private _msg: MsgBoxService) { 
+    this.model = Util.URL_TASKS;                      
 
-    this._sp.getObjects(Util.URL_TASKS).subscribe(
+    this._ps.getObjects(Util.URL_TASKS).subscribe(
         res => {
            this.collection = res.tasks;
-         
+           this.totalRecords = res.totalRecords;  
         }
 
     );
@@ -33,10 +38,8 @@ export class TasksComponent implements OnInit {
         res => {
             if(res.type === Util.ACTION_DELETE && res.response === Util.OK_RESPONSE ){
                               
-                this._sp.deleteObject(Util.URL_TASKS,this.idTasks).subscribe(
-                    res => {
-                        console.log("aja", this.idTasks);
-                                               
+                this._ps.deleteObject(Util.URL_TASKS,this.idTasks).subscribe(
+                    res => {                                   
                         if(res.success == true) {
                             this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
                             this.collection.splice(this.idxSel,1);
@@ -48,6 +51,8 @@ export class TasksComponent implements OnInit {
         }
 
     )
+
+
 
   }
 
@@ -70,7 +75,29 @@ export class TasksComponent implements OnInit {
   }
 
 
- 
+  search() {
+     if(this.term.length>0){
+        this._ps.getObjects(Util.URL_TASKS, 0 ,this.term ).subscribe(
+            res => {
+                console.log(res);
+                
+                this.collection = res.tasks;
+                this.totalRecords = res.totalRecords; 
+            }   
+        )       
+    }else{
+        this._ps.getObjects(Util.URL_TASKS).subscribe(
+            res => {
+               this.collection = res.tasks;
+               this.totalRecords = res.totalRecords; 
+            }
+        );
+    } 
+  }
+  
+
+
+
 }
 
 

@@ -4,6 +4,7 @@ import { Project } from '../../interfaces/project.interface';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { URL_POJECTS } from '../../services/config';
 
 @Component({
   selector: 'app-project',
@@ -18,6 +19,9 @@ export class ProjectComponent implements OnInit {
   collection: Project[] = [];
   id: string;
   idxSel: number;
+  term: string;
+  model: string = URL_POJECTS;
+  totalRecords: number;
 
   constructor(private _ps:ProviderService,
               private router: Router,
@@ -26,7 +30,7 @@ export class ProjectComponent implements OnInit {
       this._ps.getObjects(Util.URL_POJECTS).subscribe(
         res => {
            this.collection = res.projects;
-         
+           this.totalRecords = res.totalRecords;   
         }
       );
 
@@ -66,5 +70,23 @@ export class ProjectComponent implements OnInit {
 
   }
  
+
+  search() {
+    if(this.term.length>0){
+       this._ps.getObjects(URL_POJECTS,0 ,this.term ).subscribe(
+           res => {
+               this.collection = res.projects;
+               this.totalRecords = res.totalRecords;
+           }   
+       )       
+   }else{
+       this._ps.getObjects(URL_POJECTS).subscribe(
+           res => {
+              this.collection = res.projects;
+              this.totalRecords = res.totalRecords;
+           }
+       );
+   } 
+ }   
 
 }

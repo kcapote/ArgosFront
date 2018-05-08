@@ -5,9 +5,9 @@
     <div class="col-md-6 space-elements">
         <div class="input-group">
 
-            <input type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
+            <input [(ngModel)] ="term"  (keyup.enter)="search()" type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
             <div class="input-group-prepend">
-                <button class="btn btn-outline-secondary" id="btnGroupAddon">Buscar</button>
+                <button (click)="search()" class="btn btn-outline-secondary" id="btnGroupAddon">Buscar</button>
             </div>
 
         </div>
@@ -31,7 +31,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of collection; let i = index">
-            <th scope="row"> {{ i+1 }} </th>
+            <th scope="row"> {{ i+1 + p.numberPage }} </th>
             <td>{{ item.name }}</td>
             <td>{{ item.type }}</td>
             <th scope="col" class="text-center">
@@ -43,3 +43,6 @@
 
     </tbody>
 </table>
+
+<pagination #p [(ngModel)] = "collection" [url] ="model" [term] ="term" collectionName= "tasks" [totalRecords]= "totalRecords" ></pagination>
+  

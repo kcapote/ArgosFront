@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { URL_SUB_TASKS } from '../../services/config';
 
 @Component({
   selector: 'app-sub-task',
@@ -15,6 +16,9 @@ export class SubTaskComponent implements OnInit {
   collection: SubTask[] = [];
   idSubTasks: string;
   idxSel: number;
+  term: string;
+  model: string = URL_SUB_TASKS;
+  totalRecords: number;
 
   constructor(private router: Router,
               private _ps: ProviderService,
@@ -23,6 +27,7 @@ export class SubTaskComponent implements OnInit {
       _ps.getObjects(Util.URL_SUB_TASKS).subscribe(
           res => {
                this.collection = res.subTasks;
+               this.totalRecords = res.totalRecords;
           }
 
       );
@@ -64,6 +69,23 @@ export class SubTaskComponent implements OnInit {
   }
 
   //988830997
-
+    
+ search() {
+    if(this.term.length>0){
+       this._ps.getObjects(Util.URL_SUB_TASKS,0,this.term ).subscribe(
+           res => {
+               this.collection = res.subTasks;
+               this.totalRecords = res.totalRecords;
+           }   
+       )       
+   }else{
+       this._ps.getObjects(Util.URL_SUB_TASKS).subscribe(
+           res => {
+              this.collection = res.subTasks;
+              this.totalRecords = res.totalRecords;
+           }
+       );
+   } 
+ }   
 
 }

@@ -13,9 +13,16 @@ export class ProviderService {
 
 
 
-  public getObjects(url: string): Observable<any> {
-       
-        return this.http.get( `${url}?${ Util.TOKEN }`);                
+  public getObjects(url: string, pagination: number = 0 ,term?: string): Observable<any> {
+        let urlTemp;
+         
+        if(term) {
+          urlTemp = `${url}/search/${ term }/?pagination=${ pagination }&${ Util.TOKEN }`;
+        } else {
+          urlTemp = `${url}/?pagination=${ pagination }&${ Util.TOKEN }`;
+        }
+        
+        return this.http.get( urlTemp );                
   }
 
   public getObject(url: string, id: string): Observable<any> {

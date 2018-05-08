@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Util } from '../../util/util';
 import { Positions } from '../../interfaces/position.interface';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { URL_POSITIONS } from '../../services/config';
 
 @Component({
   selector: 'app-position',
@@ -16,6 +17,9 @@ export class PositionComponent implements OnInit {
   collection: Positions[] = [];
   id: string;
   idxSel: number;
+  term: string;
+  model: string = URL_POSITIONS;
+  totalRecords: number;
 
   constructor(private _ps: ProviderService,
               private router: Router,
@@ -24,14 +28,14 @@ export class PositionComponent implements OnInit {
       _ps.getObjects(Util.URL_POSITIONS).subscribe(
           res => {
              this.collection = res.positions; 
-
+             this.totalRecords = res.totalRecords;
           }
       );
 
       this._msg.notify.subscribe(
         res => {
             if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
-                this._ps.deleteObject(Util.URL_POSITIONS,this.id).subscribe(
+                this._ps.deleteObject(URL_POSITIONS,this.id).subscribe(
                     res => {                        
                         if(res.success == true) {
                             this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
@@ -64,6 +68,24 @@ export class PositionComponent implements OnInit {
 
   }
 
+
+  search() {
+    if(this.term.length>0){
+       this._ps.getObjects(URL_POSITIONS,0 ,this.term ).subscribe(
+           res => {
+               this.collection = res.positions;
+               this.totalRecords = res.totalRecords;
+           }   
+       )       
+   }else{
+       this._ps.getObjects(URL_POSITIONS).subscribe(
+           res => {
+              this.collection = res.positions;
+              this.totalRecords = res.totalRecords;
+           }
+       );
+   } 
+ }   
 
 
 }

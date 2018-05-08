@@ -28,6 +28,7 @@ import { EditEmployeeComponent } from './employee/edit-employee.component';
 import { FormProjectComponent } from './project/form-project.component';
 import { MsgBoxComponent } from '../components/msg-box/msg-box.component';
 import { MsgBoxService } from '../components/msg-box/msg-box.service';
+import { PaginationComponent } from '../components/pagination/pagination.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { MsgBoxService } from '../components/msg-box/msg-box.service';
      FormatRutPipe,
      EditEmployeeComponent,
      FormProjectComponent,
-     MsgBoxComponent         
+     MsgBoxComponent,
+     PaginationComponent         
 
    ],
    exports: [ 
