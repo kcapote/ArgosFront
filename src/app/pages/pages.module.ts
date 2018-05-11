@@ -29,6 +29,9 @@ import { FormProjectComponent } from './project/form-project.component';
 import { MsgBoxComponent } from '../components/msg-box/msg-box.component';
 import { MsgBoxService } from '../components/msg-box/msg-box.service';
 import { PaginationComponent } from '../components/pagination/pagination.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ProjectCommonComponent } from './project/project-common.component';
+import { ProjectEmployeesComponent } from './project/project-employees.component';
 
 
 @NgModule({
@@ -58,7 +61,9 @@ import { PaginationComponent } from '../components/pagination/pagination.compone
      EditEmployeeComponent,
      FormProjectComponent,
      MsgBoxComponent,
-     PaginationComponent         
+     PaginationComponent,
+     ProjectCommonComponent,
+     ProjectEmployeesComponent         
 
    ],
    exports: [ 
@@ -74,7 +79,8 @@ import { PaginationComponent } from '../components/pagination/pagination.compone
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,  
-        PAGES_ROUTES
+        PAGES_ROUTES,
+        HttpClientModule
    ],
    providers: [
       MsgBoxService

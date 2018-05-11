@@ -1,6 +1,10 @@
+import { ValidTypesFloors } from "../enums/valid-types-floors";
+
 export interface Floors {
-    quantity: number;
-    type: string;  
-
+    _id?: string;
+    project: any;
+    number: number;
+    quantityDepartment: number;
+    type: ValidTypesFloors;
+    status?: number;
 }
-

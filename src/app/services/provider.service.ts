@@ -25,11 +25,17 @@ export class ProviderService {
         return this.http.get( urlTemp );                
   }
 
+
+  public getObjectsByFather(url: string, father: string , pagination: number = 0 ,id: string): Observable<any> {
+    let urlTemp;
+    
+    urlTemp = `${ url }/${ father }/${ id }?pagination=${ pagination }&${ Util.TOKEN }`;
+    
+    return this.http.get( urlTemp );                
+}
+
   public getObject(url: string, id: string): Observable<any> {
     let urlTemp = `${url}/${ id }?${ Util.TOKEN }`;
-    //console.log('la url es ', urlTemp);
-    
-
     return this.http.get( urlTemp );
   }
 

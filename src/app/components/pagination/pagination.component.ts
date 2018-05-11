@@ -40,8 +40,6 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
 
   next() {
 
-    console.log('el term ', this.term, ' el total record ', this.totalRecords)
-
     this.numberPage += 10;
     
     if(this.numberPage+10>this.totalRecords){

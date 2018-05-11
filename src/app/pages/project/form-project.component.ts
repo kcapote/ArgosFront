@@ -14,7 +14,7 @@ import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 })
 export class FormProjectComponent implements OnInit {
 
-  @Input() title:string = "Crear Proyecto";
+  title:string = "Crear Proyecto";
   idProject: string;
   form: FormGroup;
   url_employee:string = Util.URL_EMPLOYEE;
@@ -32,14 +32,17 @@ export class FormProjectComponent implements OnInit {
         p  => {
             if(p['id']){
                 this.idProject = p['id'];  
-
+                this.title = "Editar Proyecto";  
                 _ps.getObject(Util.URL_POJECTS,this.idProject).subscribe(
                     res => {
+                        
                         this.item = res.projects[0];
+                        delete this.item['__v'];                        
                         this.item.startDate = this.item.startDate.toString().substr(0,10);
                         this.item.endDate = this.item.endDate?this.item.endDate.toString().substr(0,10):null,
                         this.item._id = this.idProject;
                         this.form.setValue(this.item);  
+                        
                     }
                 )
             }        
@@ -51,19 +54,14 @@ export class FormProjectComponent implements OnInit {
         res => {
             
             if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
-                        
               this._ps.updateObject(Util.URL_POJECTS,this.idProject,this.item).subscribe(
                 res => {                    
-                  if(res.success == true){
+                  if(res.success == true){                        
                        this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
-                       router.navigate(['/projects']);   
                   }
                 })           
-            }
-            
-            if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
-              router.navigate(['/projects']);  
-    
+            }else if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
+               this.router.navigate(['/projectsFloors',this.idProject]);     
             }
             
 
@@ -89,11 +87,14 @@ export class FormProjectComponent implements OnInit {
       startDate: new FormControl('', Validators.required),
       endDate: new FormControl('')
 
-    })
+    });
+
+
   }
 
 
   save() {
+
       this.item = this.form.value;
 
       
@@ -102,18 +103,13 @@ export class FormProjectComponent implements OnInit {
         this.item._id = this.idProject;
         this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
 
-        // this._ps.updateObject(Util.URL_POJECTS,this.idProject,this.item).subscribe(
-        //   res => {
-        //     console.log(res);
-            
-        //   }
-        // )
       }else{
         console.log(this.item);
         this._ps.saveObject(Util.URL_POJECTS,this.item).subscribe(
           res => {
-            if( res.success == true ) {
-              this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );      
+            if( res.success == true ) {              
+              this.idProject = res.project._id;      
+              this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ); 
             }  
             
           }
@@ -127,5 +123,8 @@ export class FormProjectComponent implements OnInit {
     this.location.back();
 
   }
+
+
+
 
 }

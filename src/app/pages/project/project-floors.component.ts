@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Floors } from '../../interfaces/floors.interface';
 import { Validators } from '@angular/forms';
+import { ActivatedRoute,  Router } from '@angular/router';
+import { ValidTypesFloors } from '../../enums/valid-types-floors';
+import { ProviderService } from '../../services/provider.service';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { Util } from '../../util/util';
+import { Department } from '../../interfaces/department.interface';
 
 @Component({
   selector: 'app-project-floors',
@@ -9,21 +15,123 @@ import { Validators } from '@angular/forms';
 })
 export class ProjectFloorsComponent implements OnInit {
 
-  constructor() { }
-
+  idProject: string;
   collection: Floors[] = [];
+  numFloors: number;
+  numDepts: number;
+  saving: boolean = false;
+  existFloors = false;
+  collectionDepts: Department[] =[];
+  constructor(private activedRoute: ActivatedRoute,
+              private _ps: ProviderService,
+              private _msg: MsgBoxService,
+              private router: Router ) { 
 
-  ngOnInit() {
-      for (let index = 0; index < 10; index++) {
-        let item: Floors={
-          quantity: 12,
-          type: Validators['PISOS']
+    activedRoute.params.subscribe(
+        p => {
+          if(p['id']){
+            this.idProject = p['id'];
+          }
         }
+    );
 
-        this.collection.push(item)
-;        
+
+    this._ps.getObjectsByFather(Util.URL_FLOORS,'project',0, this.idProject).subscribe(
+      res => {
+        this.collection = res.floors;
+        this.existFloors = true;
+        this.loadDepartmens();
       }
+
+    )
+    console.log(this.collection.length);
+    
+
+
+
+  }
+  ngOnInit() {
+
       
+  }
+
+
+  buildFloors(){
+    
+    this.collection = [];
+    
+    for (let index = 0; index < this.numFloors; index++) {
+      let item: Floors={
+        number: (index+1),
+        project: this.idProject,
+        quantityDepartment: this.numDepts,
+        type: ValidTypesFloors.RESIDENCIA
+      }
+
+      this.collection.push(item);
+                              
+    }
+
+  }
+
+  loadDepartmens() {
+    if(this.collection.length>0) {
+      this.collection.forEach(element => {
+        this._ps.getObjectsByFather(Util.URL_DEPARTMENTS,'floor',0 ,element._id).subscribe(
+          res => {
+            this.collectionDepts.push(res.departments);
+          }
+        )      
+                
+      });
+    }
+  }
+
+  updateType(idx: number) {   
+    this.collection[idx].type = this.collection[idx].type === ValidTypesFloors.RESIDENCIA?ValidTypesFloors.LOCAL: ValidTypesFloors.RESIDENCIA; 
+  }
+
+
+
+  save() {
+    if(!this.existFloors){
+  
+      this.saving = true;
+      if(this.collection.length<1) {
+        return;
+      }
+  
+      this.collection.forEach(element => {
+        //Creación del piso
+        
+        this._ps.saveObject(Util.URL_FLOORS, element ).subscribe(
+             res => {
+               for(let i=0;i < res.floor.quantityDepartment; i++){
+                //Creación de los departamentos del piso  
+                              
+                if(res.success==true){
+                   let dep: Department = {
+                      floor: res.floor._id,
+                      number: i+1,
+                      status: 0   
+                   }
+                  this._ps.saveObject(Util.URL_DEPARTMENTS, dep).subscribe(
+                    resp => {
+  
+                    }
+                  );
+                }
+                 
+               } 
+             }
+        );
+  
+      });
+      this.saving = false;
+
+    }else{
+        this.router.navigate(['projectsCommon',this.idProject])
+    }
   }
 
 }

@@ -78,9 +78,7 @@ export class TasksComponent implements OnInit {
   search() {
      if(this.term.length>0){
         this._ps.getObjects(Util.URL_TASKS, 0 ,this.term ).subscribe(
-            res => {
-                console.log(res);
-                
+            res => {              
                 this.collection = res.tasks;
                 this.totalRecords = res.totalRecords; 
             }   

@@ -10,6 +10,10 @@ export class Util {
     public static  URL_POSITIONS  = `${ Util.URL_SERVER }/position` ;
     public static  URL_EMPLOYEE  = `${ Util.URL_SERVER }/employee` ;
     public static  URL_POJECTS  = `${ Util.URL_SERVER }/project` ;
+    public static  URL_FLOORS  = `${ Util.URL_SERVER }/floor` ;
+    public static  URL_DEPARTMENTS  = `${ Util.URL_SERVER }/department`;
+    public static  URL_COMMON_SERVICES  = `${ Util.URL_SERVER }/commonservice` ;
+    
     
 
     
@@ -127,8 +131,7 @@ export class Util {
         }
     
     }
-    
-
+       
     
 }
 

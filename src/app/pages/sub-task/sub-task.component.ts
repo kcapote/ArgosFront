@@ -74,6 +74,8 @@ export class SubTaskComponent implements OnInit {
     if(this.term.length>0){
        this._ps.getObjects(Util.URL_SUB_TASKS,0,this.term ).subscribe(
            res => {
+               console.log(res);
+               
                this.collection = res.subTasks;
                this.totalRecords = res.totalRecords;
            }   
