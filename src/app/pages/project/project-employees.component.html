@@ -1,3 +1,27 @@
-<p>
-  project-employees works!
-</p>
+
+<h2 class="main-container">Asignar Empleados a la Obra</h2>
+<hr>
+
+<table class="table table-striped ">
+    <thead class="">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Rut</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Seleccionados </th>             
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of collection; let i = index">
+            <th scope="row"> {{ i + 1 +p.numberPage }} </th>
+            <th scope="row"> {{ item.rut }} </th>
+            <td>{{ item.name + " " + item.lastName }} </td>
+            <td>{{ item.position['name'] }}</td>
+            <td><input type="checkbox" ></td>
+        </tr>
+
+    </tbody>
+</table>
+
+<pagination #p [(ngModel)] = "collection" [url] ="model" [term] ="term" collectionName= "employees" [totalRecords]= "totalRecords" ></pagination> 
