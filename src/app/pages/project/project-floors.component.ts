@@ -22,6 +22,7 @@ export class ProjectFloorsComponent implements OnInit {
   saving: boolean = false;
   existFloors = false;
   collectionDepts: Department[] =[];
+
   constructor(private activedRoute: ActivatedRoute,
               private _ps: ProviderService,
               private _msg: MsgBoxService,
@@ -39,19 +40,28 @@ export class ProjectFloorsComponent implements OnInit {
     this._ps.getObjectsByFather(Util.URL_FLOORS,'project',0, this.idProject).subscribe(
       res => {
         this.collection = res.floors;
-        this.existFloors = true;
-        this.loadDepartmens();
+        this.collection.length>0?this.existFloors = true: false;
+        //this.loadDepartmens();
       }
 
     )
-    console.log(this.collection.length);
+    console.log(this.collection.length, this.existFloors);
+
+    this._msg.notify.subscribe(
+      res => {
+          if(res.type === Util.ACTION_SUCCESS && res.response === Util.OK_RESPONSE ){
+            this.router.navigate(['projectsCommon',this.idProject]);
+          }
+      }
+    )   
     
 
 
 
   }
-  ngOnInit() {
+  
 
+  ngOnInit() {
       
   }
 
@@ -95,7 +105,8 @@ export class ProjectFloorsComponent implements OnInit {
 
   save() {
     if(!this.existFloors){
-  
+      
+         
       this.saving = true;
       if(this.collection.length<1) {
         return;
@@ -117,7 +128,9 @@ export class ProjectFloorsComponent implements OnInit {
                    }
                   this._ps.saveObject(Util.URL_DEPARTMENTS, dep).subscribe(
                     resp => {
-  
+                      if( res.success == true ) {
+                        this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );      
+                      }
                     }
                   );
                 }
@@ -130,7 +143,8 @@ export class ProjectFloorsComponent implements OnInit {
       this.saving = false;
 
     }else{
-        this.router.navigate(['projectsCommon',this.idProject])
+     
+        this.router.navigate(['projectsCommon',this.idProject]);
     }
   }
 

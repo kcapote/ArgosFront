@@ -21,6 +21,8 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
   @Input() collectionName;  
   @Input() collection:any[] = [];
   @Input() totalRecords: number;
+  @Output('change') change: EventEmitter<boolean> = new EventEmitter<boolean>();
+    
   existNext: boolean;
   existPrevious: boolean;
   
@@ -54,7 +56,8 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
     this._ps.getObjects(this.url, this.numberPage,this.term ).subscribe(
         res => {
             this.collection = res[this.collectionName];
-            this.propagateChange(this.collection);                       
+            this.propagateChange(this.collection);
+            this.change.emit(true);                       
         }  
     );
     }else{
@@ -62,9 +65,12 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
         res => {
            this.collection = res[this.collectionName];
           this.propagateChange(this.collection);
+          this.change.emit(true);
         }  
      );
-    } 
+    }
+   
+    
   }
 
 
@@ -76,7 +82,8 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
         res => {
             this.totalRecords = res.totalRecords;
             this.collection = res[this.collectionName];
-            this.propagateChange(this.collection);                       
+            this.propagateChange(this.collection);
+            this.change.emit(true);                       
         }  
     );
     }else{
@@ -86,10 +93,11 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
           this.totalRecords = res.totalRecords;
           this.collection = res[this.collectionName];
           this.propagateChange(this.collection);
+          this.change.emit(true);
         }  
      );
     } 
-
+    
   }
 
   getMaxpages() {

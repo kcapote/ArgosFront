@@ -13,6 +13,7 @@ export interface Employee {
     contractStartDate?: Date;
     contractEndDate?: Date;
     address?: String;
+    sel?: boolean; 
 
 }
 

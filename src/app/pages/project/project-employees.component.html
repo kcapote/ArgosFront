@@ -1,6 +1,19 @@
+<h2 *ngIf="project" class="space-elements" >Obra: {{ project.name }} </h2>
 
-<h2 class="main-container">Asignar Empleados a la Obra</h2>
+<h3 class="main-container">Asignación de Empleados</h3>
 <hr>
+
+<div class="row">
+    <div class="col-md-6 space-elements">
+        <div class="input-group">
+
+            <input [(ngModel)] = "term" (keyup)="search()" type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
+           
+
+        </div>
+    </div>
+
+</div>
 
 <table class="table table-striped ">
     <thead class="">
@@ -18,10 +31,19 @@
             <th scope="row"> {{ item.rut }} </th>
             <td>{{ item.name + " " + item.lastName }} </td>
             <td>{{ item.position['name'] }}</td>
-            <td><input type="checkbox" ></td>
+            <td><input type="checkbox"  (change)="updateSel($event.target.checked, i)" [checked] = "item.sel"  ></td>
         </tr>
 
     </tbody>
 </table>
 
 <pagination #p [(ngModel)] = "collection" [url] ="model" [term] ="term" collectionName= "employees" [totalRecords]= "totalRecords" ></pagination> 
+
+<div class="row space-elements">
+    <div class="col-md-12 text-right" >
+        <button (click)="saveAll()" class="btn btn-success" >
+            Guardar 
+        </button>
+        
+    </div>
+</div> 

@@ -27,12 +27,11 @@ export class ProviderService {
 
 
   public getObjectsByFather(url: string, father: string , pagination: number = 0 ,id: string): Observable<any> {
-    let urlTemp;
-    
+    let urlTemp;    
     urlTemp = `${ url }/${ father }/${ id }?pagination=${ pagination }&${ Util.TOKEN }`;
     
     return this.http.get( urlTemp );                
-}
+  }
 
   public getObject(url: string, id: string): Observable<any> {
     let urlTemp = `${url}/${ id }?${ Util.TOKEN }`;
@@ -46,8 +45,7 @@ export class ProviderService {
     let urlTemp = `${url}?${ Util.TOKEN }`;
   
     return this.http.post( urlTemp, obj, {headers});
-    
-
+   
   }
 
   public updateObject(url: string, id: string ,obj: any ): Observable<any> {

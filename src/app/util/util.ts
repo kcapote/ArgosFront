@@ -13,6 +13,8 @@ export class Util {
     public static  URL_FLOORS  = `${ Util.URL_SERVER }/floor` ;
     public static  URL_DEPARTMENTS  = `${ Util.URL_SERVER }/department`;
     public static  URL_COMMON_SERVICES  = `${ Util.URL_SERVER }/commonservice` ;
+    public static  URL_PROJECT_EMPLOYEES  = `${ Util.URL_SERVER }/employeeproject` ;
+    
     
     
 
@@ -132,6 +134,22 @@ export class Util {
     
     }
        
+    
+    public static removeFromArray( elem: any, arr: any[]): any[] {
+        
+        for(let i = 0; i < arr.length; i++) {
+            if(arr[i] === elem ){
+                arr.splice(i,1);                    
+            }
+
+        }
+        
+        return arr;
+
+    }
+
+
+
     
 }
 

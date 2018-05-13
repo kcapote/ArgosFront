@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class MsgBoxService {
@@ -30,13 +31,21 @@ export class MsgBoxService {
     this.message = null;
   }
 
-  show(title:string, message: string, type?: string) {
+  // show(title:string, message: string, type?: string) {
+  //   type?this.typeModal = type: this.typeModal = this.infoAction; 
+  //   this.hideModal = "";
+  //   this.title = title;
+  //   this.message = message;
+  // }
+
+  show(title:string, message: string, type?: string): Observable <any>  {
     type?this.typeModal = type: this.typeModal = this.infoAction; 
     this.hideModal = "";
     this.title = title;
     this.message = message;
+    return this.notify;
   }
-
+  
 
   sendResponse() {
        let output = {

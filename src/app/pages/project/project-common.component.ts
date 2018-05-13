@@ -6,6 +6,7 @@ import { Department } from '../../interfaces/department.interface';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { CommonService } from '../../interfaces/common-services.interface';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 
 @Component({
   selector: 'app-project-common',
@@ -26,7 +27,8 @@ export class ProjectCommonComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private _ps: ProviderService,
-              private router: Router ) {
+              private router: Router,
+              private _msg: MsgBoxService) {
        
     this.enumType.splice(0,1);
     
@@ -69,12 +71,21 @@ export class ProjectCommonComponent implements OnInit {
               status: 0    
             }
             this._ps.saveObject(Util.URL_COMMON_SERVICES,d).subscribe(
-              result => { console.log(result); }
+              result => { 
+
+              }
             )  
           }
         }
-     );   
-     this.router.navigate(['/projectEmployees',this.idProject]);
+     );
+
+     this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
+       res => {
+          this.router.navigate(['/projectEmployees',this.idProject]);   
+       }
+     )
+     
+     
      
   }
 
