@@ -1,7 +1,7 @@
 <!-- <div class="form-group" class="space-elements">
   <label> {{ title }} </label> -->
 
-  <select class="custom-select"  name="combo" (change)="onChange($event.target.value)" > 
+  <select #combo class="custom-select"  name="combo" (change)="onChange($event.target.value)" [ngModel] = "itemId" > 
     <option *ngFor="let item of collection; let i = index" [value]="item._id">{{item[labelField]}}</option>
   </select>
  

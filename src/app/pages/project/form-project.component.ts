@@ -42,8 +42,12 @@ export class FormProjectComponent implements OnInit {
                         this.item.startDate = this.item.startDate.toString().substr(0,10);
                         this.item.endDate = this.item.endDate?this.item.endDate.toString().substr(0,10):null,
                         this.item._id = this.idProject;
+                        this.item.supervisor1 = this.item.supervisor1['_id'];
+                        this.item.supervisor2 = this.item.supervisor2['_id'];
                         this.form.setValue(this.item);  
+                        console.log(this.form.value);
                         
+
                     }
                 )
             }        
@@ -51,23 +55,23 @@ export class FormProjectComponent implements OnInit {
       );
 
 
-      this._msg.notify.subscribe(
-        res => {
+      // this._msg.notify.subscribe(
+      //   res => {
             
-            if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
-              this._ps.updateObject(Util.URL_POJECTS,this.idProject,this.item).subscribe(
-                res => {                    
-                  if(res.success == true){                        
-                       this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
-                  }
-                })           
-            }else if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
-               this.router.navigate(['/projectsFloors',this.idProject]);     
-            }
+      //       if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
+      //         this._ps.updateObject(Util.URL_POJECTS,this.idProject,this.item).subscribe(
+      //           res => {                    
+      //             if(res.success == true){                        
+      //                  this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
+      //             }
+      //           })           
+      //       }else if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
+      //          this.router.navigate(['/projectsFloors',this.idProject]);     
+      //       }
             
 
-        }
-      );
+      //   }
+      // );
             
             
 
@@ -75,6 +79,7 @@ export class FormProjectComponent implements OnInit {
   }
 
 
+  
 
   ngOnInit() {
       this.form = new FormGroup({
@@ -94,23 +99,41 @@ export class FormProjectComponent implements OnInit {
   }
 
 
+
   save() {
 
       this.item = this.form.value;
+      console.log(this.item);
+      
 
-      
-      
       if(this.idProject){
         this.item._id = this.idProject;
-        this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
+        this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE).subscribe(
+            res => {
+              if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
+                this._ps.updateObject(Util.URL_POJECTS,this.idProject,this.item).subscribe(
+                  res => {                    
+                    if(res.success == true){                        
+                         this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS).subscribe(
+                           res => this.router.navigate(['/projectsFloors',this.idProject])
+                          );
+                    }
+                  })           
+              }
+            }
+          
+        )
 
       }else{
-        console.log(this.item);
+ 
         this._ps.saveObject(Util.URL_POJECTS,this.item).subscribe(
           res => {
             if( res.success == true ) {              
               this.idProject = res.project._id;      
-              this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ); 
+              this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(
+                  res => this.router.navigate(['/projectsFloors',this.idProject])   
+
+              ); 
             }  
             
           }

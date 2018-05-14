@@ -28,7 +28,7 @@
 
                 <div class="form-group col-md-3">
                     <label>Supervisor 1: </label>
-                    <combo [ngClass]="{'is-invalid':!form.controls['supervisor1'].valid && !form.get('supervisor1').pristine }" [url]="url_employee" labelField="name" nameCollection="employees" formControlName="supervisor1"></combo>
+                    <combo  [ngClass]="{'is-invalid':!form.controls['supervisor1'].valid && !form.get('supervisor1').pristine }" [url]="url_employee" labelField="name" nameCollection="employees" formControlName="supervisor1"></combo>
 
                     <div *ngIf="!form.get('supervisor1').errors?.valid && !form.get('supervisor1').pristine" class="invalid-feedback">
                         El campo es obligatorio
@@ -93,7 +93,6 @@
         </div>
 
     </div>
-
 
     
     <div class="row space-elements space-footer">
