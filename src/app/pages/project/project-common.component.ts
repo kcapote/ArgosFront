@@ -7,6 +7,7 @@ import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { CommonService } from '../../interfaces/common-services.interface';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-project-common',
@@ -16,7 +17,7 @@ import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 export class ProjectCommonComponent implements OnInit {
   idProject: string;
   form: FormGroup = new FormGroup({});  
-
+  existRecords: boolean= false;
 
   enumType =  Object.keys(ValidTypesTasks).map(
     r => {
@@ -45,14 +46,25 @@ export class ProjectCommonComponent implements OnInit {
       }
     );
 
+    let sub = 0;
+    let emp = 0;
+    let piso = 0;
+
     this._ps.getObjectsByFather(Util.URL_COMMON_SERVICES,'project',0,this.idProject).subscribe(
       res => {
-            
-         console.log(res);
-          
+        this.existRecords = res.totalRecords > 0 ? true: false;
+        
+        sub = this.countOcurrences(res.commonServices, ValidTypesTasks.SUBTERRANEOS);         
+        emp = this.countOcurrences(res.commonServices, ValidTypesTasks.EMPLAZAMIENTOS);         
+        piso = this.countOcurrences(res.commonServices, ValidTypesTasks.PISOS); 
+        this.form.get(ValidTypesTasks.SUBTERRANEOS).setValue(sub);   
+        this.form.get(ValidTypesTasks.EMPLAZAMIENTOS).setValue(emp);
+        this.form.controls[ValidTypesTasks.PISOS].setValue(piso);   
+        
       }        
     )
-
+    
+    
     // this.form = new FormGroup();
     
 
@@ -63,36 +75,55 @@ export class ProjectCommonComponent implements OnInit {
   }
 
 
+  countOcurrences(c: CommonService[], task: string): number 
+  {
+    let counter:number  = 0;
+    c.forEach(
+      r=>{
+        if(r.type == task){
+          console.log('en el if ', task);
+          
+          counter = counter+1;
+        }
+      }  
+
+    );
+    
+    return counter;
+  }
 
 
   save() {
-      
-     Object.keys(this.form.value).forEach(
-        res => {
-          console.log(ValidTypesTasks[res]);
-          
-          for(let i=0; i <  this.form.controls[res].value; i++){
-            let d: any = {
-              project: this.idProject,
-              number: i+1,
-              type: res,
-              status: 0    
-            }
-            this._ps.saveObject(Util.URL_COMMON_SERVICES,d).subscribe(
-              result => { 
-
+    if(!this.existRecords){ 
+    
+       Object.keys(this.form.value).forEach(
+          res => {
+            console.log(ValidTypesTasks[res]);
+            
+            for(let i=0; i <  this.form.controls[res].value; i++){
+              let d: any = {
+                project: this.idProject,
+                number: i+1,
+                type: res,
+                status: 0    
               }
-            )  
+              this._ps.saveObject(Util.URL_COMMON_SERVICES,d).subscribe(
+                result => { 
+  
+                }
+              )  
+            }
           }
-        }
-     );
-
-     this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
-       res => {
-          this.router.navigate(['/projectEmployees',this.idProject]);   
-       }
-     )
-     
+       );
+  
+       this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
+         res => {
+            this.router.navigate(['/projectEmployees',this.idProject]);   
+         }
+       )
+    }else {
+      this.router.navigate(['/projectEmployees',this.idProject]);
+    }   
      
      
   }
