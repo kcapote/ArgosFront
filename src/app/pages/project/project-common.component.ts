@@ -45,6 +45,14 @@ export class ProjectCommonComponent implements OnInit {
       }
     );
 
+    this._ps.getObjectsByFather(Util.URL_COMMON_SERVICES,'project',0,this.idProject).subscribe(
+      res => {
+            
+         console.log(res);
+          
+      }        
+    )
+
     // this.form = new FormGroup();
     
 

@@ -35,9 +35,11 @@ export class FormProjectComponent implements OnInit {
                 this.title = "Editar Proyecto";  
                 _ps.getObject(Util.URL_POJECTS,this.idProject).subscribe(
                     res => {
+                        console.log(res);
                         
                         this.item = res.projects[0];
                         delete this.item['__v'];                        
+                        delete this.item['recordActive'];                        
                         this.item.startDate = this.item.startDate.toString().substr(0,10);
                         this.item.endDate = this.item.endDate?this.item.endDate.toString().substr(0,10):null,
                         this.item._id = this.idProject;

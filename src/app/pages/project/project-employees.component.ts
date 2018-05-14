@@ -170,7 +170,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
                   return f.employee === e._id && f.recordActive == ValidTypesStatus.ACTIVE  ;
                 }
               )){
-                e.sel = true
+                e.sel = true;
               }
 
         }
@@ -228,7 +228,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     )
     this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS).subscribe(
       res => {
-          
+          this.router.navigate(['/projects']);
       }
     )
   }
