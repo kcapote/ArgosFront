@@ -59,7 +59,7 @@
                 <td>
                     <div class="form-group">
                         
-                        <input #c type="checkbox" (change)="updateType(i)" >
+                        <input #c type="checkbox" [checked]=" item.type == local  " (change)="updateType(i)" >
                                          
                     </div>
                 </td>
@@ -75,6 +75,7 @@
 
     <hr>
 
+    
 
     <div class="row space-elements">
         <div class="col-md-12 text-right" >

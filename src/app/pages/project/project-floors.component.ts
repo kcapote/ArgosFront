@@ -22,6 +22,7 @@ export class ProjectFloorsComponent implements OnInit {
   saving: boolean = false;
   existFloors = false;
   collectionDepts: Department[] =[];
+  local: string = ValidTypesFloors.LOCAL;
 
   constructor(private activedRoute: ActivatedRoute,
               private _ps: ProviderService,
@@ -40,12 +41,11 @@ export class ProjectFloorsComponent implements OnInit {
     this._ps.getObjectsByFather(Util.URL_FLOORS,'project',0, this.idProject).subscribe(
       res => {
         this.collection = res.floors;
-        this.collection.length>0?this.existFloors = true: false;
-        //this.loadDepartmens();
+        this.existFloors = this.collection.length>0? true: false;
+        
       }
 
     )
-    console.log(this.collection.length, this.existFloors);
 
     this._msg.notify.subscribe(
       res => {
@@ -104,6 +104,7 @@ export class ProjectFloorsComponent implements OnInit {
 
 
   save() {
+
     if(!this.existFloors){
       
          
@@ -143,6 +144,8 @@ export class ProjectFloorsComponent implements OnInit {
       this.saving = false;
 
     }else{
+        
+
      
         this.router.navigate(['projectsCommon',this.idProject]);
     }
