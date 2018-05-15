@@ -27,7 +27,7 @@ export class ProjectComponent implements OnInit {
               private router: Router,
               private _msg: MsgBoxService) {
 
-      this._ps.getObjects(Util.URL_POJECTS).subscribe(
+      this._ps.getObjectsByFather(Util.URL_POJECTS,"recordActive",0,"true").subscribe(
         res => {
            this.collection = res.projects;
            this.totalRecords = res.totalRecords;   
