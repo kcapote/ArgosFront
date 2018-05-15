@@ -32,6 +32,8 @@ import { PaginationComponent } from '../components/pagination/pagination.compone
 import { HttpClientModule } from '@angular/common/http';
 import { ProjectCommonComponent } from './project/project-common.component';
 import { ProjectEmployeesComponent } from './project/project-employees.component';
+import { HomeComponent } from './home/home.component';
+import { GanttComponent } from './gantt/gantt.component';
 
 
 @NgModule({
@@ -63,7 +65,9 @@ import { ProjectEmployeesComponent } from './project/project-employees.component
      MsgBoxComponent,
      PaginationComponent,
      ProjectCommonComponent,
-     ProjectEmployeesComponent         
+     ProjectEmployeesComponent,
+     HomeComponent,
+     GanttComponent         
 
    ],
    exports: [ 
