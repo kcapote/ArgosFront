@@ -8,6 +8,8 @@ import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { Util } from '../../util/util';
 import { Department } from '../../interfaces/department.interface';
 import { DepartmentTask } from '../../interfaces/departmentTask.interface';
+import { DepartmentSubTask } from '../../interfaces/departmentSubTask.interface';
+
 
 @Component({
   selector: 'app-project-floors',
@@ -136,16 +138,44 @@ export class ProjectFloorsComponent implements OnInit {
                         let url = `${ Util.URL_TASKS_BY_TYPE }/DEPARTAMENTOS`
                         this._ps.getObjectsAny(url).subscribe(
                           respTask => {
+
                             if( respTask.success == true ) {
                               respTask.tasks.forEach(task => {
-                                  
+
                                 let depTask: DepartmentTask = {
                                   department: resp.department._id,
                                   task: task._id,
                                   floor: res.floor._id,
-                                  project: res.floor.project._id,
+                                  project: res.floor.project,
                                   status: 0,
                                 }
+
+                                this._ps.saveObject(Util.URL_DEPARTMENTS_TASKS, depTask).subscribe(
+                                  respSaveTasks => {
+                                    if( respSaveTasks.success == true ) {
+                                      //se guardan automaticamente las sub tareas
+                                      this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id).subscribe(
+                                        respSubTasks => {
+                                          if( respSubTasks.success == true ) {
+                                            respSubTasks.subTasks.forEach(subtask => {
+                                              let depSubTask: DepartmentSubTask = {
+                                                department: resp.department._id,
+                                                subTask: subtask._id,
+                                                task: task._id,
+                                                floor: res.floor._id,
+                                                project: res.floor.project,
+                                                status: 0,
+                                              }
+                                              this._ps.saveObject(Util.URL_DEPARTMENTS_SUB_TASKS, depSubTask).subscribe(
+                                                respSaveTasks => {
+                                                  if( respSaveTasks.success == true ) {
+                                                  }
+                                                });
+                                            });
+                                          }
+                                        });
+                                    }
+                                  });
 
                               });
                             }

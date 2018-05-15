@@ -15,6 +15,9 @@ export class Util {
     public static  URL_DEPARTMENTS  = `${ Util.URL_SERVER }/department`;
     public static  URL_COMMON_SERVICES  = `${ Util.URL_SERVER }/commonservice` ;
     public static  URL_PROJECT_EMPLOYEES  = `${ Util.URL_SERVER }/employeeproject` ;
+    public static  URL_DEPARTMENTS_TASKS  = `${ Util.URL_SERVER }/departmenttask`;
+    public static  URL_DEPARTMENTS_SUB_TASKS  = `${ Util.URL_SERVER }/departmentsubtask`;
+    
     
     
     
