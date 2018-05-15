@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-8">
                     <label>Nombre: </label>
                     <input [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }" type="text" class="form-control" formControlName="name">
                     <div *ngIf="!form.get('name').errors?.valid && !form.get('name').pristine" class="invalid-feedback">
@@ -28,14 +28,14 @@
                     </div>
                 </div>
 
-                <div class="form-group col-md-4">
+                <!--div class="form-group col-md-4">
                     <label>Apellido: </label>
                     <input [ngClass]="{'is-invalid':!form.get('lastName').valid && !form.get('lastName').pristine }" type="text" class="form-control" formControlName="lastName">
 
                     <div *ngIf="!form.get('lastName').errors?.valid && !form.get('lastName').pristine" class="invalid-feedback">
                         El Apellido es obligatorio
                     </div>
-                </div>
+                </div-->
 
             </div>
 
