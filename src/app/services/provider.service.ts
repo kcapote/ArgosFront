@@ -25,6 +25,12 @@ export class ProviderService {
         return this.http.get( urlTemp );                
   }
 
+public getObjectsAny(url: string): Observable<any> {
+  let urlTemp = `${url}?${ Util.TOKEN }`;
+
+  return this.http.get( urlTemp );                
+}
+
 
   public getObjectsByFather(url: string, father: string , pagination: number = 0 ,id: string): Observable<any> {
     let urlTemp;    

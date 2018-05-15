@@ -7,6 +7,7 @@ import { ProviderService } from '../../services/provider.service';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { Util } from '../../util/util';
 import { Department } from '../../interfaces/department.interface';
+import { DepartmentTask } from '../../interfaces/departmentTask.interface';
 
 @Component({
   selector: 'app-project-floors',
@@ -129,8 +130,30 @@ export class ProjectFloorsComponent implements OnInit {
                    }
                   this._ps.saveObject(Util.URL_DEPARTMENTS, dep).subscribe(
                     resp => {
-                      if( res.success == true ) {
-                        this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );      
+                      if( resp.success == true ) {
+
+                        //se guardan automaticamente las tareas
+                        let url = `${ Util.URL_TASKS_BY_TYPE }/DEPARTAMENTOS`
+                        this._ps.getObjectsAny(url).subscribe(
+                          respTask => {
+                            if( respTask.success == true ) {
+                              respTask.tasks.forEach(task => {
+                                  
+                                let depTask: DepartmentTask = {
+                                  department: resp.department._id,
+                                  task: task._id,
+                                  floor: res.floor._id,
+                                  project: res.floor.project._id,
+                                  status: 0,
+                                }
+
+                              });
+                            }
+                          }
+                        );
+
+                        this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );  
+
                       }
                     }
                   );
