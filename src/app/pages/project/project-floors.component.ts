@@ -174,8 +174,6 @@ export class ProjectFloorsComponent implements OnInit {
                                             });
                                           }
                                         });
-
-
                                     }
                                   });
 
