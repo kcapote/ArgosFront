@@ -8,8 +8,8 @@ import { Util } from '../../util/util';
 import { CommonService } from '../../interfaces/common-services.interface';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { IfStmt } from '@angular/compiler';
-import { DepartmentTask } from '../../interfaces/departmentTask.interface';
-import { DepartmentSubTask } from '../../interfaces/departmentSubTask.interface';
+import { CommonServiceTask } from '../../interfaces/commonServiceTask.interface';
+import { CommonServiceSubTask } from '../../interfaces/commonServiceSubTask.interface';
 
 @Component({
   selector: 'app-project-common',
@@ -102,7 +102,7 @@ export class ProjectCommonComponent implements OnInit {
     
        Object.keys(this.form.value).forEach(
           res => {
-            console.log(ValidTypesTasks[res]);
+            console.log(res);
             
             for(let i=0; i <  this.form.controls[res].value; i++){
               let d: any = {
@@ -112,12 +112,9 @@ export class ProjectCommonComponent implements OnInit {
                 status: 0    
               }
               this._ps.saveObject(Util.URL_COMMON_SERVICES,d).subscribe(
-                result => { 
+                resp => { 
 
-                  if( result.success == true ) {
-
-                    /*
-
+                  if( resp.success == true ) {
                     //se guardan automaticamente las tareas
                     let url = `${ Util.URL_TASKS_BY_TYPE }/${ res }`
                     this._ps.getObjectsAny(url).subscribe(
@@ -126,15 +123,15 @@ export class ProjectCommonComponent implements OnInit {
                         if( respTask.success == true ) {
                           respTask.tasks.forEach(task => {
 
-                            let depTask: DepartmentTask = {
-                              department: resp.department._id,
+                            let commonTask: CommonServiceTask = {
+                              commonService: resp._id,
                               task: task._id,
-                              floor: res.floor._id,
-                              project: res.floor.project,
-                              status: 0,
+                              type: res,
+                              project: resp.project,
+                              status: 0
                             }
 
-                            this._ps.saveObject(Util.URL_DEPARTMENTS_TASKS, depTask).subscribe(
+                            this._ps.saveObject(Util.URL_COMMON_SERVICES_TASKS, commonTask).subscribe(
                               respSaveTasks => {
                                 if( respSaveTasks.success == true ) {
                                   //se guardan automaticamente las sub tareas
@@ -142,15 +139,17 @@ export class ProjectCommonComponent implements OnInit {
                                     respSubTasks => {
                                       if( respSubTasks.success == true ) {
                                         respSubTasks.subTasks.forEach(subtask => {
-                                          let depSubTask: DepartmentSubTask = {
-                                            department: resp.department._id,
+                                          
+                                          let commonSubTask: CommonServiceSubTask = {
+                                            commonService: resp._id,
                                             subTask: subtask._id,
                                             task: task._id,
-                                            floor: res.floor._id,
-                                            project: res.floor.project,
-                                            status: 0,
+                                            type: res,
+                                            project: resp.project,
+                                            status: 0
                                           }
-                                          this._ps.saveObject(Util.URL_DEPARTMENTS_SUB_TASKS, depSubTask).subscribe(
+
+                                          this._ps.saveObject(Util.URL_COMMON_SERVICES_SUB_TASKS, commonSubTask).subscribe(
                                             respSaveTasks => {
                                               if( respSaveTasks.success == true ) {
                                               }
@@ -164,7 +163,7 @@ export class ProjectCommonComponent implements OnInit {
                           });
                         }
                       }
-                    );*/
+                    );
                   }
   
                 }
