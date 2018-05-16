@@ -33,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProjectCommonComponent } from './project/project-common.component';
 import { ProjectEmployeesComponent } from './project/project-employees.component';
 import { HomeComponent } from './home/home.component';
-import { GanttComponent } from './gantt/gantt.component';
+import { GanttDepartmentsComponent } from './gantt/gantt-departments.component';
+import { GanttFloorsComponent } from './gantt/gantt-floors.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { GanttComponent } from './gantt/gantt.component';
      ProjectCommonComponent,
      ProjectEmployeesComponent,
      HomeComponent,
-     GanttComponent         
+     GanttDepartmentsComponent,
+     GanttFloorsComponent         
 
    ],
    exports: [ 

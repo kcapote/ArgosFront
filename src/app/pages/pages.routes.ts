@@ -19,7 +19,8 @@ import { FormProjectComponent } from './project/form-project.component';
 import { ProjectCommonComponent } from './project/project-common.component';
 import { ProjectEmployeesComponent } from './project/project-employees.component';
 import { HomeComponent } from './home/home.component';
-import { GanttComponent } from './gantt/gantt.component';
+import { GanttDepartmentsComponent } from './gantt/gantt-departments.component';
+import { GanttFloorsComponent } from './gantt/gantt-floors.component';
 
 
 const app_pages_routes: Routes = [
@@ -44,8 +45,8 @@ const app_pages_routes: Routes = [
         {path: 'employees', component: EmployeeComponent },
         {path: 'projectsCommon/:id', component: ProjectCommonComponent },
         {path: 'projectEmployees/:id', component: ProjectEmployeesComponent },
-        {path: 'gantt/:id', component: GanttComponent },
-        { path: '', redirectTo: '/home', pathMatch: 'full' },
+        {path: 'gantt/:id', component: GanttFloorsComponent },
+        {path: '', redirectTo: '/home', pathMatch: 'full' },
         {path: 'home', component: HomeComponent },
 
         

@@ -25,9 +25,7 @@
     "@fortawesome/fontawesome-free-brands": "^5.0.10",
     "@fortawesome/fontawesome-free-regular": "^5.0.10",
     "@fortawesome/fontawesome-free-solid": "^5.0.10",
-    "@types/dhtmlxgantt": "^4.0.34",
     "core-js": "^2.4.1",
-    "dhtmlx-gantt": "^5.1.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
