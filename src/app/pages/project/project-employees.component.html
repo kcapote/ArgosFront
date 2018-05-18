@@ -1,14 +1,14 @@
-<h2 *ngIf="project" class="space-elements" >Obra: {{ project.name }} </h2>
+<h5 *ngIf="project" class="space-elements">Obra: {{ project.name }} </h5>
 
-<h3 class="main-container">Asignación de Empleados</h3>
+<h5 class="main-container">Asignación de Empleados</h5>
 <hr>
 
 <div class="row">
     <div class="col-md-6 space-elements">
         <div class="input-group">
 
-            <input [(ngModel)] = "term" (keyup)="search()" type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
-           
+            <input [(ngModel)]="term" (keyup)="search()" type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
+
 
         </div>
     </div>
@@ -22,7 +22,7 @@
             <th scope="col">Rut</th>
             <th scope="col">Nombre</th>
             <th scope="col">Tipo</th>
-            <th scope="col">Seleccionados </th>             
+            <th scope="col">Seleccionados </th>
         </tr>
     </thead>
     <tbody>
@@ -31,19 +31,19 @@
             <th scope="row"> {{ item.rut }} </th>
             <td>{{ item.name + " " + item.lastName }} </td>
             <td>{{ item.position['name'] }}</td>
-            <td><input type="checkbox"  (change)="updateSel($event.target.checked, i)" [checked] = "item.sel"  ></td>
+            <td><input type="checkbox" (change)="updateSel($event.target.checked, i)" [checked]="item.sel"></td>
         </tr>
 
     </tbody>
 </table>
 
-<pagination #p [(ngModel)] = "collection" [url] ="model" [term] ="term" collectionName= "employees" [totalRecords]= "totalRecords" ></pagination> 
+<pagination #p [(ngModel)]="collection" [url]="model" [term]="term" collectionName="employees" [totalRecords]="totalRecords"></pagination>
 
 <div class="row space-elements">
-    <div class="col-md-12 text-right" >
-        <button (click)="saveAll()" class="btn btn-success" >
+    <div class="col-md-12 text-right">
+        <button (click)="saveAll()" class="btn btn-success">
             Guardar 
         </button>
-        
+
     </div>
-</div> 
+</div>
