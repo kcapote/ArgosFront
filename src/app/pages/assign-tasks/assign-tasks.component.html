@@ -2,6 +2,52 @@
 
   <div class="form-group">
     <label for="">Proyecto: </label>
-    <combo [url] = "urlProjects"  labelField ="name" nameCollection="projects"></combo>
-
+    <combo [url] = "urlProjects"  labelField ="name" nameCollection="projects"  ></combo>
   </div>
+
+  <div class="form-group">
+      <label for="">Empleado: </label>
+      <combo [url] = "urlEmployees"  labelField ="rut, name" nameCollection="employees"  ></combo> 
+  </div>
+
+  <div class="form-group ">
+      <label>Area: </label>
+      <select class="form-control" >
+          <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
+      </select>
+      
+  </div>
+
+  <div class="text-right main-container">  
+    <button class="btn btn-outline-success">Agregar</button>
+  </div>
+
+  <table class="table table-striped main-container ">
+      <thead class="">
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">Empleado </th>
+              <th scope="col">Area </th>
+              <th scope="col">Tarea </th>
+              <th scope="col">Fecha </th>
+              <th scope="col">Horas </th>
+              <th scope="col" class="text-center">Opciones</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr >
+              <th scope="row"> 1 </th>
+              <td>Kenny Capote </td>
+              <td>Departamentos </td>
+              <td>tarea 1 </td>
+              <td>12/12/2018 </td>
+              <td>9 </td>
+
+              <th scope="col" class="text-center">
+                  <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger" ><i class="far fa-trash-alt"></i></button>
+              </th>
+          </tr>
+  
+      </tbody>
+  </table>
