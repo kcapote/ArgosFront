@@ -18,8 +18,10 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
   @Input() title:string = ""; 
   @Input() url;
-  @Input() labelField: string; 
+  @Input() labelField;
   @Input() nameCollection: string;
+  @Input() filterId;
+
   itemId: string;
   
 
@@ -35,16 +37,25 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   }
 
   ngOnInit() {
+    this.loadElements(this.labelField);
+  }
+
+  
+  loadElements(...arr){
     if(this.url){
       this._ps.getObjects(this.url).subscribe(
           res =>{
             this.collection = res[this.nameCollection];
+            this.collection.map( e => {
+              e['output'] = e[arr[0]] ;
+            })
             //this.itemId = this.collection[0]._id;
             this.propagateChange(this.itemId);
                        
           }
       );     
     }
+
   }
 
   ngAfterViewInit() {
