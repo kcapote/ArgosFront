@@ -24,8 +24,7 @@ export class EmployeeComponent implements OnInit {
   constructor(private _ps:ProviderService,
               private router: Router,
               private _msg: MsgBoxService) {
-      
-      this._ps.getObjects(Util.URL_EMPLOYEE).subscribe(
+     this._ps.getObjectsByFather(Util.URL_EMPLOYEE,"recordActive",0,"true").subscribe(
         res => {
            this.collection = res.employees;
            this.totalRecords = res.totalRecords;         

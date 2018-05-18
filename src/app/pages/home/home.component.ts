@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   constructor(private _ps: ProviderService,
               private router: Router) { 
       
-      _ps.getObjects(Util.URL_POJECTS).subscribe(
+       this._ps.getObjects(Util.URL_POJECTS).subscribe(
          res => {
            this.collection = res.projects;
          }   

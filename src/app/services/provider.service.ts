@@ -17,9 +17,9 @@ export class ProviderService {
         let urlTemp;
          
         if(term) {
-          urlTemp = `${url}/search/${ term }/?pagination=${ pagination }&${ Util.TOKEN }`;
+          urlTemp = `${url}/search/${ term }/true?pagination=${ pagination }&${ Util.TOKEN }`;
         } else {
-          urlTemp = `${url}/?pagination=${ pagination }&${ Util.TOKEN }`;
+          urlTemp = `${url}/recordActive/true?pagination=${ pagination }&${ Util.TOKEN }`;
         }
         
         return this.http.get( urlTemp );                
