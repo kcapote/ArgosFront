@@ -1,30 +1,25 @@
 <br>
 
-<div class="space-elements main-container">
-  <h3>
-    Bienvenido Kenny, ¿Qué proyecto deseas ver?
-  </h3>
-  
+<div class="space-elements main-container table">
+    <h3>
+        Bienvenido, ¿Qué proyecto deseas consultar?
+    </h3>
+
 </div>
 
 <br>
 
 <hr>
 
-<div class="card-columns space-elements">
-  <div *ngFor="let item of collection; let i = index" 
-        class="card  border-light mb-3" style="max-width: 18rem;">
-      <div class="card-header"><strong>{{ item.name }}</strong> </div>
-      <div class="card-body">
-        <h5 class="card-title">Dirección </h5>
-        <p class="card-text">{{ item.adress }}</p>
-        <p class="card-text"><small class="text-muted">{{ item.startDate | date: "dd/MM/yyyy"  }}</small></p>
-        <button (click)="viewGantt(i)" class="btn btn-secondary btn-block "> Ver más... </button>
-      </div>
+<div class="card-columns space-elements table">
+    <div *ngFor="let item of collection; let i = index" class="card  border-light mb-3" style="max-width: 18rem;">
+        <div class="card-header"><strong>{{ item.name }}</strong> </div>
+        <div class="card-body">
+            <strong>Dirección:</strong> {{ item.adress }}<br/>
+            <strong>Constructora:</strong> {{ item.builder }}<br/>
+            <strong>Estatus:</strong> {{ item.status }} %<br/>
+            <strong>Fecha Inicio:</strong> {{ item.startDate | date: "dd/MM/yyyy" }}<br/><br/>
+            <button (click)="viewGantt(i)" class="btn backgroundButtom textColor "> Detalle </button>
+        </div>
     </div>
 </div>
-
-
-
-
-
