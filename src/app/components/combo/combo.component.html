@@ -2,7 +2,7 @@
   <label> {{ title }} </label> -->
 
   <select #combo class="custom-select"  name="combo" (change)="onChange($event.target.value)" [ngModel] = "itemId" > 
-    <option *ngFor="let item of collection; let i = index" [value]="item._id">{{item[labelField]}}</option>
+    <option *ngFor="let item of collection; let i = index" [value]="item._id">{{item['output']}}</option>
   </select>
  
 <!-- </div>  -->

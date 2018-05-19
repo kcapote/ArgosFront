@@ -18,8 +18,13 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
   @Input() title:string = ""; 
   @Input() url;
-  @Input() labelField: string; 
+  @Input() labelField: string;
   @Input() nameCollection: string;
+  @Input() filterId;
+  @Input() separator =" - ";
+  @Input() idFather;
+  @Input() nameFather;
+
   itemId: string;
   
 
@@ -28,24 +33,73 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
   constructor(private _ps: ProviderService) {
      if(this.itemId){
-       console.log(this.itemId);       
+    
        this.propagateChange(this.itemId);
      } 
     
   }
 
   ngOnInit() {
-    if(this.url){
+    this.loadElements(this.labelField.split(",").map( e => e.trim() ) );
+  }
+
+  
+  loadElements(arr:any[]){
+    if(this.url && (!this.idFather && !this.nameFather) ){
+
       this._ps.getObjects(this.url).subscribe(
           res =>{
             this.collection = res[this.nameCollection];
+
+            this.collection.map( e => {
+              e['output'] =  this.concatenateFields(e,arr);               
+            });
+
             //this.itemId = this.collection[0]._id;
             this.propagateChange(this.itemId);
                        
           }
       );     
+    }else if( this.url && this.idFather && this.nameFather ){
+      
+      this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idFather).subscribe(
+        res =>{
+          this.collection = res[this.nameCollection];
+
+          this.collection.map( e => {
+            e['output'] =  this.concatenateFields(e,arr);               
+          });
+
+          //this.itemId = this.collection[0]._id;
+          this.propagateChange(this.itemId);
+                     
+        }
+      );     
+          
+
+
     }
+
+   
+
+
   }
+
+
+
+
+
+  concatenateFields(obj: any, arr:any[] ): string {
+   
+    let str = "";    
+    arr.forEach(
+      a=>{
+        str = str + (str!==""?this.separator:"") + obj[a];
+      }
+    );
+    return str;
+
+  } 
 
   ngAfterViewInit() {
 

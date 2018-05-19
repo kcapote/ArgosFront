@@ -35,6 +35,7 @@ import { ProjectEmployeesComponent } from './project/project-employees.component
 import { HomeComponent } from './home/home.component';
 import { GanttDepartmentsComponent } from './gantt/gantt-departments.component';
 import { GanttFloorsComponent } from './gantt/gantt-floors.component';
+import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { GanttFloorsComponent } from './gantt/gantt-floors.component';
      ProjectEmployeesComponent,
      HomeComponent,
      GanttDepartmentsComponent,
-     GanttFloorsComponent         
+     GanttFloorsComponent,
+     AssignTasksComponent         
 
    ],
    exports: [ 
