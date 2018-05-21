@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PagesModule } from './pages/pages.module';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { ProviderService } from './services/provider.service';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -17,6 +18,7 @@ import { ProviderService } from './services/provider.service';
     AppComponent,
     NavbarComponent,
     PagenotfoundComponent,
+    LoginComponent,
     
   ],
   imports: [
