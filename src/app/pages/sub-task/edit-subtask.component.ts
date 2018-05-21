@@ -40,6 +40,7 @@ export class EditSubtaskComponent implements OnInit {
             this._ps.updateObject(Util.URL_SUB_TASKS,this.idSubTask,this.subTask).subscribe(
               res => {                    
                 if(res.success == true){
+                   
                      this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
                      router.navigate(['/subTasks']);   
                 }
@@ -58,6 +59,7 @@ export class EditSubtaskComponent implements OnInit {
   save(subTask:SubTask) {
 
     this.subTask = subTask;    
+  
     this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
 
   }

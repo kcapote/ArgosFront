@@ -1,26 +1,45 @@
-<form class="main-container " >
+<form class="main-container " [formGroup]="form" >
 
   <div class="form-group">
     <label for="">Proyecto: </label>
-    <combo [url] = "urlProjects"  labelField ="name" nameCollection="projects"  ></combo>
+    <combo [url] = "urlProjects"  labelField ="name" nameCollection="projects" formControlName = "project" (change) ="updateId()" > 
+
+    </combo>
   </div>
 
-  <div class="form-group">
+  <div  class="form-group">
       <label for="">Empleado: </label>
-      <combo [url] = "urlEmployees"  labelField ="rut, name" nameCollection="employees"  ></combo> 
+      <combo #em [url] = "urlEmployees" formControlName="employee" labelField ="employee.rut, employee.name" 
+                    nameCollection="employeeProjects" nameFather = "project"  [(idFather)] = "idProject"></combo> 
   </div>
+ 
+
+
 
   <div class="form-group ">
       <label>Area: </label>
-      <select class="form-control" >
+      <select class="form-control"  formControlName ="area" >
           <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
       </select>
       
   </div>
 
-  <div class="text-right main-container">  
-    <button class="btn btn-outline-success">Agregar</button>
+  <div class="row">
+
+    <div class="form-group" *ngIf="form.get('area').value == 'DEPARTAMENTOS' && idProject " >
+        <label for="">Pisos</label>
+        <combo #em [url] = "urlFloors" formControlName="floor" labelField ="number, type" 
+                    nameCollection="floors" nameFather = "project"  [(idFather)] = "idProject" separator=" - " ></combo>    
+    </div>
+
+
+    <div class="text-right main-container">  
+       <button class="btn btn-outline-success">Agregar</button>
+    </div>
+   
   </div>
+  
+  {{ form.value | json }}
 
   <table class="table table-striped main-container ">
       <thead class="">
@@ -41,7 +60,7 @@
               <td>Departamentos </td>
               <td>tarea 1 </td>
               <td>12/12/2018 </td>
-              <td>9 </td>
+              <td>9-</td>
 
               <th scope="col" class="text-center">
                   <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button>
@@ -51,3 +70,4 @@
   
       </tbody>
   </table>
+

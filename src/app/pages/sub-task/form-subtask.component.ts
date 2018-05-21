@@ -33,9 +33,14 @@ export class FormSubtaskComponent implements OnInit, AfterViewInit {
   }
 
 
-  getSubTask(): SubTask{
+  getSubTask(): SubTask {
+      if(this.idSubTask){
+        this.subTask._id = this.idSubTask 
+      }
       
       this.subTask = this.form.value;
+      console.log(this.subTask);
+      
       return this.subTask;
 
   }
@@ -53,7 +58,6 @@ export class FormSubtaskComponent implements OnInit, AfterViewInit {
                       'name': this.subTask.name,
                       'task': this.subTask.task._id,
                       'position': this.subTask.position
-
                     }
 
                 )
