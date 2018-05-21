@@ -25,7 +25,7 @@ import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
 
 
 const app_pages_routes: Routes = [
-    {path: '', component: PagesComponent,
+    {path: 'pages', component: PagesComponent,
       children: [
         {path: 'tasks', component: TasksComponent},
         {path: 'newTask', component: NewTaskComponent},
@@ -48,7 +48,7 @@ const app_pages_routes: Routes = [
         {path: 'projectEmployees/:id', component: ProjectEmployeesComponent },
         {path: 'assignTasks', component: AssignTasksComponent },
         {path: 'gantt/:id', component: GanttFloorsComponent },
-        {path: '', redirectTo: '/home', pathMatch: 'full' },
+        {path: '', redirectTo: '/pages/home', pathMatch: 'full' },
         {path: 'home', component: HomeComponent },
 
         

@@ -36,10 +36,12 @@ import { HomeComponent } from './home/home.component';
 import { GanttDepartmentsComponent } from './gantt/gantt-departments.component';
 import { GanttFloorsComponent } from './gantt/gantt-floors.component';
 import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
+import { NavbarComponent } from '../components/navbar/navbar.component';
 
 
 @NgModule({
    declarations: [
+     NavbarComponent,        
      TasksComponent,
      PagesComponent,
      FormTaskComponent,
@@ -71,7 +73,7 @@ import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
      HomeComponent,
      GanttDepartmentsComponent,
      GanttFloorsComponent,
-     AssignTasksComponent         
+     AssignTasksComponent
 
    ],
    exports: [ 
@@ -79,8 +81,7 @@ import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
       PagesComponent,
       FormTaskComponent,
       NewTaskComponent,
-      EditTaskComponent
-      
+      EditTaskComponent      
 
    ],
    imports: [
