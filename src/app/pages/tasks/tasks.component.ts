@@ -62,7 +62,7 @@ export class TasksComponent implements OnInit {
 
   edit(id: string) {
     
-    this.router.navigate(['/editTask',id])
+    this.router.navigate(['/pages/editTask',id])
 
   }
 
