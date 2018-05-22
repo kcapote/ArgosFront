@@ -19,7 +19,8 @@ export class Util {
     public static  URL_DEPARTMENTS_SUB_TASKS  = `${ Util.URL_SERVER }/departmentsubtask`;
     public static  URL_COMMON_SERVICES_TASKS  = `${ Util.URL_SERVER }/commonservicetask`;
     public static  URL_COMMON_SERVICES_SUB_TASKS  = `${ Util.URL_SERVER }/commonservicesubtask`;
-    
+    public static  URL_LOGIN  = `${ Util.URL_SERVER }/security/login/`;
+
     
     
     

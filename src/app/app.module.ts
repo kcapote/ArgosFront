@@ -8,6 +8,7 @@ import { PagesModule } from './pages/pages.module';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { ProviderService } from './services/provider.service';
 import { LoginComponent } from './login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,14 +18,15 @@ import { LoginComponent } from './login/login.component';
   declarations: [
     AppComponent,    
     PagenotfoundComponent,
-    LoginComponent,
-    
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     APP_ROUTES,
     HttpClientModule,
-    PagesModule
+    PagesModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [ProviderService],
   bootstrap: [AppComponent]
