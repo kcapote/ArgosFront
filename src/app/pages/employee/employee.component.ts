@@ -55,7 +55,7 @@ export class EmployeeComponent implements OnInit {
 
   edit(id: string) {
     
-    this.router.navigate(['/editEmployee',id])
+    this.router.navigate(['/pages/editEmployee',id])
 
   }
 

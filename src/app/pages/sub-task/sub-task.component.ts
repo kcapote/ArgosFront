@@ -55,7 +55,7 @@ export class SubTaskComponent implements OnInit {
   
   edit(id: string) {
     
-    this.router.navigate(['/editSubTask',id])
+    this.router.navigate(['/pages/editSubTask',id])
 
   }
 

@@ -57,7 +57,7 @@ export class PositionComponent implements OnInit {
 
   edit(id: string) {
     
-    this.router.navigate(['/editPosition',id])
+    this.router.navigate(['/pages/editPosition',id])
 
   }
 
