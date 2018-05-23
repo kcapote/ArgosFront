@@ -20,6 +20,8 @@ export class Util {
     public static  URL_COMMON_SERVICES_TASKS  = `${ Util.URL_SERVER }/commonservicetask`;
     public static  URL_COMMON_SERVICES_SUB_TASKS  = `${ Util.URL_SERVER }/commonservicesubtask`;
     public static  URL_LOGIN  = `${ Util.URL_SERVER }/security/login/`;
+    public static  URL_LOGON  = `${ Util.URL_SERVER }/security/logon`;
+
 
     
     

@@ -16,10 +16,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   constructor(private _ps: ProviderService,
-    private router: Router,
-    private _msg: MsgBoxService) { 
-
-    }
+              private router: Router,
+              private _msg: MsgBoxService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
