@@ -70,9 +70,11 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
     }  
 
     if(this.url && (!this.nameFather && !this.idF) ){
-
+      
       this._ps.getObjects(this.url).subscribe(
           res =>{
+            console.log(res);
+            
             this.collection = res[this.nameCollection];
             
             this.collection.map( e => {
@@ -97,6 +99,8 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
         }
       ); 
     }
+
+
 
     
     

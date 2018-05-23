@@ -16,10 +16,15 @@ export class AssignTasksComponent implements OnInit {
   urlEmployees: string = Util.URL_PROJECT_EMPLOYEES;
   urlFloors: string = Util.URL_FLOORS;
   urlDepartments: string = Util.URL_DEPARTMENTS;
-  urlSubtaskDepartments: string = "";
+  urlTasks = Util.URL_TASKS;
+  urlSubTasks = Util.URL_SUB_TASKS;
+
   form: FormGroup;
   idProject = "";
   idFloor = "";
+  taskType = ""
+  idTask = "";
+  
   
 
   enumType = Object.keys(ValidTypesTasks).map(
@@ -46,7 +51,9 @@ export class AssignTasksComponent implements OnInit {
         employee: new FormControl('',Validators.required),
         area: new FormControl('', Validators.required),
         floor: new FormControl(),
-        department: new FormControl()   
+        department: new FormControl(),
+        subtask: new FormControl(),
+        task: new FormControl()   
       }
 
     )
@@ -60,6 +67,14 @@ export class AssignTasksComponent implements OnInit {
   
   updateIdFloor(){
     this.idFloor = this.form.get('floor').value;
-  }  
+  } 
+  
+  updateType(){
+    this.taskType = this.form.get('area').value;
+  }
+  
+  updateIdTask(){
+    this.idTask = this.form.get('task').value;
+  }
 
 }

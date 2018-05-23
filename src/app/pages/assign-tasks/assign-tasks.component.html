@@ -1,62 +1,100 @@
 <form class="main-container" [formGroup]="form" >
 
-  <div class="form-group">
-    <label for="">Proyecto: </label>
-    <combo [url] = "urlProjects"  labelField ="name" nameCollection="projects" formControlName = "project" (change) ="updateId()" > 
+<div class="card " >
+    <div class="card-body">
+        <h5 class="card-title col-md-12"><i class="fas fa-address-card configureIcon"></i>Datos del Proyecto </h5>
 
-    </combo>    
-  </div>
+            <div class="row">
+            
+                <div class="form-group col-md-6">
+                    <label for="">Proyecto: </label>
+                    <combo [url] = "urlProjects"  labelField ="name" nameCollection="projects" formControlName = "project" (change) ="updateId()" > 
 
-  <div  class="form-group">
-      <label for="">Empleado: </label>
-      <combo [url] = "urlEmployees" formControlName="employee" labelField ="employee.rut, employee.name" 
-                    nameCollection="employeeProjects" nameFather = "project"  [(idFather)] = "idProject"></combo> 
-  </div>
- 
-
+                    </combo>    
+                </div>
 
 
-  <div class="form-group ">
-      <label>Area: </label>
-      <select class="form-control"  formControlName ="area" >
-          <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
-      </select>
-      
-  </div>
+                <div class="form-group col-md-6">
+                    <label>Área: </label>
+                    <select class="form-control"  formControlName ="area"  (change)="updateType()">
+                        <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
+                    </select>
+                    
+                </div>
 
-  <div >
+            </div> 
 
-    <div *ngIf="form.get('area').value == 'DEPARTAMENTOS'  && idProject " class="row" >
-        <div class="form-group col"  >
-            <label for="">Pisos</label>
-            <combo [url] = "urlFloors" formControlName="floor" labelField ="number, type" (change) = "updateIdFloor()"
-                        nameCollection="floors" nameFather = "project"  [(idFather)] = "idProject" separator=" - " ></combo>    
-        </div>
+            <div class="row">
 
-        <div class="form-group col"  >
-            <label for="">Departamentos</label>
-            <combo [url] = "urlDepartments" formControlName="department" labelField ="number" 
-                        nameCollection="departments" nameFather = "floor"  [(idFather)] = "idFloor"   ></combo>    
-        </div> 
+                <div class="form-group col-md-6" >
+                    <label for="">Faenas</label>
+                    <combo [url] = "urlTasks" formControlName="task" labelField ="name" nameFather = "type" [(idFather)] = "taskType"
+                    nameCollection="tasks" (change)="updateIdTask()" ></combo>    
+                </div> 
+                
+                <div class="form-group col-md-6" >
+                    <label for="">Tarea</label>
+                    <combo [url] = "urlSubTasks" formControlName="subtask" labelField ="name" nameFather = "task" [(idFather)] = "idTask"
+                    nameCollection="subTasks"  ></combo>    
+                </div> 
+            </div>
+
+
+            <div *ngIf="form.get('area').value == 'DEPARTAMENTOS'  && idProject " class="row" >
+                <div class="form-group col-md-6"  >
+                    <label for="">Pisos</label>
+                    <combo [url] = "urlFloors" formControlName="floor" labelField ="number, type" (change) = "updateIdFloor()"
+                                nameCollection="floors" nameFather = "project"  [(idFather)] = "idProject" separator=" - " ></combo>    
+                </div>
         
-        <div class="form-group col"  >
-            <label for="">Tareas</label>
-            <combo [url] = "urlDepartments" formControlName="department" labelField ="number" 
-            nameCollection="departments" nameFather = "floor"  [(idFather)] = "idFloor"   ></combo>    
-        </div> 
-        
-        <div class="text-right main-container">  
-            <button class="btn btn-outline-success">Agregar</button>
-        </div>
-    
-        
+                <div class="form-group col-md-6"  >
+                    <label for="">Departamentos</label>
+                    <combo [url] = "urlDepartments" formControlName="department" labelField ="number" 
+                                nameCollection="departments" nameFather = "floor"  [(idFather)] = "idFloor"   ></combo>    
+                </div> 
+                    
+            </div>
+                
     </div>
+</div>
+  <br>
+
+<div class="card " >
+    <div class="card-body">
+        <h5 class="card-title col-md-12"><i class="fas fa-address-card configureIcon"></i> Datos del empleado </h5>  
+            
+            <div class="row">
+
+                <div  class="form-group col-md-4">
+                    <label for="">Empleado: </label>
+                    <combo [url] = "urlEmployees" formControlName="employee" labelField ="employee.rut, employee.name" 
+                    nameCollection="employeeProjects" nameFather = "project"  [(idFather)] = "idProject"></combo> 
+                </div>
+
+                <div  class="form-group col-md-4">
+                    <label for="">Fecha: </label>
+                    <input class="form-control" type="date" > 
+                </div>
+
+                
+                <div  class="form-group col-md-4">
+                    <label for="">Horas: </label>
+                    <input class="form-control" type="number" > 
+                </div>
+                
+            </div>
+            <div class="text-right main-container">  
+                <button class="btn btn-outline-success">Agregar</button>
+            </div>
+
+    </div>
+ </div>           
 
 
 
 
    
-  </div>
+
   
 
 
