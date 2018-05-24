@@ -73,7 +73,7 @@ export class AssignTasksComponent implements OnInit {
   
   updateType(){
     this.taskType = this.form.get('area').value;
-    this.urlCommonServices = this.urlCommonServices + 
+    //this.urlCommonServices = this.urlCommonServices + 
 
   }
   
