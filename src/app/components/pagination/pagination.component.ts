@@ -55,6 +55,7 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
     if(this.term > 0){  
     this._ps.getObjects(this.url, this.numberPage,this.term ).subscribe(
         res => {
+            this._ps.refresToken(res);
             this.collection = res[this.collectionName];
             this.propagateChange(this.collection);
             this.change.emit(true);                       
@@ -63,7 +64,8 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
     }else{
       this._ps.getObjects(this.url, this.numberPage).subscribe(
         res => {
-           this.collection = res[this.collectionName];
+          this._ps.refresToken(res);
+          this.collection = res[this.collectionName];
           this.propagateChange(this.collection);
           this.change.emit(true);
         }  
@@ -80,16 +82,18 @@ export class PaginationComponent implements OnInit, ControlValueAccessor {
     if(this.term > 0){  
     this._ps.getObjects(this.url, this.numberPage,this.term ).subscribe(
         res => {
-            this.totalRecords = res.totalRecords;
-            this.collection = res[this.collectionName];
-            this.propagateChange(this.collection);
-            this.change.emit(true);                       
+          this._ps.refresToken(res);  
+          this.totalRecords = res.totalRecords;
+          this.collection = res[this.collectionName];
+          this.propagateChange(this.collection);
+          this.change.emit(true);                       
         }  
     );
     }else{
       
       this._ps.getObjects(this.url, this.numberPage).subscribe(
         res => {
+          this._ps.refresToken(res);
           this.totalRecords = res.totalRecords;
           this.collection = res[this.collectionName];
           this.propagateChange(this.collection);

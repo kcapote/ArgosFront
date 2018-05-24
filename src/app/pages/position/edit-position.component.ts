@@ -38,6 +38,7 @@ export class EditPositionComponent implements OnInit {
                       
             this._ps.updateObject(Util.URL_POSITIONS,this.idPosition,this.item).subscribe(
               res => {                    
+                this._ps.refresToken(res);
                 if(res.success == true){
                      this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
                      router.navigate(['/positions']);   

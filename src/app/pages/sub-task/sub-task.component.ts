@@ -26,8 +26,9 @@ export class SubTaskComponent implements OnInit {
       
       _ps.getObjects(Util.URL_SUB_TASKS).subscribe(
           res => {
-               this.collection = res.subTasks;
-               this.totalRecords = res.totalRecords;
+            this._ps.refresToken(res);   
+            this.collection = res.subTasks;
+            this.totalRecords = res.totalRecords;
           }
 
       );
@@ -37,6 +38,7 @@ export class SubTaskComponent implements OnInit {
             if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
                 this._ps.deleteObject(Util.URL_SUB_TASKS,this.idSubTasks).subscribe(
                     res => {                        
+                        this._ps.refresToken(res);
                         if(res.success == true) {
                             this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
                             this.collection.splice(this.idxSel,1); 
@@ -74,6 +76,7 @@ export class SubTaskComponent implements OnInit {
     if(this.term.length>0){
        this._ps.getObjects(Util.URL_SUB_TASKS,0,this.term ).subscribe(
            res => {
+               this._ps.refresToken(res);
                console.log(res);
                
                this.collection = res.subTasks;
@@ -83,8 +86,9 @@ export class SubTaskComponent implements OnInit {
    }else{
        this._ps.getObjects(Util.URL_SUB_TASKS).subscribe(
            res => {
-              this.collection = res.subTasks;
-              this.totalRecords = res.totalRecords;
+                this._ps.refresToken(res);  
+                this.collection = res.subTasks;
+                this.totalRecords = res.totalRecords;
            }
        );
    } 

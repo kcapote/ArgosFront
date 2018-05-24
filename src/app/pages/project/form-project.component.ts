@@ -35,6 +35,7 @@ export class FormProjectComponent implements OnInit {
                 this.title = "Editar Proyecto";  
                 _ps.getObject(Util.URL_POJECTS,this.idProject).subscribe(
                     res => {
+                        this._ps.refresToken(res);
                         console.log(res);                        
                         this.item = res.projects[0];
                         delete this.item['__v'];                        
@@ -113,6 +114,7 @@ export class FormProjectComponent implements OnInit {
               if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
                 this._ps.updateObject(Util.URL_POJECTS,this.idProject,this.item).subscribe(
                   res => {                    
+                    this._ps.refresToken(res);
                     if(res.success == true){                        
                          this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS).subscribe(
                            res => this.router.navigate(['/projectsFloors',this.idProject])
@@ -128,6 +130,7 @@ export class FormProjectComponent implements OnInit {
  
         this._ps.saveObject(Util.URL_POJECTS,this.item).subscribe(
           res => {
+            this._ps.refresToken(res);
             if( res.success == true ) {              
               this.idProject = res.project._id;      
               this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(

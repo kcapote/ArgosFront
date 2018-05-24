@@ -26,6 +26,7 @@ export class GanttFloorsComponent implements OnInit {
               this.idProject = p['id'];
               this._ps.getObjectsByFather(Util.URL_FLOORS,'project',0, this.idProject).toPromise().then(
                     res=> { 
+                      this._ps.refresToken(res);
                       this.collectionFloors = res.floors;
                     }                    
               ).catch(
@@ -39,7 +40,8 @@ export class GanttFloorsComponent implements OnInit {
 
       _ps.getObjects(Util.URL_TASKS).toPromise().then(
         res => {
-            this.collectionTask = res.tasks;
+          this._ps.refresToken(res);  
+          this.collectionTask = res.tasks;
         }
       ).catch(
         error => {

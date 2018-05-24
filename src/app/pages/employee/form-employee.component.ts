@@ -72,7 +72,7 @@ export class FormEmployeeComponent implements OnInit, AfterViewInit {
 
       this._ps.getObject(Util.URL_EMPLOYEE, this.idEmployee).subscribe(
           res => {
-              
+              this._ps.refresToken(res);
               this.item = res.employees[0];
               //this.collection = this.item.subTask;
               this.form.setValue({

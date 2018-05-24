@@ -38,6 +38,7 @@ export class NewEmployeeComponent implements OnInit {
   
     this._ps.saveObject(Util.URL_EMPLOYEE,employee).subscribe(
         res => {
+          this._ps.refresToken(res);
           if( res.success == true ) {
             this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );      
           }          

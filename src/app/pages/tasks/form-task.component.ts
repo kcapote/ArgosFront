@@ -55,7 +55,7 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
 
       this._ps.getObject(Util.URL_TASKS, this.idTask).subscribe(
           res => {
-              
+              this._ps.refresToken(res);
               this.item = res.task;
               //this.collection = this.item.subTask;
               this.form.setValue({

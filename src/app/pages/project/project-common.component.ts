@@ -54,6 +54,7 @@ export class ProjectCommonComponent implements OnInit {
 
     this._ps.getObjectsByFather(Util.URL_COMMON_SERVICES,'project',0,this.idProject).subscribe(
       res => {
+        this._ps.refresToken(res);
         console.log(res);
         
         this.existRecords = res.totalRecords > 0 ? true: false;
@@ -113,13 +114,13 @@ export class ProjectCommonComponent implements OnInit {
               }
               this._ps.saveObject(Util.URL_COMMON_SERVICES,d).subscribe(
                 resp => { 
-
+                  this._ps.refresToken(res);
                   if( resp.success == true ) {
                     //se guardan automaticamente las tareas
                     let url = `${ Util.URL_TASKS_BY_TYPE }/${ res }`
                     this._ps.getObjectsAny(url).subscribe(
                       respTask => {
-
+                        this._ps.refresToken(respTask);
                         if( respTask.success == true ) {
                           respTask.tasks.forEach(task => {
 
@@ -133,10 +134,12 @@ export class ProjectCommonComponent implements OnInit {
 
                             this._ps.saveObject(Util.URL_COMMON_SERVICES_TASKS, commonTask).subscribe(
                               respSaveTasks => {
+                                this._ps.refresToken(respSaveTasks);
                                 if( respSaveTasks.success == true ) {
                                   //se guardan automaticamente las sub tareas
                                   this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id).subscribe(
                                     respSubTasks => {
+                                      this._ps.refresToken(respSubTasks);
                                       if( respSubTasks.success == true ) {
                                         respSubTasks.subTasks.forEach(subtask => {
                                           
@@ -151,6 +154,7 @@ export class ProjectCommonComponent implements OnInit {
 
                                           this._ps.saveObject(Util.URL_COMMON_SERVICES_SUB_TASKS, commonSubTask).subscribe(
                                             respSaveTasks => {
+                                              this._ps.refresToken(respSaveTasks);
                                               if( respSaveTasks.success == true ) {
                                               }
                                             });

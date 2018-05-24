@@ -26,6 +26,7 @@ export class EmployeeComponent implements OnInit {
               private _msg: MsgBoxService) {
      this._ps.getObjectsByFather(Util.URL_EMPLOYEE,"recordActive",0,"true").subscribe(
         res => {
+           this._ps.refresToken(res);
            this.collection = res.employees;
            this.totalRecords = res.totalRecords;         
         }
@@ -35,7 +36,8 @@ export class EmployeeComponent implements OnInit {
         res => {
             if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
                 this._ps.deleteObject(Util.URL_EMPLOYEE,this.id).subscribe(
-                    res => {                        
+                    res => { 
+                        this._ps.refresToken(res);                       
                         if(res.success == true) {
                             this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
                             this.collection.splice(this.idxSel,1); 
@@ -71,6 +73,7 @@ export class EmployeeComponent implements OnInit {
     if(this.term.length>0){
        this._ps.getObjects(Util.URL_EMPLOYEE,0 ,this.term ).subscribe(
            res => {
+               this._ps.refresToken(res);
                this.collection = res.employees;
                this.totalRecords = res.totalRecords;
            }   
@@ -78,6 +81,7 @@ export class EmployeeComponent implements OnInit {
    }else{
        this._ps.getObjects(Util.URL_EMPLOYEE).subscribe(
            res => {
+              this._ps.refresToken(res); 
               this.collection = res.employees;
               this.totalRecords = res.totalRecords;
            }

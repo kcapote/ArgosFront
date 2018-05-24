@@ -33,11 +33,12 @@ export class EditEmployeeComponent implements OnInit {
       );
       
       this._msg.notify.subscribe(
-        res => {            
+        res => {
             if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
                         
               this._ps.updateObject(Util.URL_EMPLOYEE,this.idEmployee,this.item).subscribe(
-                res => {                    
+                res => {
+                  this._ps.refresToken(res);                     
                   if(res.success == true){
                        this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
                        router.navigate(['/employees']);   

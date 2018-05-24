@@ -39,6 +39,7 @@ export class NewPositionComponent implements OnInit {
   
     this._ps.saveObject(Util.URL_POSITIONS,position).subscribe(
         res => {
+          this._ps.refresToken(res);
           if( res.success == true ) {
             console.log(res.headers);            
             this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );      

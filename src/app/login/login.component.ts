@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     this._ps.saveObject(Util.URL_LOGIN, obj).subscribe(
       res => {                    
         if(res.success == true){
-            localStorage.setItem('user',JSON.stringify(res.user));
+            this._ps.refresToken(res);
             this.router.navigate(['/pages/home']);   
         }else{
              console.log(res);

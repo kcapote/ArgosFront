@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit {
       
        this._ps.getObjects(Util.URL_POJECTS).subscribe(
          res => {
+           console.log(res);
+           
+           this._ps.refresToken(res);
            this.collection = res.projects;
          }   
       );
