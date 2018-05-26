@@ -18,6 +18,7 @@ export class AssignTasksComponent implements OnInit {
   urlDepartments: string = Util.URL_DEPARTMENTS;
   urlTasks = Util.URL_TASKS;
   urlSubTasks = Util.URL_SUB_TASKS;
+  urlCommonServices = Util.URL_COMMON_SERVICES;
 
   form: FormGroup;
   idProject = "";
@@ -53,7 +54,8 @@ export class AssignTasksComponent implements OnInit {
         floor: new FormControl(),
         department: new FormControl(),
         subtask: new FormControl(),
-        task: new FormControl()   
+        task: new FormControl(),
+        commonServices: new FormControl()   
       }
 
     )
@@ -71,6 +73,8 @@ export class AssignTasksComponent implements OnInit {
   
   updateType(){
     this.taskType = this.form.get('area').value;
+    //this.urlCommonServices = this.urlCommonServices + 
+
   }
   
   updateIdTask(){
