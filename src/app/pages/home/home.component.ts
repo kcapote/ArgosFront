@@ -18,9 +18,7 @@ export class HomeComponent implements OnInit {
               private router: Router) { 
       
        this._ps.getObjects(Util.URL_POJECTS).subscribe(
-         res => {
-           console.log(res);
-           
+         res => {           
            this._ps.refresToken(res);
            this.collection = res.projects;
          }   
