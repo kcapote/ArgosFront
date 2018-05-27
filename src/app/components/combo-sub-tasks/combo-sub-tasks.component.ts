@@ -36,6 +36,7 @@ export class ComboSubTasksComponent implements OnInit, ControlValueAccessor {
         
         this._ps.getObjects( url ).subscribe(
           res => {
+            this._ps.refresToken(res); 
             this.collection = res.subTasks;
             this.itemId = this.collection[0]._id;
             this.propagateChange(this.itemId)

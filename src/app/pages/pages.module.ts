@@ -37,6 +37,10 @@ import { GanttDepartmentsComponent } from './gantt/gantt-departments.component';
 import { GanttFloorsComponent } from './gantt/gantt-floors.component';
 import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
+import { UserComponent } from './user/user.component';
+import { NewUserComponent } from './user/new-user.component';
+import { FormUserComponent } from './user/form-user.component';
+import { EditUserComponent } from './user/edit-user.component';
 
 
 @NgModule({
@@ -73,7 +77,11 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
      HomeComponent,
      GanttDepartmentsComponent,
      GanttFloorsComponent,
-     AssignTasksComponent
+     AssignTasksComponent,
+     UserComponent,
+     NewUserComponent,
+     FormUserComponent,
+     EditUserComponent
 
    ],
    exports: [ 

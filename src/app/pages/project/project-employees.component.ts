@@ -44,6 +44,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     //Obtengo el nombre del proyecto
     this._ps.getObject(Util.URL_POJECTS,this.idProject).subscribe(
         res => {
+          this._ps.refresToken(res);
           this.project = res.projects[0];
         }
     )
@@ -51,6 +52,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     //cargo la lista de empleados
     this._ps.getObjects(Util.URL_EMPLOYEE).subscribe(
         res => {
+          this._ps.refresToken(res);
           this.collection = res.employees;
           this.totalRecords = res.totalRecords;         
         }
@@ -65,7 +67,8 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
       //Cargo los empleados del proyecto
       this._ps.getObjectsByFather(Util.URL_PROJECT_EMPLOYEES,"project",0,this.idProject).subscribe(
         res => {
-            this.selCollection = res.employeeProjects;
+          this._ps.refresToken(res);  
+          this.selCollection = res.employeeProjects;
             this.selCollection.forEach(
                r => {
                  r.load = true;
@@ -228,7 +231,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     )
     this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS).subscribe(
       res => {
-          this.router.navigate(['/projects']);
+          this.router.navigate(['/pages/projects']);
       }
     )
   }

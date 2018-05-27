@@ -60,6 +60,7 @@ export class FormPositionComponent implements OnInit {
       if(this.idPosition){
         this._ps.getObject(Util.URL_POSITIONS, this.idPosition).subscribe(
             res =>{
+              this._ps.refresToken(res);
               console.log(res);
               this.item = res.position;
               this.item['_id'] = this.idPosition; 

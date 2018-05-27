@@ -28,8 +28,9 @@ export class TasksComponent implements OnInit {
 
     this._ps.getObjects(Util.URL_TASKS).subscribe(
         res => {
-           this.collection = res.tasks;
-           this.totalRecords = res.totalRecords;  
+            this._ps.refresToken(res);
+            this.collection = res.tasks;
+            this.totalRecords = res.totalRecords;  
         }
 
     );
@@ -40,6 +41,7 @@ export class TasksComponent implements OnInit {
                               
                 this._ps.deleteObject(Util.URL_TASKS,this.idTasks).subscribe(
                     res => {                                   
+                        this._ps.refresToken(res);
                         if(res.success == true) {
                             this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
                             this.collection.splice(this.idxSel,1);
@@ -79,6 +81,7 @@ export class TasksComponent implements OnInit {
      if(this.term.length>0){
         this._ps.getObjects(Util.URL_TASKS, 0 ,this.term ).subscribe(
             res => {              
+                this._ps.refresToken(res);
                 this.collection = res.tasks;
                 this.totalRecords = res.totalRecords; 
             }   
@@ -86,7 +89,8 @@ export class TasksComponent implements OnInit {
     }else{
         this._ps.getObjects(Util.URL_TASKS).subscribe(
             res => {
-               this.collection = res.tasks;
+                this._ps.refresToken(res);
+                this.collection = res.tasks;
                this.totalRecords = res.totalRecords; 
             }
         );

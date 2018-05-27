@@ -73,7 +73,8 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
       
       this._ps.getObjects(this.url).subscribe(
           res =>{
-            
+            this._ps.refresToken(res);
+            console.log(res);
             
             this.collection = res[this.nameCollection];
             
@@ -88,7 +89,8 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
       
       this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF).subscribe(
         res =>{
-          //console.log(res);
+          this._ps.refresToken(res);
+          console.log(res);
           
           this.collection = res[this.nameCollection];
          // console.log('el collection ',this.nameCollection, 'es ', this.collection  );

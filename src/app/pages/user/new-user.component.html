@@ -1,0 +1,10 @@
+<app-form-user #user title="Crear Usuario"></app-form-user>
+
+<div class="row space-elements space-footer">
+    <div class="col-md-12 text-right">
+        <button (click)="save(user.getUser())" class="btn btn-outline-success" [disabled]="!user.form.valid">
+              Guardar
+         </button>
+        <button class="btn btn-outline-secondary" (click)="back()">Regresar</button>
+    </div>
+</div>

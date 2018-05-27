@@ -25,7 +25,7 @@ export class NewSubTaskComponent implements OnInit {
     this._msg.notify.subscribe(
       res => {
         if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
-          router.navigate(['/subTasks']);  
+          router.navigate(['/pages/subTasks']);  
 
         }
     });
@@ -45,7 +45,8 @@ export class NewSubTaskComponent implements OnInit {
     this.item = subTask;
 
     this._ps.saveObject(Util.URL_SUB_TASKS,subTask).subscribe(
-        res => {        
+        res => {
+          this._ps.refresToken(res);        
           if( res.success == true ) {
             this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );      
           }         

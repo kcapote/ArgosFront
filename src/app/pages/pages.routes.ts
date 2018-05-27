@@ -22,6 +22,10 @@ import { HomeComponent } from './home/home.component';
 import { GanttDepartmentsComponent } from './gantt/gantt-departments.component';
 import { GanttFloorsComponent } from './gantt/gantt-floors.component';
 import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
+import { UserComponent } from './user/user.component';
+import { NewUserComponent } from './user/new-user.component';
+import { EditUserComponent } from './user/edit-user.component';
+
 
 
 const app_pages_routes: Routes = [
@@ -48,6 +52,9 @@ const app_pages_routes: Routes = [
         {path: 'projectEmployees/:id', component: ProjectEmployeesComponent },
         {path: 'assignTasks', component: AssignTasksComponent },
         {path: 'gantt/:id', component: GanttFloorsComponent },
+        {path: 'user', component: UserComponent },
+        {path: 'newUser', component: NewUserComponent },
+        {path: 'editUser/:id', component: EditUserComponent },
         {path: '', redirectTo: '/pages/home', pathMatch: 'full' },
         {path: 'home', component: HomeComponent },
 

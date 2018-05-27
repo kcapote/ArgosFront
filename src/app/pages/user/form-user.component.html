@@ -1,0 +1,74 @@
+<form [formGroup]="form" class="space-elements needs-validation">
+
+    <h5 class="main-container">{{ title }}</h5>
+    <hr>
+
+    <div class="card" style="width: 100%;">
+
+        <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-user configureIcon"></i> Datos del Usuario</h5>
+            <div class="row">
+
+                <div class="form-group col-md-4">
+                    <label>Nombre: </label>
+                    <input [ngClass]="{'is-invalid':!form.controls['name'].valid && !form.get('name').pristine }" type="text" class="form-control" formControlName="name">
+                    <div *ngIf="!form.get('name').errors?.valid && !form.get('name').pristine" class="invalid-feedback">
+                        El nombre es obligatorio
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Apellido: </label>
+                    <input [ngClass]="{'is-invalid':!form.controls['lastName'].valid && !form.get('lastName').pristine }" type="text" class="form-control" formControlName="lastName">
+                    <div *ngIf="!form.get('lastName').errors?.valid && !form.get('lastName').pristine" class="invalid-feedback">
+                        El Apellido es obligatorio
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Correo: </label>
+                    <input [ngClass]="{'is-invalid':!form.get('email').valid && !form.get('email').pristine }" type="text" class="form-control" formControlName="email">
+                    <div *ngIf=" form.get('email').errors?.required && !form.get('email').pristine" class="invalid-feedback">
+                        El Correo es obligatorio
+                    </div>
+                    <div *ngIf=" form.get('email').errors?.email && !form.get('email').pristine" class="invalid-feedback">
+                        El Correo es no es valido
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-md-4">
+                    <label>Role: </label>
+                    <select [ngClass]="{'is-invalid':!form.get('role').valid && !form.get('role').pristine } " name="" id="" class="form-control" formControlName="role">
+                                <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
+                            </select>
+                    <div *ngIf="!form.get('role').errors?.valid && !form.get('role').pristine" class="invalid-feedback">
+                        Es un role obligatorio
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Contraseña: </label>
+                    <input [ngClass]="{'is-invalid':!form.controls['password'].valid && !form.get('password').pristine }" type="text" class="form-control" formControlName="password">
+                    <div *ngIf="!form.get('password').errors?.valid && !form.get('password').pristine" class="invalid-feedback">
+                        La contraseña es obligatoria
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Confirmar Contraseña: </label>
+                    <input [ngClass]="{'is-invalid':!form.controls['password2'].valid && !form.get('password2').pristine }" type="text" class="form-control" formControlName="password2">
+                    <div *ngIf="!form.get('password2').errors?.valid && !form.get('password2').pristine" class="invalid-feedback">
+                        Las contraseña no son iguales
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</form>

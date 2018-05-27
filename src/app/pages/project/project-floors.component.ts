@@ -43,6 +43,7 @@ export class ProjectFloorsComponent implements OnInit {
 
     this._ps.getObjectsByFather(Util.URL_FLOORS,'project',0, this.idProject).subscribe(
       res => {
+        this._ps.refresToken(res);
         this.collection = res.floors;
         this.existFloors = this.collection.length>0? true: false;
         
@@ -53,7 +54,7 @@ export class ProjectFloorsComponent implements OnInit {
     this._msg.notify.subscribe(
       res => {
           if(res.type === Util.ACTION_SUCCESS && res.response === Util.OK_RESPONSE ){
-            this.router.navigate(['projectsCommon',this.idProject]);
+            this.router.navigate(['/pages/projectsCommon',this.idProject]);
           }
       }
     )   
@@ -92,6 +93,7 @@ export class ProjectFloorsComponent implements OnInit {
       this.collection.forEach(element => {
         this._ps.getObjectsByFather(Util.URL_DEPARTMENTS,'floor',0 ,element._id).subscribe(
           res => {
+            this._ps.refresToken(res);
             this.collectionDepts.push(res.departments);
           }
         )      
@@ -121,7 +123,8 @@ export class ProjectFloorsComponent implements OnInit {
         
         this._ps.saveObject(Util.URL_FLOORS, element ).subscribe(
              res => {
-               for(let i=0;i < res.floor.quantityDepartment; i++){
+              this._ps.refresToken(res); 
+              for(let i=0;i < res.floor.quantityDepartment; i++){
                 //Creación de los departamentos del piso  
                               
                 if(res.success==true){
@@ -132,13 +135,14 @@ export class ProjectFloorsComponent implements OnInit {
                    }
                   this._ps.saveObject(Util.URL_DEPARTMENTS, dep).subscribe(
                     resp => {
+                      this._ps.refresToken(res);
                       if( resp.success == true ) {
 
                         //se guardan automaticamente las tareas
                         let url = `${ Util.URL_TASKS_BY_TYPE }/DEPARTAMENTOS`
                         this._ps.getObjectsAny(url).subscribe(
                           respTask => {
-
+                            this._ps.refresToken(respTask);
                             if( respTask.success == true ) {
                               respTask.tasks.forEach(task => {
 
@@ -152,10 +156,12 @@ export class ProjectFloorsComponent implements OnInit {
 
                                 this._ps.saveObject(Util.URL_DEPARTMENTS_TASKS, depTask).subscribe(
                                   respSaveTasks => {
+                                    this._ps.refresToken(respSaveTasks);
                                     if( respSaveTasks.success == true ) {
                                       //se guardan automaticamente las sub tareas
                                       this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id).subscribe(
                                         respSubTasks => {
+                                          this._ps.refresToken(respSubTasks);
                                           if( respSubTasks.success == true ) {
                                             respSubTasks.subTasks.forEach(subtask => {
                                               let depSubTask: DepartmentSubTask = {
@@ -168,6 +174,7 @@ export class ProjectFloorsComponent implements OnInit {
                                               }
                                               this._ps.saveObject(Util.URL_DEPARTMENTS_SUB_TASKS, depSubTask).subscribe(
                                                 respSaveTasks => {
+                                                  this._ps.refresToken(respSaveTasks);
                                                   if( respSaveTasks.success == true ) {
                                                   }
                                                 });
@@ -200,7 +207,7 @@ export class ProjectFloorsComponent implements OnInit {
         
 
      
-        this.router.navigate(['projectsCommon',this.idProject]);
+        this.router.navigate(['/pages/projectsCommon',this.idProject]);
     }
   }
 

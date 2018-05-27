@@ -29,6 +29,7 @@ export class ProjectComponent implements OnInit {
 
      this._ps.getObjects(Util.URL_POJECTS).subscribe(
         res => {
+           this._ps.refresToken(res);
            this.collection = res.projects;
            this.totalRecords = res.totalRecords;   
         }
@@ -40,6 +41,7 @@ export class ProjectComponent implements OnInit {
             if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
                 this._ps.deleteObject(Util.URL_POJECTS,this.id).subscribe(
                     res => {                        
+                        this._ps.refresToken(res);
                         if(res.success == true) {
                             this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
                             this.collection.splice(this.idxSel,1); 
@@ -75,6 +77,7 @@ export class ProjectComponent implements OnInit {
     if(this.term.length>0){
        this._ps.getObjects(URL_POJECTS,0 ,this.term ).subscribe(
            res => {
+               this._ps.refresToken(res);
                this.collection = res.projects;
                this.totalRecords = res.totalRecords;
            }   
@@ -82,6 +85,7 @@ export class ProjectComponent implements OnInit {
    }else{
        this._ps.getObjects(URL_POJECTS).subscribe(
            res => {
+              this._ps.refresToken(res);
               this.collection = res.projects;
               this.totalRecords = res.totalRecords;
            }

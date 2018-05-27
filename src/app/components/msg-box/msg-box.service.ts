@@ -19,10 +19,7 @@ export class MsgBoxService {
   message: string;
 
 
-  constructor() {
-    console.log("msg box service listo");
-    
-
+  constructor() {    
    }
 
   hide() {

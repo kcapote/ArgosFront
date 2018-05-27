@@ -27,7 +27,8 @@ export class PositionComponent implements OnInit {
     
       _ps.getObjects(Util.URL_POSITIONS).subscribe(
           res => {
-             this.collection = res.positions; 
+            this._ps.refresToken(res); 
+            this.collection = res.positions; 
              this.totalRecords = res.totalRecords;
           }
       );
@@ -37,6 +38,7 @@ export class PositionComponent implements OnInit {
             if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
                 this._ps.deleteObject(URL_POSITIONS,this.id).subscribe(
                     res => {                        
+                        this._ps.refresToken(res);
                         if(res.success == true) {
                             this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
                             this.collection.splice(this.idxSel,1); 
@@ -73,14 +75,16 @@ export class PositionComponent implements OnInit {
     if(this.term.length>0){
        this._ps.getObjects(URL_POSITIONS,0 ,this.term ).subscribe(
            res => {
-               this.collection = res.positions;
+            this._ps.refresToken(res);   
+            this.collection = res.positions;
                this.totalRecords = res.totalRecords;
            }   
        )       
    }else{
        this._ps.getObjects(URL_POSITIONS).subscribe(
            res => {
-              this.collection = res.positions;
+            this._ps.refresToken(res);  
+            this.collection = res.positions;
               this.totalRecords = res.totalRecords;
            }
        );

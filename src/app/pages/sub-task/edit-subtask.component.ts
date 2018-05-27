@@ -38,11 +38,12 @@ export class EditSubtaskComponent implements OnInit {
           if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
                       
             this._ps.updateObject(Util.URL_SUB_TASKS,this.idSubTask,this.subTask).subscribe(
-              res => {                    
+              res => {
+                this._ps.refresToken(res);                    
                 if(res.success == true){
                    
                      this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
-                     router.navigate(['/subTasks']);   
+                     router.navigate(['/pages/subTasks']);   
                 }
               })           
           } 

@@ -38,9 +38,7 @@ export class FormSubtaskComponent implements OnInit, AfterViewInit {
         this.subTask._id = this.idSubTask 
       }
       
-      this.subTask = this.form.value;
-      console.log(this.subTask);
-      
+      this.subTask = this.form.value;      
       return this.subTask;
 
   }
@@ -51,7 +49,7 @@ export class FormSubtaskComponent implements OnInit, AfterViewInit {
       if(this.idSubTask){
         this._ps.getObject(Util.URL_SUB_TASKS, this.idSubTask).subscribe(
             res => {
-                  
+                this._ps.refresToken(res);  
                 this.subTask = res.subTasks[0];
                 this.form.setValue(
                     {
