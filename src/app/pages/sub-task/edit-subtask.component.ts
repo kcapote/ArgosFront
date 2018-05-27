@@ -43,7 +43,7 @@ export class EditSubtaskComponent implements OnInit {
                 if(res.success == true){
                    
                      this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
-                     router.navigate(['/subTasks']);   
+                     router.navigate(['/pages/subTasks']);   
                 }
               })           
           } 

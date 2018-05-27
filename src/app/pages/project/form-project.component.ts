@@ -117,7 +117,7 @@ export class FormProjectComponent implements OnInit {
                     this._ps.refresToken(res);
                     if(res.success == true){                        
                          this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS).subscribe(
-                           res => this.router.navigate(['/projectsFloors',this.idProject])
+                           res => this.router.navigate(['/pages/projectsFloors',this.idProject])
                           );
                     }
                   })           
@@ -134,7 +134,7 @@ export class FormProjectComponent implements OnInit {
             if( res.success == true ) {              
               this.idProject = res.project._id;      
               this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(
-                  res => this.router.navigate(['/projectsFloors',this.idProject])   
+                  res => this.router.navigate(['/pages/projectsFloors',this.idProject])   
 
               ); 
             }  

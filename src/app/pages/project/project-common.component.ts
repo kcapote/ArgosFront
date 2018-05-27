@@ -178,11 +178,11 @@ export class ProjectCommonComponent implements OnInit {
   
        this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
          res => {
-            this.router.navigate(['/projectEmployees',this.idProject]);   
+            this.router.navigate(['/pages/projectEmployees',this.idProject]);   
          }
        )
     }else {
-      this.router.navigate(['/projectEmployees',this.idProject]);
+      this.router.navigate(['/pages/projectEmployees',this.idProject]);
     }   
      
      

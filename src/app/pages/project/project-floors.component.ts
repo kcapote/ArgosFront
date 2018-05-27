@@ -54,7 +54,7 @@ export class ProjectFloorsComponent implements OnInit {
     this._msg.notify.subscribe(
       res => {
           if(res.type === Util.ACTION_SUCCESS && res.response === Util.OK_RESPONSE ){
-            this.router.navigate(['projectsCommon',this.idProject]);
+            this.router.navigate(['/pages/projectsCommon',this.idProject]);
           }
       }
     )   
@@ -207,7 +207,7 @@ export class ProjectFloorsComponent implements OnInit {
         
 
      
-        this.router.navigate(['projectsCommon',this.idProject]);
+        this.router.navigate(['/pages/projectsCommon',this.idProject]);
     }
   }
 

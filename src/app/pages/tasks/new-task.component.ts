@@ -24,7 +24,7 @@ export class NewTaskComponent implements OnInit {
       this._msg.notify.subscribe(
         res => {
           if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
-              router.navigate(['/tasks']);
+              router.navigate(['/pages/tasks']);
 
           }
       })

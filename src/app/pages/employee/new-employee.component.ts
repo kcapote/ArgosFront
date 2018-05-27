@@ -22,7 +22,7 @@ export class NewEmployeeComponent implements OnInit {
       this._msg.notify.subscribe(
         res => {
           if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
-            router.navigate(['/employees']);  
+            router.navigate(['/pages/employees']);  
   
           }
       });            

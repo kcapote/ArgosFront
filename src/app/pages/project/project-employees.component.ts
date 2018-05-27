@@ -231,7 +231,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     )
     this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS).subscribe(
       res => {
-          this.router.navigate(['/projects']);
+          this.router.navigate(['/pages/projects']);
       }
     )
   }

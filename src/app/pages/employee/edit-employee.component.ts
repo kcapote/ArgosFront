@@ -41,7 +41,7 @@ export class EditEmployeeComponent implements OnInit {
                   this._ps.refresToken(res);                     
                   if(res.success == true){
                        this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
-                       router.navigate(['/employees']);   
+                       router.navigate(['/pages/employees']);   
                   }
                 })           
             } 

@@ -38,9 +38,7 @@ export class FormSubtaskComponent implements OnInit, AfterViewInit {
         this.subTask._id = this.idSubTask 
       }
       
-      this.subTask = this.form.value;
-      console.log(this.subTask);
-      
+      this.subTask = this.form.value;      
       return this.subTask;
 
   }
