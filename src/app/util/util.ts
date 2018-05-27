@@ -116,7 +116,6 @@ export class Util {
 
         return null;
     }
-    
 
 
     public static formatRut(rut: string){

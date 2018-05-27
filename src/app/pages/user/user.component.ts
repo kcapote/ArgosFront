@@ -53,7 +53,7 @@ ngOnInit() {
 
 edit(id: string) {
     
-  this.router.navigate(['/pages/editEmployee',id])
+  this.router.navigate(['/pages/editUser',id])
 
 }
 

@@ -57,16 +57,10 @@ export class EditEmployeeComponent implements OnInit {
   save(employee: Employee) {
     this.item = employee;     
     this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
-
-
-
-      
-
   }
   
   back() {
-    this.location.back();
-
+    this.location.back()
   }
 
 

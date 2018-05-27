@@ -39,6 +39,8 @@ import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { UserComponent } from './user/user.component';
 import { NewUserComponent } from './user/new-user.component';
+import { FormUserComponent } from './user/form-user.component';
+import { EditUserComponent } from './user/edit-user.component';
 
 
 @NgModule({
@@ -77,7 +79,9 @@ import { NewUserComponent } from './user/new-user.component';
      GanttFloorsComponent,
      AssignTasksComponent,
      UserComponent,
-     NewUserComponent
+     NewUserComponent,
+     FormUserComponent,
+     EditUserComponent
 
    ],
    exports: [ 

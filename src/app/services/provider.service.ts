@@ -27,7 +27,6 @@ export class ProviderService {
   public getObjectsAny(url: string): Observable<any> {
     let user = JSON.parse(localStorage.getItem('user'));
     let urlTemp = `${url}?token=${ user.token }`;
-    console.log(user.token);
     return this.http.get( urlTemp );                
   }
 
@@ -36,7 +35,6 @@ export class ProviderService {
     let urlTemp;    
     let user = JSON.parse(localStorage.getItem('user'));
     urlTemp = `${ url }/${ father }/${ id }?pagination=${ pagination }&token=${ user.token }`;
-    console.log(user.token);
     return this.http.get( urlTemp );                
   }
 
@@ -45,7 +43,6 @@ export class ProviderService {
     if(url!=Util.URL_LOGON){
       let user = JSON.parse(localStorage.getItem('user'));
       urlTemp = `${url}/${ id }?token=${ user.token }`;
-      console.log(user.token);
     }else{
       urlTemp = `${url}/${ id }?${ Util.TOKEN }`;
     }
@@ -59,7 +56,6 @@ export class ProviderService {
     if(url!=Util.URL_LOGIN){
       let user = JSON.parse(localStorage.getItem('user'));
       urlTemp = `${url}?token=${ user.token }`;
-      console.log(user.token);
     }else{
       localStorage.setItem('user','');
       urlTemp = `${url}?${ Util.TOKEN }`;
@@ -74,7 +70,6 @@ export class ProviderService {
     let headers: HttpHeaders = new  HttpHeaders();
     headers.append('Content-Type', 'aplication/json');
     let urlTemp = `${ url }/${ id }?token=${ user.token }`;
-    console.log(user.token);
     return this.http.put(urlTemp,obj, {headers});
 
   } 
@@ -82,7 +77,6 @@ export class ProviderService {
   public deleteObject(url:string, id:string ): Observable<any>{
     let user = JSON.parse(localStorage.getItem('user'));
     let urlTemp = `${ url }/${ id }?token=${ user.token }`;
-    console.log(user.token);
     return this.http.delete(urlTemp);
   }
 
