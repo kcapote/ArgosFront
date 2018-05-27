@@ -13,10 +13,16 @@ import { FormGroup } from '@angular/forms';
 export class NavbarComponent implements OnInit {
 
   form: FormGroup;
+  userTemp: any;
   
   constructor(private _ps: ProviderService,
     private router: Router,
-    private _msg: MsgBoxService) { }
+    private _msg: MsgBoxService) {
+
+      let user = JSON.parse(localStorage.getItem('user'));
+      this.userTemp = user;
+
+     }
 
   ngOnInit() {
   }

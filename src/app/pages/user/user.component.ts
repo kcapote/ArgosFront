@@ -20,8 +20,12 @@ export class UserComponent implements OnInit {
   term: string;
   model: string =  Util.URL_USER;
   totalRecords: number;  
+  userTemp: any;
 
   constructor(private _ps:ProviderService, private router: Router, private _msg: MsgBoxService) {
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.userTemp = user;
 
     this._ps.getObjectsByFather(Util.URL_USER,"recordActive",0,"true").subscribe(
     res => {

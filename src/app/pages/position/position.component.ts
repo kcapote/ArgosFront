@@ -20,11 +20,15 @@ export class PositionComponent implements OnInit {
   term: string;
   model: string = URL_POSITIONS;
   totalRecords: number;
+  userTemp: any;
 
   constructor(private _ps: ProviderService,
               private router: Router,
               private _msg: MsgBoxService) { 
-    
+
+      let user = JSON.parse(localStorage.getItem('user'));
+      this.userTemp = user;
+      
       _ps.getObjects(Util.URL_POSITIONS).subscribe(
           res => {
             this._ps.refresToken(res); 

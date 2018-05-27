@@ -20,10 +20,15 @@ export class TasksComponent implements OnInit {
   term: string;
   model: string;
   totalRecords: number;
+  userTemp: any;
 
   constructor(private _ps:ProviderService,
                       private router: Router,
                       private _msg: MsgBoxService) { 
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.userTemp = user;
+
     this.model = Util.URL_TASKS;                      
 
     this._ps.getObjects(Util.URL_TASKS).subscribe(

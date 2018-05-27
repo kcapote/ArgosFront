@@ -19,11 +19,16 @@ export class EmployeeComponent implements OnInit {
   idxSel: number;
   term: string;
   model: string =  URL_EMPLOYEE;
-  totalRecords: number;  
+  totalRecords: number; 
+  userTemp: any; 
 
   constructor(private _ps:ProviderService,
               private router: Router,
               private _msg: MsgBoxService) {
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.userTemp = user;
+
      this._ps.getObjectsByFather(Util.URL_EMPLOYEE,"recordActive",0,"true").subscribe(
         res => {
            this._ps.refresToken(res);

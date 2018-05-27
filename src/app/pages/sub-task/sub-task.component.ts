@@ -19,11 +19,15 @@ export class SubTaskComponent implements OnInit {
   term: string;
   model: string = URL_SUB_TASKS;
   totalRecords: number;
+  userTemp: any;
 
   constructor(private router: Router,
               private _ps: ProviderService,
               private _msg: MsgBoxService) { 
       
+     let user = JSON.parse(localStorage.getItem('user'));
+     this.userTemp = user;
+
       _ps.getObjects(Util.URL_SUB_TASKS).subscribe(
           res => {
             this._ps.refresToken(res);   

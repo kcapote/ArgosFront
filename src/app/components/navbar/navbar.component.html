@@ -1,10 +1,125 @@
 <nav class="navbar navbar-expand-md navbar-dark backgroundNavbar">
-    <a class="navbar-brand" [routerLink]="['/pages/home']">JCA</a>
+    <a class="navbar-brand" [routerLink]="['/pages/home']">JCA Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
     <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
+
+        <ul *ngIf="userTemp.role.match('ADMINISTRADOR')" class="navbar-nav mr-auto">
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Adm. Proyectos
+                </a>
+                <div class="dropdown-menu" style="background-color: #01579b;" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" [routerLink]="['/pages/projects']">Proyectos</a>
+                    <a class="nav-link" [routerLink]="['/pages/tasks']">Faenas</a>
+                    <a class="nav-link" [routerLink]="['/pages/subTasks']">Tareas</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Avances
+                </a>
+                <div class="dropdown-menu" style="background-color: #01579b;" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" [routerLink]="['/pages/assignTasks']">Cargar Horas</a>
+                    <a class="nav-link" [routerLink]="['/pages/assignTasks']">Consultar Horas</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Adm. Personal
+                </a>
+                <div class="dropdown-menu" style="background-color: #01579b;" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" [routerLink]="['/pages/positions']">Cargos</a>
+                    <a class="nav-link" [routerLink]="['/pages/employees']">Empleados</a>
+                    <a class="nav-link" [routerLink]="['/pages/user']">Usuarios Sistema</a>
+                </div>
+            </li>
+        </ul>
+
+        <ul *ngIf="userTemp.role.match('CARGA')" class="navbar-nav mr-auto">
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Adm. Proyectos
+                </a>
+                <div class="dropdown-menu" style="background-color: #01579b;" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" [routerLink]="['/pages/projects']">Proyectos</a>
+                    <a class="nav-link" [routerLink]="['/pages/tasks']">Faenas</a>
+                    <a class="nav-link" [routerLink]="['/pages/subTasks']">Tareas</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Avances
+                </a>
+                <div class="dropdown-menu" style="background-color: #01579b;" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" [routerLink]="['/pages/assignTasks']">Cargar Horas</a>
+                    <a class="nav-link" [routerLink]="['/pages/assignTasks']">Consultar Horas</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Adm. Personal
+                </a>
+                <div class="dropdown-menu" style="background-color: #01579b;" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" [routerLink]="['/pages/positions']">Cargos</a>
+                    <a class="nav-link" [routerLink]="['/pages/employees']">Empleados</a>
+                </div>
+            </li>
+        </ul>
+
+        <ul *ngIf="userTemp.role.match('CONSULTA')" class="navbar-nav mr-auto">
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Adm. Proyectos
+                </a>
+                <div class="dropdown-menu" style="background-color: #01579b;" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" [routerLink]="['/pages/projects']">Proyectos</a>
+                    <a class="nav-link" [routerLink]="['/pages/tasks']">Faenas</a>
+                    <a class="nav-link" [routerLink]="['/pages/subTasks']">Tareas</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Avances
+                </a>
+                <div class="dropdown-menu" style="background-color: #01579b;" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" [routerLink]="['/pages/assignTasks']">Cargar Horas</a>
+                    <a class="nav-link" [routerLink]="['/pages/assignTasks']">Consultar Horas</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown" routerLinkActive="active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Adm. Personal
+                </a>
+                <div class="dropdown-menu" style="background-color: #01579b;" aria-labelledby="navbarDropdown">
+                    <a class="nav-link" [routerLink]="['/pages/positions']">Cargos</a>
+                    <a class="nav-link" [routerLink]="['/pages/employees']">Empleados</a>
+                </div>
+            </li>
+        </ul>
+
+        <span class="navbar-text">
+        <form>
+            <button (click)="logon()" class="btn btn btn-light">
+                Cerrar Sesión
+            </button>
+        </form>
+  </span>
+    </div>
+</nav>
+
+
+
+
+<!--
+
             <li class="nav-item " routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/pages/tasks']">Faenas</a>
             </li>
@@ -26,13 +141,5 @@
             <li class="nav-item " routerLinkActive="active">
                 <a class="nav-link" [routerLink]="['/pages/assignTasks']">Cargar Horas</a>
             </li>
-        </ul>
-        <span class="navbar-text">
-        <form>
-            <button (click)="logon()" class="btn btn btn-light">
-                Cerrar Sesión
-            </button>
-        </form>
-  </span>
-    </div>
-</nav>
+
+            -->
