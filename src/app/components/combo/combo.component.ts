@@ -36,7 +36,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   @Input() changeValue = new EventEmitter<any>();
 
 
-  itemId: string;
+  itemId: any;
   nested: number;
 
   collection = [];
@@ -73,7 +73,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
       
       this._ps.getObjects(this.url).subscribe(
           res =>{
-            console.log(res);
+            
             
             this.collection = res[this.nameCollection];
             
@@ -88,14 +88,14 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
       
       this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF).subscribe(
         res =>{
-          console.log(res);
+          //console.log(res);
           
           this.collection = res[this.nameCollection];
+         // console.log('el collection ',this.nameCollection, 'es ', this.collection  );
           this.collection.map( e => {
             e['output'] =  this.concatenateFields(e,arr);               
           });
           this.propagateChange(this.itemId);
-          console.log('entre en con el ', this.nameCollection);            
         }
       ); 
     }
@@ -152,9 +152,9 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
     this.loadElements(this.labelField.split(",").map( e => e.trim() ) );
   } 
     
-  onChange(value){
-
-    this.itemId = value;
+  onChange(value: any){
+       
+  
     //console.log('el id es en el onchenge ', this.itemId);
     
     this.propagateChange(this.itemId);

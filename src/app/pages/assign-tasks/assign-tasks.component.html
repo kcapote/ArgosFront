@@ -8,9 +8,12 @@
             
                 <div class="form-group col-md-6">
                     <label for="">Proyecto: </label>
-                    <combo [url] = "urlProjects"  labelField ="name" nameCollection="projects" formControlName = "project" (change) ="updateId()" > 
-
+                    <combo [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url] = "urlProjects"  labelField ="name" nameCollection="projects" formControlName = "project" (change) ="updateId()" > 
                     </combo>    
+                    <div *ngIf="!form.get('project').errors?.valid && !form.get('project').pristine" class="invalid-feedback">
+                        El proyecto es obligatorio
+                    </div>
+
                 </div>
 
 
@@ -28,13 +31,17 @@
 
                 <div class="form-group col-md-6" >
                     <label for="">Faenas</label>
-                    <combo [url] = "urlTasks" formControlName="task" labelField ="name" nameFather = "type" [(idFather)] = "taskType"
+                    <combo [ngClass]="{'is-invalid':!form.controls['task'].valid && !form.get('task').pristine }" [url] = "urlTasks" formControlName="task" labelField ="name" nameFather = "type" [(idFather)] = "taskType"
                     nameCollection="tasks" (change)="updateIdTask()" ></combo>    
-                </div> 
+                    <div *ngIf="!form.get('task').errors?.valid && !form.get('task').pristine" class="invalid-feedback">
+                        La Faena es obligatoria
+                    </div> 
+                </div>
+                 
                 
                 <div class="form-group col-md-6" >
                     <label for="">Tarea</label>
-                    <combo [url] = "urlSubTasks" formControlName="subtask" labelField ="name" nameFather = "task" [(idFather)] = "idTask"
+                    <combo [url] = "urlSubTasks" formControlName="subTask" labelField ="name" nameFather = "task" [(idFather)] = "idTask"
                     nameCollection="subTasks"  ></combo>    
                 </div> 
             </div>
@@ -61,7 +68,7 @@
             <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  && idProject " class="row" >
                    <div class="form-group col-md-12">
                        <label for=""> {{taskType}} </label>
-                       <combo [url] = "urlCommonServices" formControlName="commonServices" labelField ="number" 
+                       <combo [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
                                 nameCollection="commonServices" nameFather = "project"  [(idFather)] = "idProject"   ></combo> 
                    </div>
 
@@ -86,13 +93,16 @@
 
                 <div  class="form-group col-md-4">
                     <label for="">Fecha: </label>
-                    <input class="form-control" type="date" > 
+                    <input class="form-control" type="date" formControlName="recordDate"  > 
                 </div>
 
                 
                 <div  class="form-group col-md-4">
                     <label for="">Horas: </label>
-                    <input class="form-control" type="number" > 
+                    <input [ngClass]="{'is-invalid':!form.controls['hoursWorked'].valid && !form.get('hoursWorked').pristine }" class="form-control" type="number" formControlName="hoursWorked"> 
+                    <div *ngIf="!form.get('hoursWorked').errors?.valid && !form.get('hoursWorked').pristine" class="invalid-feedback">
+                        Debe seleccionar la cantidad de horas
+                    </div>
                 </div>
                 
             </div>
@@ -102,14 +112,14 @@
  </div>           
 
  <div class="text-right main-container">  
-    <button class="btn btn-outline-success">Agregar</button>
+    <button [disabled]="!form.valid" class="btn btn-outline-success" (click)="add()" >Agregar</button>
 </div>
 
+{{form.valid}}
 
+<button (click)="viewLog()"> log </button>
    
-
-  
-
+</form>
 
   <table class="table table-striped main-container ">
       <thead class="">
@@ -124,13 +134,13 @@
           </tr>
       </thead>
       <tbody>
-          <tr >
+          <tr *ngFor="let item of collection; let i = index" >
               <th scope="row"> 1 </th>
-              <td>Kenny Capote </td>
-              <td>Departamentos </td>
-              <td>tarea 1 </td>
-              <td>12/12/2018 </td>
-              <td>9-</td>
+              <td>{{ item.employee.name }}</td>
+              <td> {{ item['area'] }} </td>
+              <td> {{ item.subTask.name }} </td>
+              <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
+              <td> {{ item['hoursWorked'] }}</td>
 
               <th scope="col" class="text-center">
                   <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button>
@@ -140,4 +150,8 @@
   
       </tbody>
   </table>
+
+  <div class="text-right main-container">  
+        <button [disabled]="!form.valid" class="btn btn-outline-success" (click)="save()" >Guardar cambios</button>
+    </div>
 
