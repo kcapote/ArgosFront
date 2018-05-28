@@ -19,7 +19,7 @@
 
                 <div class="form-group col-md-6">
                     <label for="">Empleado: </label>
-                    <combo [url]="urlEmployees" formControlName="employee" labelField="employee.rut, employee.name" nameCollection="employeeProjects" nameFather="project" [(idFather)]="idProject"></combo>
+                    <combo [url]="urlEmployees" formControlName="employee" labelField="employee.rut, employee.name" nameCollection="employeeProjects" nameFather="project" [(idFather)]="idProject" (change)="updateIdEmployee()"></combo>
                 </div>
 
             </div>

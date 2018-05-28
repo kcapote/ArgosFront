@@ -45,7 +45,11 @@ export class EmployeeSubtaskComponent implements OnInit {
 
   query(){
     this._ps.getObjectsAny(Util.URL_EMPLOYEE_SUBTASK+'/employee/'+this.idProject+'/'+this.idEmployee).subscribe(
-      res => {           
+      res => {   
+        console.log('********************');
+        console.log(res);
+        console.log('********************');
+                
         this._ps.refresToken(res);
         this.collection = res.employeeSubTasks;
       }   
