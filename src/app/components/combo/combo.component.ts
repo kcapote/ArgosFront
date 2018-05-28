@@ -31,14 +31,15 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
         } 
        
   }
-
+  
   @Input() nameFather;
   @Input() changeValue = new EventEmitter<any>();
+  @Output() loading = true;
 
 
   itemId: any;
   nested: number;
-
+  
   collection = [];
   
 
@@ -57,7 +58,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
   
   loadElements(arr:string[]){
-    
+
     if(this.nested > 1 ) {
       let b = (arr[0]).split('.') ;
       let c = [b[0], '_id']
@@ -79,9 +80,10 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             this.collection = res[this.nameCollection];
             
             this.collection.map( e => {
-              e['output'] =  this.concatenateFields(e,arr);               
+               e['output'] =  this.concatenateFields(e,arr);               
             });
             this.propagateChange(this.itemId);
+            this.loading = false;
             
           }
       );     
@@ -98,12 +100,13 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             e['output'] =  this.concatenateFields(e,arr);               
           });
           this.propagateChange(this.itemId);
+          this.loading = false;
         }
       ); 
     }
 
-
-
+    
+  
     
     
 

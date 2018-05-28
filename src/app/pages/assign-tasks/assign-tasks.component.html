@@ -49,13 +49,14 @@
 
             <!-- Si seleccionaron un departamento -->
             <div *ngIf="form.get('area').value == 'DEPARTAMENTOS'  && idProject " class="row" >
+                
                 <div class="form-group col-md-6"  >
                     <label for="">Pisos</label>
                     <combo [url] = "urlFloors" formControlName="floor" labelField ="number, type" (change) = "updateIdFloor()"
                                 nameCollection="floors" nameFather = "project"  [(idFather)] = "idProject" separator=" - " ></combo>    
                 </div>
         
-                <div class="form-group col-md-6"  >
+                <div *ngIf="idFloor" class="form-group col-md-6"  >
                     <label for="">Departamentos</label>
                     <combo [url] = "urlDepartments" formControlName="department" labelField ="number" 
                                 nameCollection="departments" nameFather = "floor"  [(idFather)] = "idFloor"   ></combo>    
@@ -65,7 +66,7 @@
 
 
             <!-- si seleccionaron un common services -->
-            <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  && idProject " class="row" >
+            <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row" >
                    <div class="form-group col-md-12">
                        <label for=""> {{taskType}} </label>
                        <combo [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
