@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       password: this.form.get('pass').value,
     };
     this._ps.saveObject(Util.URL_LOGIN, obj).subscribe(
-      res => {                    
+      res => {
         if(res.success == true){
             this._ps.refresToken(res);
             this.router.navigate(['/pages/home']);   
