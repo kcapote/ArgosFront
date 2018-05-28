@@ -8,7 +8,7 @@
             
                 <div class="form-group col-md-6">
                     <label for="">Proyecto: </label>
-                    <combo [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url] = "urlProjects"  labelField ="name" nameCollection="projects" formControlName = "project" (change) ="updateId()" > 
+                    <combo #cProject [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url] = "urlProjects"  labelField ="name" nameCollection="projects" formControlName = "project" (change) ="updateId()" > 
                     </combo>    
                     <div *ngIf="!form.get('project').errors?.valid && !form.get('project').pristine" class="invalid-feedback">
                         El proyecto es obligatorio
@@ -31,7 +31,7 @@
 
                 <div class="form-group col-md-6" >
                     <label for="">Faenas</label>
-                    <combo [ngClass]="{'is-invalid':!form.controls['task'].valid && !form.get('task').pristine }" [url] = "urlTasks" formControlName="task" labelField ="name" nameFather = "type" [(idFather)] = "taskType"
+                    <combo #cTask [ngClass]="{'is-invalid':!form.controls['task'].valid && !form.get('task').pristine }" [url] = "urlTasks" formControlName="task" labelField ="name" nameFather = "type" [(idFather)] = "taskType"
                     nameCollection="tasks" (change)="updateIdTask()" ></combo>    
                     <div *ngIf="!form.get('task').errors?.valid && !form.get('task').pristine" class="invalid-feedback">
                         La Faena es obligatoria
@@ -39,26 +39,25 @@
                 </div>
                  
                 
-                <div class="form-group col-md-6" >
+                <div *ngIf="!cTask.loading" class="form-group col-md-6" >
                     <label for="">Tarea</label>
-                    <combo [url] = "urlSubTasks" formControlName="subTask" labelField ="name" nameFather = "task" [(idFather)] = "idTask"
-                    nameCollection="subTasks"  ></combo>    
+                    <combo *ngIf="!cTask.loading" #cSubTask [url] = "urlSubTasks" formControlName="subTask" labelField ="name" nameFather = "task" [(idFather)] = "idTask"
+                    nameCollection="subTasks" (change) = "updateId()" ></combo>    
                 </div> 
             </div>
 
-
             <!-- Si seleccionaron un departamento -->
-            <div *ngIf="form.get('area').value == 'DEPARTAMENTOS'  && idProject " class="row" >
+            <div *ngIf="form.get('area').value == 'DEPARTAMENTOS'" class="row" >
                 
                 <div class="form-group col-md-6"  >
                     <label for="">Pisos</label>
-                    <combo [url] = "urlFloors" formControlName="floor" labelField ="number, type" (change) = "updateIdFloor()"
+                    <combo *ngIf="!(cProject.loading) && (form.get('area').value == 'DEPARTAMENTOS')" #cFloor [url] = "urlFloors" formControlName="floor" labelField ="number, type" (change) = "updateIdFloor()"
                                 nameCollection="floors" nameFather = "project"  [(idFather)] = "idProject" separator=" - " ></combo>    
                 </div>
         
                 <div *ngIf="idFloor" class="form-group col-md-6"  >
                     <label for="">Departamentos</label>
-                    <combo [url] = "urlDepartments" formControlName="department" labelField ="number" 
+                    <combo *ngIf="!cFloor.loading" #cDepart [url] = "urlDepartments" formControlName="department" labelField ="number" 
                                 nameCollection="departments" nameFather = "floor"  [(idFather)] = "idFloor"   ></combo>    
                 </div> 
                     
@@ -69,7 +68,7 @@
             <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row" >
                    <div class="form-group col-md-12">
                        <label for=""> {{taskType}} </label>
-                       <combo [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
+                       <combo *ngIf="!cProject.loading && !cTask.loading && !cSubTask.loading" [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
                                 nameCollection="commonServices" nameFather = "project"  [(idFather)] = "idProject"   ></combo> 
                    </div>
 
@@ -119,7 +118,9 @@
 {{form.valid}}
 
 <button (click)="viewLog()"> log </button>
-   
+ 
+{{form.value | json}}
+
 </form>
 
   <table class="table table-striped main-container ">

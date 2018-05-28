@@ -3,6 +3,7 @@ import { Util } from '../../util/util';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EmployeeSubTask } from '../../interfaces/employee-subtask';
 import { ProviderService } from '../../services/provider.service';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 
 @Component({
   selector: 'app-employee-subtask',
@@ -23,7 +24,8 @@ export class EmployeeSubtaskComponent implements OnInit {
   item: EmployeeSubTask;
 
 
-  constructor(private _ps: ProviderService) { }
+  constructor(private _ps: ProviderService,
+              private _msg: MsgBoxService ) { }
 
   ngOnInit() {
 
@@ -52,6 +54,10 @@ export class EmployeeSubtaskComponent implements OnInit {
                 
         this._ps.refresToken(res);
         this.collection = res.employeeSubTasks;
+  
+        if(this.collection.length == 0 ) {
+          this._msg.show('','El empleado no tiene horas asignadas al proyecto',Util.ACTION_INFO).subscribe();
+        }
       }   
    );
 
