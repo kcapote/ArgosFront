@@ -41,6 +41,7 @@ import { UserComponent } from './user/user.component';
 import { NewUserComponent } from './user/new-user.component';
 import { FormUserComponent } from './user/form-user.component';
 import { EditUserComponent } from './user/edit-user.component';
+import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.component';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { EditUserComponent } from './user/edit-user.component';
      UserComponent,
      NewUserComponent,
      FormUserComponent,
-     EditUserComponent
+     EditUserComponent,
+     EmployeeSubtaskComponent
 
    ],
    exports: [ 
