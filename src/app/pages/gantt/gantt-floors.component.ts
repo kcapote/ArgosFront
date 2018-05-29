@@ -24,10 +24,10 @@ export class GanttFloorsComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
 
     activatedRoute.params.subscribe(
-       p => {
+      async p => {
             if(p['id']){
-              this.idProject = p['id'];
-              this._ps.getObjectsByFather(Util.URL_DEPARTMENTS_TASKS,'project',0, this.idProject).toPromise().then(
+            this.idProject = p['id'];
+           await this._ps.getObjectsByFather(Util.URL_DEPARTMENTS_TASKS,'project',0, this.idProject).toPromise().then(
                     res=> { 
                       this._ps.refresToken(res);
                       this.collectionDepartmentTasks = res.departmentTasks;
@@ -57,23 +57,29 @@ export class GanttFloorsComponent implements OnInit {
                   console.log(error);
                  }
               );
+
+              await _ps.getObjects(Util.URL_TASKS).toPromise().then(
+                res => {
+                  this._ps.refresToken(res);  
+                  this.collectionTask = res.tasks;
+                }
+              ).catch(
+                error => {
+                  console.log(error);
+                  
+                }
+              );
+
             } 
         }
       );
 
-      _ps.getObjects(Util.URL_TASKS).toPromise().then(
-        res => {
-          this._ps.refresToken(res);  
-          this.collectionTask = res.tasks;
-        }
-      ).catch(
-        error => {
-          console.log(error);
-          
-        }
-      )
+ 
 
   }
+
+
+  
 
   ngOnInit() {
   }
