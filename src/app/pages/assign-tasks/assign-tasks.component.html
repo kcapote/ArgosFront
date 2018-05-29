@@ -41,18 +41,24 @@
                 
                 <div *ngIf="!cTask.loading" class="form-group col-md-6" >
                     <label for="">Tarea</label>
-                    <combo *ngIf="!cTask.loading" #cSubTask [url] = "urlSubTasks" formControlName="subTask" labelField ="name" nameFather = "task" [(idFather)] = "idTask"
-                    nameCollection="subTasks" (change) = "updateId()" ></combo>    
+                    <combo  #cSubTask *ngIf="!cTask.loading" [url] = "urlSubTasks" 
+                            formControlName="subTask" labelField ="name" 
+                            nameFather = "task" [(idFather)] = "idTask"
+                    nameCollection="subTasks" (change) = "showFloors()" ></combo>    
                 </div> 
             </div>
 
+            {{showFloor}}
+            
             <!-- Si seleccionaron un departamento -->
-            <div *ngIf="form.get('area').value == 'DEPARTAMENTOS'" class="row" >
+            <div *ngIf="(form.get('area').value == 'DEPARTAMENTOS') && (showFloor) " class="row" >
                 
                 <div class="form-group col-md-6"  >
                     <label for="">Pisos</label>
-                    <combo *ngIf="!(cProject.loading) && (form.get('area').value == 'DEPARTAMENTOS')" #cFloor [url] = "urlFloors" formControlName="floor" labelField ="number, type" (change) = "updateIdFloor()"
-                                nameCollection="floors" nameFather = "project"  [(idFather)] = "idProject" separator=" - " ></combo>    
+                    <combo *ngIf="(!cProject.loading)" #cFloor [url] = "urlFloors" 
+                            formControlName="floor" labelField ="number, type" (change) = "updateIdFloor()"
+                            nameCollection="floors" nameFather = "project"  [(idFather)] = "idProject" separator=" - "></combo>    
+                                {{!(cProject.loading  && cTask.loading && cSubTask.loading ) }}
                 </div>
         
                 <div *ngIf="idFloor" class="form-group col-md-6"  >

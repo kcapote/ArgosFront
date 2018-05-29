@@ -27,6 +27,8 @@ export class AssignTasksComponent implements OnInit {
   idFloor:any;
   taskType = "";
   idTask: any;
+
+  showFloor:boolean = false;
   
 
   collection: EmployeeSubTask[] = [];
@@ -97,6 +99,10 @@ export class AssignTasksComponent implements OnInit {
   updateIdTask(){
     this.idTask = this.form.get('task').value['_id'];
     //console.log(this.idTask);    
+  }
+
+  showFloors(){
+    this.showFloor = true;
   }
 
   add(){

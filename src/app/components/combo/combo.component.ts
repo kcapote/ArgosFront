@@ -22,6 +22,8 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   @Input() nameCollection: string;
   @Input() filterId;
   @Input() separator =" - ";
+
+
   idF: string = ""; 
   @Input('idFather') 
   set idFather(val: string) {
@@ -53,11 +55,14 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   }
 
   ngOnInit() {
-    this.load();
+
+      this.load();
+
+
   }
 
   
-  loadElements(arr:string[]){
+  async loadElements(arr:string[]){
 
     if(this.nested > 1 ) {
       let b = (arr[0]).split('.') ;
@@ -72,7 +77,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
     if(this.url && (!this.nameFather && !this.idF) ){
       
-      this._ps.getObjects(this.url).subscribe(
+     await this._ps.getObjects(this.url).subscribe(
           res =>{
             this._ps.refresToken(res);
             //console.log(res);
@@ -89,7 +94,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
       );     
     }else if( this.url && this.idF && this.idF ){
       
-      this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF).subscribe(
+      await this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF).subscribe(
         res =>{
           this._ps.refresToken(res);
           //console.log(res);

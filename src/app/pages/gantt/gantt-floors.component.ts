@@ -5,7 +5,7 @@ import { Floors } from '../../interfaces/floors.interface';
 import { Task } from '../../interfaces/task.interface';
 import { Util } from '../../util/util';
 import { DepartmentTask } from '../../interfaces/departmentTask.interface';
-import { GraphicFloor } from '../../interfaces/graphicFloor.interface';
+//import { GraphicFloor } from '../../interfaces/graphicFloor.interface';
 
 @Component({
   selector: 'app-gantt-floors',
@@ -34,12 +34,12 @@ export class GanttFloorsComponent implements OnInit {
                       
                      
                       
-                      let graphicFloor:any;
+                      let graphicFloor:any = {};
                       console.log(graphicFloor);
                       
                       this.collectionDepartmentTasks.forEach(departmentTask => {
                         graphicFloor.task = departmentTask.task;
-                        let floors: Floors[];
+                        let floors: Floors[] = [];
                         this.collectionDepartmentTasks.forEach(departmentTask2 => {
                           if(departmentTask2.task === departmentTask.task){
                             floors.push(departmentTask2.floor);
