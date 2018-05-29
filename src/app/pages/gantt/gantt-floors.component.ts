@@ -14,7 +14,7 @@ import { DepartmentTask } from '../../interfaces/departmentTask.interface';
 })
 export class GanttFloorsComponent implements OnInit {
   
-  idProject: string;
+  idProject: string; 
   collectionDepartmentTasks: DepartmentTask[] = [];
   collectionTask: Task[] = [];
   collectionGraphicFloor: any[] = [];
