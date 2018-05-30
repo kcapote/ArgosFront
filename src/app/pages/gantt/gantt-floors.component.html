@@ -2,28 +2,17 @@
 <br>
 <table class="table table-bordered">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Tareas</th>
-        <th scope="col" *ngFor="let itemf of collectionFloors; let i = index">Piso {{ itemf.number }} </th>
-
-      </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tareas</th>
+            <th scope="col">Piso </th>
+        </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Task 1</td>
-        <td>Otto</td>
-        <td>@fat</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Task 2</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>@fat</td>
-      </tr>
-  
+        <tr *ngFor="let item of collectionGraphicFloor; let i = index">
+            <th scope="row"> {{ i+1 }} </th>
+            <td>{{item.task.name}}</td>
+            <td *ngFor="let item2 of item.floors; let i2 = index">{{item2.status}}</td>
+        </tr>
     </tbody>
-  </table>
+</table>

@@ -114,7 +114,7 @@ export class ProjectCommonComponent implements OnInit {
               }
               await this._ps.saveObject(Util.URL_COMMON_SERVICES,d,0).subscribe(
                 resp => { 
-                  this._ps.refresToken(res);
+                  this._ps.refresToken(resp);
                   if( resp.success == true ) {
                     //se guardan automaticamente las tareas
                     let url = `${ Util.URL_TASKS_BY_TYPE }/${ res }`

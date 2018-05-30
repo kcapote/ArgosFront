@@ -31,14 +31,12 @@ export class GanttFloorsComponent implements OnInit {
                     res=> { 
                       this._ps.refresToken(res);
                       this.collectionDepartmentTasks = res.departmentTasks;
-                      
-                     
-                      
+                      console.log(this.collectionDepartmentTasks);
                       let graphicFloor:any = {};
-                      console.log(graphicFloor);
                       
                       this.collectionDepartmentTasks.forEach(departmentTask => {
                         graphicFloor.task = departmentTask.task;
+                        console.log(departmentTask.task.name);
                         let floors: Floors[] = [];
                         this.collectionDepartmentTasks.forEach(departmentTask2 => {
                           if(departmentTask2.task === departmentTask.task){
@@ -47,6 +45,8 @@ export class GanttFloorsComponent implements OnInit {
                         });
                         graphicFloor.floors = floors;
                         this.collectionGraphicFloor.push(graphicFloor);
+                        floors = [];
+                        graphicFloor = {};
                       });
 
                       console.log( this.collectionGraphicFloor);
