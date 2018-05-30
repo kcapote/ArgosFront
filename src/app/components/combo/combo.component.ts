@@ -62,7 +62,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   }
 
   
-  async loadElements(arr:string[]){
+   loadElements(arr:string[]){
 
     if(this.nested > 1 ) {
       let b = (arr[0]).split('.') ;
@@ -77,8 +77,8 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
     if(this.url && (!this.nameFather && !this.idF) ){
       
-     await this._ps.getObjects(this.url).subscribe(
-          res =>{
+      this._ps.getObjects(this.url).subscribe(
+        async res =>{
             this._ps.refresToken(res);
             //console.log(res);
             
@@ -92,13 +92,12 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             
           }
       );     
-    }else if( this.url && this.idF && this.idF ){
+    }else if( this.url && this.idF && this.idF) {
       
-      await this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF).subscribe(
+      this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF).subscribe(
         res =>{
           this._ps.refresToken(res);
-          //console.log(res);
-          
+          //console.log(res);          
           this.collection = res[this.nameCollection];
          // console.log('el collection ',this.nameCollection, 'es ', this.collection  );
           this.collection.map( e => {

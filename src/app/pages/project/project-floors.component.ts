@@ -118,11 +118,11 @@ export class ProjectFloorsComponent implements OnInit {
         return;
       }
   
-      this.collection.forEach(element => {
+      this.collection.forEach(  element => {
         //Creación del piso
         
         this._ps.saveObject(Util.URL_FLOORS, element ).subscribe(
-             res => {
+            res => {
               this._ps.refresToken(res); 
               for(let i=0;i < res.floor.quantityDepartment; i++){
                 //Creación de los departamentos del piso  
@@ -134,17 +134,18 @@ export class ProjectFloorsComponent implements OnInit {
                       status: 0   
                    }
                   this._ps.saveObject(Util.URL_DEPARTMENTS, dep).subscribe(
-                    resp => {
+                     resp => {
                       this._ps.refresToken(res);
                       if( resp.success == true ) {
 
                         //se guardan automaticamente las tareas
                         let url = `${ Util.URL_TASKS_BY_TYPE }/DEPARTAMENTOS`
-                        this._ps.getObjectsAny(url).subscribe(
-                          respTask => {
+                         this._ps.getObjectsAny(url).subscribe(
+                           respTask => {
                             this._ps.refresToken(respTask);
                             if( respTask.success == true ) {
-                              respTask.tasks.forEach(task => {
+                               respTask.tasks.forEach(
+                                task => {
 
                                 let depTask: DepartmentTask = {
                                   department: resp.department._id,
@@ -154,7 +155,7 @@ export class ProjectFloorsComponent implements OnInit {
                                   status: 0,
                                 }
 
-                                this._ps.saveObject(Util.URL_DEPARTMENTS_TASKS, depTask).subscribe(
+                               this._ps.saveObject(Util.URL_DEPARTMENTS_TASKS, depTask).subscribe(
                                   respSaveTasks => {
                                     this._ps.refresToken(respSaveTasks);
                                     if( respSaveTasks.success == true ) {
@@ -163,7 +164,8 @@ export class ProjectFloorsComponent implements OnInit {
                                         respSubTasks => {
                                           this._ps.refresToken(respSubTasks);
                                           if( respSubTasks.success == true ) {
-                                            respSubTasks.subTasks.forEach(subtask => {
+                                            respSubTasks.subTasks.forEach(
+                                              subtask => {
                                               let depSubTask: DepartmentSubTask = {
                                                 department: resp.department._id,
                                                 subTask: subtask._id,
@@ -172,7 +174,7 @@ export class ProjectFloorsComponent implements OnInit {
                                                 project: res.floor.project,
                                                 status: 0,
                                               }
-                                              this._ps.saveObject(Util.URL_DEPARTMENTS_SUB_TASKS, depSubTask).subscribe(
+                                               this._ps.saveObject(Util.URL_DEPARTMENTS_SUB_TASKS, depSubTask).subscribe(
                                                 respSaveTasks => {
                                                   this._ps.refresToken(respSaveTasks);
                                                   if( respSaveTasks.success == true ) {

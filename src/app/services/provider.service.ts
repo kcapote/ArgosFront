@@ -13,7 +13,7 @@ export class ProviderService {
 
 
 
-  public getObjects(url: string, pagination: number = 0 ,term?: string): Observable<any> {
+  public getObjects(url: string, pagination: number = 0 ,term?: string, generateToken = 1 ): Observable<any> {
         let urlTemp;
         let user = JSON.parse(localStorage.getItem('user'));
         if(term) {
@@ -21,6 +21,11 @@ export class ProviderService {
         } else {
           urlTemp = `${url}/recordActive/true?pagination=${ pagination }&token=${ user.token }`;
         }
+
+        if(generateToken){
+          urlTemp = urlTemp + `&generate=${ generateToken }`;
+        }
+
         return this.http.get( urlTemp );                
   }
 
@@ -31,14 +36,17 @@ export class ProviderService {
   }
 
 
-  public getObjectsByFather(url: string, father: string , pagination: number = 0 ,id: string): Observable<any> {
+  public getObjectsByFather(url: string, father: string , pagination: number = 0 ,id: string, generateToken = 1 ): Observable<any> {
     let urlTemp;    
     let user = JSON.parse(localStorage.getItem('user'));
     urlTemp = `${ url }/${ father }/${ id }?pagination=${ pagination }&token=${ user.token }`;
+    if(generateToken){
+      urlTemp = urlTemp + `&generate=${ generateToken }`;
+    }
     return this.http.get( urlTemp );                
   }
 
-  public getObject(url: string, id: string): Observable<any> {
+  public getObject(url: string, id: string, generateToken = 1): Observable<any> {
     let urlTemp = '';
     if(url!=Util.URL_LOGON){
       let user = JSON.parse(localStorage.getItem('user'));
@@ -46,10 +54,15 @@ export class ProviderService {
     }else{
       urlTemp = `${url}/${ id }?${ Util.TOKEN }`;
     }
+    
+    if(generateToken){
+      urlTemp = urlTemp + `&generate=${ generateToken }`;
+    }
+
     return this.http.get( urlTemp );
   }
 
-  public saveObject(url: string, obj: any): Observable<any> {
+  public saveObject(url: string, obj: any, generateToken = 1): Observable<any> {
     let headers: HttpHeaders = new  HttpHeaders();
     headers.append('Content-Type', 'aplication/json');
     let urlTemp = '';
@@ -61,22 +74,37 @@ export class ProviderService {
       urlTemp = `${url}?${ Util.TOKEN }`;
     }
     
+    if(generateToken){
+      urlTemp = urlTemp + `&generate=${ generateToken }`;
+    }
+
+    
     return this.http.post( urlTemp, obj, {headers});
    
   }
 
-  public updateObject(url: string, id: string ,obj: any ): Observable<any> {
+  public updateObject(url: string, id: string ,obj: any, generateToken = 1 ): Observable<any> {
     let user = JSON.parse(localStorage.getItem('user'));
     let headers: HttpHeaders = new  HttpHeaders();
     headers.append('Content-Type', 'aplication/json');
     let urlTemp = `${ url }/${ id }?token=${ user.token }`;
+    
+    if(generateToken){
+      urlTemp = urlTemp + `&generate=${ generateToken }`;
+    }
+
     return this.http.put(urlTemp,obj, {headers});
 
   } 
 
-  public deleteObject(url:string, id:string ): Observable<any>{
+  public deleteObject(url:string, id:string, generateToken = 1 ): Observable<any>{
     let user = JSON.parse(localStorage.getItem('user'));
     let urlTemp = `${ url }/${ id }?token=${ user.token }`;
+    
+    if(generateToken){
+      urlTemp = urlTemp + `&generate=${ generateToken }`;
+    }
+    
     return this.http.delete(urlTemp);
   }
 
