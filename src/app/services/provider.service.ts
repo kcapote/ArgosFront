@@ -17,21 +17,26 @@ export class ProviderService {
         let urlTemp;
         let user = JSON.parse(localStorage.getItem('user'));
         if(term) {
-          urlTemp = `${url}/search/${ term }/true?pagination=${ pagination }&token=${ user.token }`;
+          urlTemp = `${url}/search/${ term }/true?pagination=${ pagination }&token=${ user.token }&generate=${ generateToken }`;
         } else {
-          urlTemp = `${url}/recordActive/true?pagination=${ pagination }&token=${ user.token }`;
+          urlTemp = `${url}/recordActive/true?pagination=${ pagination }&token=${ user.token }&generate=${ generateToken }`;
         }
 
-        if(generateToken){
-          urlTemp = urlTemp + `&generate=${ generateToken }`;
-        }
+        // if(generateToken){
+        //   urlTemp = urlTemp + `&generate=${ generateToken }`;
+        // }
 
         return this.http.get( urlTemp );                
   }
 
-  public getObjectsAny(url: string): Observable<any> {
+  public getObjectsAny(url: string, generateToken = 1 ): Observable<any> {
     let user = JSON.parse(localStorage.getItem('user'));
-    let urlTemp = `${url}?token=${ user.token }`;
+    let urlTemp = `${url}?token=${ user.token }&generate=${ generateToken }`;
+    
+    // if(generateToken){
+    //   urlTemp = urlTemp + `&generate=${ generateToken }`;
+    // }
+
     return this.http.get( urlTemp );                
   }
 
@@ -39,10 +44,10 @@ export class ProviderService {
   public getObjectsByFather(url: string, father: string , pagination: number = 0 ,id: string, generateToken = 1 ): Observable<any> {
     let urlTemp;    
     let user = JSON.parse(localStorage.getItem('user'));
-    urlTemp = `${ url }/${ father }/${ id }?pagination=${ pagination }&token=${ user.token }`;
-    if(generateToken){
-      urlTemp = urlTemp + `&generate=${ generateToken }`;
-    }
+    urlTemp = `${ url }/${ father }/${ id }?pagination=${ pagination }&token=${ user.token }&generate=${ generateToken }`;
+    // if(generateToken){
+    //   urlTemp = urlTemp + `&generate=${ generateToken }`;
+    // }
     return this.http.get( urlTemp );                
   }
 
@@ -50,14 +55,14 @@ export class ProviderService {
     let urlTemp = '';
     if(url!=Util.URL_LOGON){
       let user = JSON.parse(localStorage.getItem('user'));
-      urlTemp = `${url}/${ id }?token=${ user.token }`;
+      urlTemp = `${url}/${ id }?token=${ user.token }&generate=${ generateToken }`;
     }else{
-      urlTemp = `${url}/${ id }?${ Util.TOKEN }`;
+      urlTemp = `${url}/${ id }?${ Util.TOKEN }&generate=${ generateToken }`;
     }
     
-    if(generateToken){
-      urlTemp = urlTemp + `&generate=${ generateToken }`;
-    }
+    // if(generateToken){
+    //   urlTemp = urlTemp + `&generate=${ generateToken }`;
+    // }
 
     return this.http.get( urlTemp );
   }
@@ -68,15 +73,15 @@ export class ProviderService {
     let urlTemp = '';
     if(url!=Util.URL_LOGIN){
       let user = JSON.parse(localStorage.getItem('user'));
-      urlTemp = `${url}?token=${ user.token }`;
+      urlTemp = `${url}?token=${ user.token }&generate=${ generateToken }`;
     }else{
       localStorage.setItem('user','');
-      urlTemp = `${url}?${ Util.TOKEN }`;
+      urlTemp = `${url}?${ Util.TOKEN }&generate=${ generateToken }`;
     }
     
-    if(generateToken){
-      urlTemp = urlTemp + `&generate=${ generateToken }`;
-    }
+    // if(generateToken){
+    //   urlTemp = urlTemp + `&generate=${ generateToken }`;
+    // }
 
     
     return this.http.post( urlTemp, obj, {headers});
@@ -87,11 +92,11 @@ export class ProviderService {
     let user = JSON.parse(localStorage.getItem('user'));
     let headers: HttpHeaders = new  HttpHeaders();
     headers.append('Content-Type', 'aplication/json');
-    let urlTemp = `${ url }/${ id }?token=${ user.token }`;
+    let urlTemp = `${ url }/${ id }?token=${ user.token }&generate=${ generateToken }`;
     
-    if(generateToken){
-      urlTemp = urlTemp + `&generate=${ generateToken }`;
-    }
+    // if(generateToken){
+    //   urlTemp = urlTemp + `&generate=${ generateToken }`;
+    // }
 
     return this.http.put(urlTemp,obj, {headers});
 
@@ -99,11 +104,11 @@ export class ProviderService {
 
   public deleteObject(url:string, id:string, generateToken = 1 ): Observable<any>{
     let user = JSON.parse(localStorage.getItem('user'));
-    let urlTemp = `${ url }/${ id }?token=${ user.token }`;
+    let urlTemp = `${ url }/${ id }?token=${ user.token }&generate=${ generateToken }`;
     
-    if(generateToken){
-      urlTemp = urlTemp + `&generate=${ generateToken }`;
-    }
+    // if(generateToken){
+    //   urlTemp = urlTemp + `&generate=${ generateToken }`;
+    // }
     
     return this.http.delete(urlTemp);
   }

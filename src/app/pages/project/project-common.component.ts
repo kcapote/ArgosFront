@@ -112,18 +112,18 @@ export class ProjectCommonComponent implements OnInit {
                 type: res,
                 status: 0    
               }
-              await this._ps.saveObject(Util.URL_COMMON_SERVICES,d).subscribe(
-               async resp => { 
+              await this._ps.saveObject(Util.URL_COMMON_SERVICES,d,0).subscribe(
+                resp => { 
                   this._ps.refresToken(res);
                   if( resp.success == true ) {
                     //se guardan automaticamente las tareas
                     let url = `${ Util.URL_TASKS_BY_TYPE }/${ res }`
-                    await this._ps.getObjectsAny(url).subscribe(
+                     this._ps.getObjectsAny(url,0).subscribe(
                      respTask => {
                         this._ps.refresToken(respTask);
                         if( respTask.success == true ) {
                           respTask.tasks.forEach(
-                            async task => {
+                            task => {
 
                             let commonTask: CommonServiceTask = {
                               commonService: resp._id,
@@ -133,17 +133,17 @@ export class ProjectCommonComponent implements OnInit {
                               status: 0
                             }
 
-                            await this._ps.saveObject(Util.URL_COMMON_SERVICES_TASKS, commonTask).subscribe(
-                               async respSaveTasks => {
+                            this._ps.saveObject(Util.URL_COMMON_SERVICES_TASKS, commonTask,0).subscribe(
+                               respSaveTasks => {
                                 this._ps.refresToken(respSaveTasks);
                                 if( respSaveTasks.success == true ) {
                                   //se guardan automaticamente las sub tareas
-                                  await this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id).subscribe(
-                                   async respSubTasks => {
+                                   this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id,0).subscribe(
+                                   respSubTasks => {
                                       this._ps.refresToken(respSubTasks);
                                       if( respSubTasks.success == true ) {
-                                       await respSubTasks.subTasks.forEach(
-                                          async subtask => {
+                                       respSubTasks.subTasks.forEach(
+                                          subtask => {
                                           
                                           let commonSubTask: CommonServiceSubTask = {
                                             commonService: resp._id,
@@ -154,9 +154,9 @@ export class ProjectCommonComponent implements OnInit {
                                             status: 0
                                           }
 
-                                          await this._ps.saveObject(Util.URL_COMMON_SERVICES_SUB_TASKS, commonSubTask).subscribe(
-                                            async respSaveTasks => {
-                                              await this._ps.refresToken(respSaveTasks);
+                                          this._ps.saveObject(Util.URL_COMMON_SERVICES_SUB_TASKS, commonSubTask,0).subscribe(
+                                            respSaveTasks => {
+                                              this._ps.refresToken(respSaveTasks);
                                               if( respSaveTasks.success == true ) {
                                               }
                                             });

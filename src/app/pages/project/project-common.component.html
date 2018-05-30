@@ -8,7 +8,7 @@
             <h5 class="card-title"><i class="fas fa-building configureIcon"></i> Servicios Comunes </h5>
             <div *ngFor="let item of enumType " class="form-group">
                 <label> {{ item }} </label>
-                <input [readonly]="existRecords" class="form-control" placeholder="Cantidad..." formControlName={ {item}}>
+                <input [readonly]="existRecords" class="form-control" placeholder="Cantidad..." [formControlName]="item">
             </div>
         </div>
     </div>
