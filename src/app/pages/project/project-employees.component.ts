@@ -42,7 +42,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     );
   
     //Obtengo el nombre del proyecto
-    this._ps.getObject(Util.URL_POJECTS,this.idProject).subscribe(
+    this._ps.getObject(Util.URL_POJECTS,this.idProject,0).subscribe(
         res => {
           this._ps.refresToken(res);
           this.project = res.projects[0];
@@ -50,7 +50,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     )
 
     //cargo la lista de empleados
-    this._ps.getObjects(Util.URL_EMPLOYEE).subscribe(
+    this._ps.getObjects(Util.URL_EMPLOYEE,0).subscribe(
         res => {
           this._ps.refresToken(res);
           this.collection = res.employees;
@@ -65,7 +65,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
       //Cargo los empleados del proyecto
-      this._ps.getObjectsByFather(Util.URL_PROJECT_EMPLOYEES,"project",0,this.idProject).subscribe(
+      this._ps.getObjectsByFather(Util.URL_PROJECT_EMPLOYEES,"project",0,this.idProject,0).subscribe(
         res => {
           this._ps.refresToken(res);  
           this.selCollection = res.employeeProjects;
@@ -239,14 +239,14 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
 
 
   save(pe: ProjectEmployees) {
-    this._ps.saveObject(Util.URL_PROJECT_EMPLOYEES, pe ).subscribe(
+    this._ps.saveObject(Util.URL_PROJECT_EMPLOYEES, pe,0 ).subscribe(
       res => {}
     )
 
   }
 
   update(pe: ProjectEmployees) {
-    this._ps.updateObject(Util.URL_PROJECT_EMPLOYEES,pe._id,pe).subscribe(
+    this._ps.updateObject(Util.URL_PROJECT_EMPLOYEES,pe._id,pe,0).subscribe(
       res => {}
     )
   }
