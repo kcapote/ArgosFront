@@ -33,10 +33,9 @@ export class FormProjectComponent implements OnInit {
             if(p['id']){
                 this.idProject = p['id'];  
                 this.title = "Editar Proyecto";  
-                _ps.getObject(Util.URL_POJECTS,this.idProject).subscribe(
+                _ps.getObject(Util.URL_POJECTS,this.idProject,0).subscribe(
                     res => {
                         this._ps.refresToken(res);
-                        console.log(res);                        
                         this.item = res.projects[0];
                         delete this.item['__v'];                        
                         delete this.item['recordActive'];                        

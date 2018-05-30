@@ -2,6 +2,7 @@ import { Component, OnInit, forwardRef, Input, AfterViewInit, ViewChild, Element
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'combo',
@@ -57,12 +58,19 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   ngOnInit() {
 
       this.load();
-
+     
+      
 
   }
 
+  load() {
+        
+    let c =  this.labelField.split(this.separator);
+    this.nested = (c[0].split('.')).length;
+    this.loadElements(this.labelField.split(",").map( e => e.trim() ) );
+  }
   
-   loadElements(arr:string[]){
+  loadElements(arr:string[]){
 
     if(this.nested > 1 ) {
       let b = (arr[0]).split('.') ;
@@ -77,8 +85,8 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
     if(this.url && (!this.nameFather && !this.idF) ){
       
-      this._ps.getObjects(this.url).subscribe(
-        async res =>{
+       this._ps.getObjects(this.url,0).subscribe(
+        res => {
             this._ps.refresToken(res);
             //console.log(res);
             
@@ -89,10 +97,10 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             });
             this.propagateChange(this.itemId);
             this.loading = false;
-            
+            this.loadSel();
           }
       );     
-    }else if( this.url && this.idF && this.idF) {
+    }else if( this.url && this.idF && this.idF,0) {
       
       this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF).subscribe(
         res =>{
@@ -105,6 +113,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
           });
           this.propagateChange(this.itemId);
           this.loading = false;
+          this.loadSel();
         }
       ); 
     }
@@ -113,11 +122,18 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   
     
     
+    
+  }
+  
+
+  loadSel(){
+    
+    if(this.itemId){
+      this.itemId = this.collection.find( c => c['_id']== this.itemId);
+
+    }
 
   }
-
-
-
 
 
   concatenateFields(obj: any, arr:string[] ): string {
@@ -149,17 +165,12 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
 
   ngAfterViewInit() {
+   
     
         
   }
 
 
-  load() {
-        
-    let c =  this.labelField.split(this.separator);
-    this.nested = (c[0].split('.')).length;
-    this.loadElements(this.labelField.split(",").map( e => e.trim() ) );
-  } 
     
   onChange(value: any){
        
