@@ -83,6 +83,8 @@ export class ProjectComponent implements OnInit {
     if(this.term.length>0){
        this._ps.getObjects(URL_POJECTS,0 ,this.term ).subscribe(
            res => {
+               console.log('+++++',res);
+               
                this._ps.refresToken(res);
                this.collection = res.projects;
                this.totalRecords = res.totalRecords;

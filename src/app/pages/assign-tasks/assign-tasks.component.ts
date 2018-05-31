@@ -6,6 +6,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from 'protractor';
 import { CommonService } from '../../interfaces/common-services.interface';
 import { EmployeeSubTask } from '../../interfaces/employee-subtask';
+import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assign-tasks',
@@ -28,8 +30,7 @@ export class AssignTasksComponent implements OnInit {
   taskType = "";
   idTask: any;
 
-  showFloor:boolean = false;
-  
+ 
 
   collection: EmployeeSubTask[] = [];
   item: EmployeeSubTask;
@@ -40,7 +41,9 @@ export class AssignTasksComponent implements OnInit {
     }
   ) ;
 
-  constructor(private _ps: ProviderService) { 
+  constructor(private _ps: ProviderService, 
+              private _msg: MsgBoxService,
+              private router: Router) { 
     // this._ps.getObjectsByFather(Util.URL_PROJECT_EMPLOYEES,'project',0,'5b009c6c113c341e571699f2').subscribe(
     //   res => {
     //       console.log(res);
@@ -101,52 +104,103 @@ export class AssignTasksComponent implements OnInit {
     //console.log(this.idTask);    
   }
 
-  showFloors(){
-    this.showFloor = true;
-  }
+
 
   add(){
     if(this.form.valid){
-      this.item = this.form.value;
-      this.item.employee = this.item.employee['employee'];
-      //delete this.item['area'];  
-      this.collection.push(this.item);
-      this.item = null;
+      let temp:EmployeeSubTask = this.form.value;
+     // console.log(this.form.value);
       
+      //temp.employee = temp.employee['employee'];
+      //delete this.item['area'];  
+      this.collection.push(temp);     
+      console.log('despues del push ',this.collection);
     }
-
-  
 
   }
 
 
+  delete(idx: number ) {
+    this.collection.splice(idx,1);  
+
+  }
+
+
+  // if(c.task['type']===ValidTypesTasks.DEPARTAMENTOS) {
+  //   f.department = c.department['_id'];
+  //   f.floor = c.floor['_id'];
+  //   delete c['commonService'];  
+  // }else {
+  //   f.commonService = c.commonService['id'];
+  //   delete f['department'];
+  //   delete f['floor'];
+  // }
 
   save() {
 
-    let collectionTemp = this.collection;
-
-    collectionTemp.forEach(
+    let collectionTemp = [];
+    console.log(collectionTemp);
+    
+    this.collection.forEach(
       c => {
-        c.employee = c.employee['_id'];
-        c.project = c.project['_id'];
-        c.subTask = c.subTask['_id'];
+        let f:EmployeeSubTask = {
+          employee: c.employee.employee['_id'],
+          project: c.project['_id'],
+          subTask: c.subTask['_id'],           
+          task: c.task['_id'],
+          recordDate: c.recordDate,
+          hoursWorked: c.hoursWorked,
+
+        }
         if(c.task['type']===ValidTypesTasks.DEPARTAMENTOS) {
-          c.department = c.department['_id'];
-          c.floor = c.floor['_id'];
+          f.department = c.department['_id'];
+          f.floor = c.floor['_id'];
           delete c['commonService'];  
         }else {
-          c.commonService = c.commonService['id'];
-          delete c['department'];
-          delete c['floor'];
-        } 
-        c.task = c.task['_id'];
+          f.commonService = c.commonService['_id'];
+          delete f['department'];
+          delete f['floor'];
+        }
+        collectionTemp.push(f);
       }
     );
-    console.log(collectionTemp);
+    console.log(collectionTemp);    
+
+  //  collectionTemp.forEach(
+  //       e => {
+  //          this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,e,0).toPromise().then(
+  //           async res => await console.log('salvado' , res)              
+  //           ).catch(
+  //           async err=> await console.error(err)              
+  //          )
+  //       }
+        
+  //   );
+
+   for(let i = 0; i++; i< collectionTemp.length){
+        this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,this.collection[i],0).toPromise().then(
+          async res => await console.log('salvado' , res)              
+        ).catch(
+          async err=> await console.error(err)              
+        )
+   }
+
+   
+  this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
+    res => {
+      console.log(res);
+      
+      this.router.navigate(['/pages','home']);
+    }
+  )
+     
     
 
   }
   
+
+  
+
   viewLog() {
     console.log(this.form);
     

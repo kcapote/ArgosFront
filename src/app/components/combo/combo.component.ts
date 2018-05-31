@@ -25,10 +25,11 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   @Input() separator =" - ";
 
 
-  idF: string = ""; 
+  idF: string ; 
   @Input('idFather') 
   set idFather(val: string) {
        if(val){
+        
          this.idF = val;         
          this.load();
         } 
@@ -58,8 +59,6 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   ngOnInit() {
 
       this.load();
-     
-      
 
   }
 
@@ -100,9 +99,10 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             this.loadSel();
           }
       );     
-    }else if( this.url && this.idF && this.idF,0) {
+    }else if(this.url && this.nameFather && this.idF) {
+     //console.log(this.idF);
       
-      this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF).subscribe(
+      this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF,0).subscribe(
         res =>{
           this._ps.refresToken(res);
           //console.log(res);          
@@ -127,6 +127,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   
 
   loadSel(){
+    //console.log('el nameCollection es', this.nameCollection, ' la collection es ', this.collection);
     
     if(this.itemId){
       this.itemId = this.collection.find( c => c['_id']== this.itemId);
