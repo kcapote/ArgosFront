@@ -23,13 +23,14 @@ export class AssignTasksComponent implements OnInit {
   urlTasks = Util.URL_TASKS;
   urlSubTasks = Util.URL_SUB_TASKS;
   urlCommonServices = Util.URL_COMMON_SERVICES;
-
+  
   form: FormGroup;
   idProject: any;
   idFloor:any;
   taskType = "";
   idTask: any;
-
+  showServices = false;
+  collectionCommonServices:any[] = [];
  
 
   collection: EmployeeSubTask[] = [];
@@ -95,6 +96,21 @@ export class AssignTasksComponent implements OnInit {
   
   updateType(){
     this.taskType = this.form.get('area').value;
+
+    if(this.form.get('area').value !== 'DEPARTAMENTOS'){
+      
+      this.urlCommonServices =  `${Util.URL_COMMON_SERVICES}/project/${ this.idProject }/${this.taskType}` ;
+
+      
+      //  this._ps.getObjectsAny(this.urlCommonServices,0).subscribe(
+      //   res =>  (this.collectionCommonServices = res['commonService'])        
+      // )
+      
+    }
+
+
+
+
     //this.urlCommonServices = this.urlCommonServices + 
 
   }
@@ -189,8 +205,8 @@ export class AssignTasksComponent implements OnInit {
   this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
     res => {
       console.log(res);
-      
-      this.router.navigate(['/pages','home']);
+      this.collection = [];      
+      // this.router.navigate(['/pages','home']);
     }
   )
      
@@ -199,7 +215,7 @@ export class AssignTasksComponent implements OnInit {
   }
   
 
-  
+
 
   viewLog() {
     console.log(this.form);

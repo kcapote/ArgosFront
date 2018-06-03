@@ -9,6 +9,8 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { ProviderService } from './services/provider.service';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MsgBoxComponent } from './components/msg-box/msg-box.component';
+import { MsgBoxService } from './components/msg-box/msg-box.service';
 
 
 
@@ -18,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,    
     PagenotfoundComponent,
-    LoginComponent
+    LoginComponent,
+    MsgBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ProviderService],
+  providers: [ProviderService, MsgBoxService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

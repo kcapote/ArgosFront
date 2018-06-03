@@ -2,7 +2,7 @@ import { Component, OnInit, forwardRef, Input, AfterViewInit, ViewChild, Element
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
-import { async } from '@angular/core/testing';
+
 
 @Component({
   selector: 'combo',
@@ -23,7 +23,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   @Input() nameCollection: string;
   @Input() filterId;
   @Input() separator =" - ";
-
+  @Input() freeQuery: boolean = false;
 
   idF: string ; 
   @Input('idFather') 
@@ -57,7 +57,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   }
 
   ngOnInit() {
-
+     
       this.load();
 
   }
@@ -81,8 +81,26 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
           }
         )
     }  
+    
+    if(this.freeQuery){
+      this._ps.getObjectsAny(this.url,0).subscribe(
+        res => {
+            this._ps.refresToken(res);
+            //console.log(res);
+            
+            this.collection = res[this.nameCollection];
+            
+            this.collection.map( e => {
+               e['output'] =  this.concatenateFields(e,arr);               
+            });
+            this.propagateChange(this.itemId);
+            this.loading = false;
+            this.loadSel();
+          }
+      );     
+      
 
-    if(this.url && (!this.nameFather && !this.idF) ){
+    }else if(this.url && (!this.nameFather && !this.idF) ){
       
        this._ps.getObjects(this.url,0).subscribe(
         res => {
@@ -133,6 +151,8 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
       this.itemId = this.collection.find( c => c['_id']== this.itemId);
 
     }
+
+
 
   }
 
