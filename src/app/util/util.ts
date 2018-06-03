@@ -119,7 +119,7 @@ export class Util {
     }
 
 
-    public static formatRut(rut: string){
+    public static formatRut(rut: string) {
 
         rut  = rut.replace(/\.|\-/g,""); 
 

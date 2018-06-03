@@ -144,8 +144,9 @@ export class AssignTasksComponent implements OnInit {
     let collectionTemp = [];
     console.log(collectionTemp);
     
-    this.collection.forEach(
-      c => {
+    
+    for(let i = 0; i< this.collection.length; i++){  
+        let c = this.collection[i];
         let f:EmployeeSubTask = {
           employee: c.employee.employee['_id'],
           project: c.project['_id'],
@@ -165,28 +166,20 @@ export class AssignTasksComponent implements OnInit {
           delete f['floor'];
         }
         collectionTemp.push(f);
-      }
-    );
+      
+     }
     console.log(collectionTemp);    
 
-  //  collectionTemp.forEach(
-  //       e => {
-  //          this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,e,0).toPromise().then(
-  //           async res => await console.log('salvado' , res)              
-  //           ).catch(
-  //           async err=> await console.error(err)              
-  //          )
-  //       }
-        
-  //   );
-
-   for(let i = 0; i++; i< collectionTemp.length){
-      this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,this.collection[i],0).subscribe(
-          res =>{ 
-             console.log('salvado' , res)  
+  
+   for(let i = 0; i< collectionTemp.length; i++){
+     console.log(collectionTemp[i]);
+     
+      this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,collectionTemp[i],0).subscribe(
+          async res =>{ 
+             await console.log('salvado' , res)  
           },
-           err=> {
-             err=>  console.error(err)              
+          async err=> {
+             await console.log('salvado' , err)              
           }
         )            
    }

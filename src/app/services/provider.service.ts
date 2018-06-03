@@ -59,9 +59,13 @@ export class ProviderService {
   }
 
   public saveObject(url: string, obj: any, generateToken = 1): Observable<any> {
+
     let headers: HttpHeaders = new  HttpHeaders();
+
     headers.append('Content-Type', 'aplication/json');
+
     let urlTemp = '';
+    
     if(url!=Util.URL_LOGIN){
       let user = JSON.parse(localStorage.getItem('user'));
       urlTemp = `${url}?token=${ user.token }&generate=${ generateToken }`;
