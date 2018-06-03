@@ -172,7 +172,7 @@ export class ProjectFloorsComponent implements OnInit {
                                                 task: task._id,
                                                 floor: res.floor._id,
                                                 project: res.floor.project,
-                                                status: 0,
+                                                status: 0
                                               }
                                                this._ps.saveObject(Util.URL_DEPARTMENTS_SUB_TASKS, depSubTask,0).subscribe(
                                                 respSaveTasks => {

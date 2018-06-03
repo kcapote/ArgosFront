@@ -1,18 +1,40 @@
 <br>
 <br>
-<table class="table table-bordered">
+<h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Total Faenas del Edificio {{nombreProyecto}}</h5>
+<br>
+<table class="table table-bordered" style="font-size: 12px">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Tareas</th>
-            <th scope="col">Piso </th>
+            <th scope="col" class="text-center">Nº</th>
+            <th scope="col" class="text-center">Faena</th>
+            <th class="text-center" *ngFor="let item of collectionGraphicFloor[0].floors; let i = index" scope="col">Piso_{{item.number}}</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let item of collectionGraphicFloor; let i = index">
-            <th scope="row"> {{ i+1 }} </th>
+            <th scope="row" class="text-center"> {{item.task.position}}</th>
             <td>{{item.task.name}}</td>
-            <td *ngFor="let item2 of item.floors; let i2 = index">{{item2.status}}</td>
+            <td (click)="detailByFloor(item2._id)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+                *ngFor="let item2 of item.floors; let i2 = index">{{item2.status}} %</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<table class="table table-bordered" style="font-size: 12px">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center">Nº</th>
+            <th scope="col" class="text-center">Faena</th>
+            <th class="text-center" *ngFor="let item of collectionGraphicUnderground[0].commonServices; let i = index" scope="col">Piso_{{item.number}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of collectionGraphicUnderground; let i = index">
+            <th scope="row" class="text-center"> {{item.task.position}}</th>
+            <td>{{item.task.name}}</td>
+            <td (click)="detailByFloor(item2._id)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+                *ngFor="let item2 of item.commonServices; let i2 = index">{{item2.status}} %</td>
         </tr>
     </tbody>
 </table>

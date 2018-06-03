@@ -30,9 +30,7 @@ export class ProviderService {
   }
 
   public getObjectsAny(url: string, generateToken = 1 ): Observable<any> {
-    let user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
-    
+    let user = JSON.parse(localStorage.getItem('user'));    
     let urlTemp = `${url}?token=${ user.token }&generate=${ generateToken }`;
     
     // if(generateToken){
