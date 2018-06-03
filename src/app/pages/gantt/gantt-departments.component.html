@@ -1,29 +1,28 @@
 <br>
 <br>
-<table class="table table-bordered">
+<h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Porgreso de Tareas por Departamento Proyecto {{nameProject}}</h5>
+<br>
+<h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Detalle Faena {{nameTask}} Piso {{numberFloor}}º </h6>
+<br>
+<table class="table table-bordered" style="font-size: 12px">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Departamentos</th>
-        <th scope="col">dep 1</th>
-        <th scope="col">dep 2</th>
-        <th scope="col">dep 3</th>
-      </tr>
+        <tr>
+            <th scope="col" class="text-center">Nº</th>
+            <th scope="col" class="text-center">Tarea</th>
+            <th class="text-center" *ngFor="let item of collectionGraphiDepartments[0].departments; let i = index" scope="col">{{item.number}}º</th>
+        </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-  
+        <tr *ngFor="let item of collectionGraphiDepartments; let i = index">
+            <th scope="row" class="text-center"> {{item.subTask.position}}</th>
+            <td>{{item.subTask.name}}</td>
+            <td (click)="detailByDepartment(i,i2)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+                *ngFor="let item2 of item.departments; let i2 = index">{{item2.status}}%</td>
+        </tr>
     </tbody>
-  </table>
-
+</table>
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button class="btn btn-outline-secondary" (click)="back()">Regresar</button>
+    </div>
+</div>

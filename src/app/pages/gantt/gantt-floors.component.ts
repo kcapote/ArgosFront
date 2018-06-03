@@ -6,7 +6,7 @@ import { Task } from '../../interfaces/task.interface';
 import { Util } from '../../util/util';
 import { DepartmentTask } from '../../interfaces/departmentTask.interface';
 import { CommonService } from '../../interfaces/common-services.interface';
-//import { GraphicFloor } from '../../interfaces/graphicFloor.interface';
+import { Location } from '@angular/common';
 import { CommonServiceTask } from '../../interfaces/commonServiceTask.interface';
 import { Project } from '../../interfaces/project.interface';
 
@@ -33,7 +33,8 @@ export class GanttFloorsComponent implements OnInit {
 
   constructor(private _ps: ProviderService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private location: Location) {
 
     activatedRoute.params.subscribe(
       async p => {
@@ -273,9 +274,13 @@ export class GanttFloorsComponent implements OnInit {
   ngOnInit() {
   }
 
+  back() {
+    this.location.back()
+  }
+
   detailByFloor(idTask:String, idFloor: string) {
-    
-    this.router.navigate(['/pages/ganttDepartment', this.idProject, this.collectionGraphicFloor[Number(idTask)].floors[idFloor]._id])
+
+    this.router.navigate(['/pages/ganttDepartment', this.idProject, this.collectionGraphicFloor[Number(idTask)].floors[idFloor]._id, this.collectionGraphicFloor[Number(idTask)].task._id, this.nombreProyecto, this.collectionGraphicFloor[Number(idTask)].task.name, this.collectionGraphicFloor[Number(idTask)].floors[idFloor].number])
 
   }
 
