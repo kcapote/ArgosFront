@@ -38,14 +38,19 @@ export class EmployeeSubtaskComponent implements OnInit {
   }
 
   updateId(){
+    
     this.idProject = this.form.get('project').value['_id'];
   }
   
   updateIdEmployee(){
-    this.idEmployee = this.form.get('employee').value['_id'];
+    
+    this.idEmployee = this.form.get('employee').value.employee['_id'];
   } 
 
   query(){
+    console.log(Util.URL_EMPLOYEE_SUBTASK+'/employee/'+this.idProject+'/'+this.idEmployee);
+   
+    
     this._ps.getObjectsAny(Util.URL_EMPLOYEE_SUBTASK+'/employee/'+this.idProject+'/'+this.idEmployee).subscribe(
       res => {   
         console.log('********************');

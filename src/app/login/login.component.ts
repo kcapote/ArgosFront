@@ -36,10 +36,16 @@ export class LoginComponent implements OnInit {
         if(res.success == true){
             this._ps.refresToken(res);
             this.router.navigate(['/pages/home']);   
-        }else{
-             console.log(res);
         }
-      }) 
+      }, error => {
+                
+        this._msg.show('Login',"Usuario o contraseña incorrectos ", Util.ACTION_INFO).subscribe(
+                
+        )
+      }
+    
+    
+    ) 
   }
 
 }

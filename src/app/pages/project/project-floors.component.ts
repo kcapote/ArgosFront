@@ -118,13 +118,14 @@ export class ProjectFloorsComponent implements OnInit {
         return;
       }
   
-      this.collection.forEach(  element => {
+      for(let k =0; k < this.collection.length; k++  ){
+      //this.collection.forEach(  element => {
         //Creación del piso
         
-        this._ps.saveObject(Util.URL_FLOORS, element,0 ).subscribe(
-            res => {
+        this._ps.saveObject(Util.URL_FLOORS, this.collection[k],0 ).subscribe(
+           res => {
               this._ps.refresToken(res); 
-              for(let i=0;i < res.floor.quantityDepartment; i++){
+               for(let i=0;i < res.floor.quantityDepartment; i++){
                 //Creación de los departamentos del piso  
                               
                 if(res.success==true){

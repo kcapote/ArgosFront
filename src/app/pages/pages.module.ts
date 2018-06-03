@@ -42,6 +42,7 @@ import { NewUserComponent } from './user/new-user.component';
 import { FormUserComponent } from './user/form-user.component';
 import { EditUserComponent } from './user/edit-user.component';
 import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.component';
+import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-employees.component';
 
 
 @NgModule({
@@ -71,7 +72,7 @@ import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.co
      FormatRutPipe,
      EditEmployeeComponent,
      FormProjectComponent,
-     MsgBoxComponent,
+     //MsgBoxComponent,
      PaginationComponent,
      ProjectCommonComponent,
      ProjectEmployeesComponent,
@@ -83,7 +84,8 @@ import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.co
      NewUserComponent,
      FormUserComponent,
      EditUserComponent,
-     EmployeeSubtaskComponent
+     EmployeeSubtaskComponent,
+     EditHoursEmployeesComponent
 
    ],
    exports: [ 
@@ -102,7 +104,7 @@ import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.co
         HttpClientModule
    ],
    providers: [
-      MsgBoxService
+     // MsgBoxService
 
    ]
 

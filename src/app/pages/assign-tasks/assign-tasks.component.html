@@ -72,14 +72,12 @@
 
 
             <!-- si seleccionaron un common services -->
-            <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row" >
+            <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row" >         
                    <div class="form-group col-md-12">
                        <label for=""> {{taskType}} </label>
                        <combo [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
-                                nameCollection="commonServices" nameFather = "project"  [(idFather)] = "idProject"   ></combo> 
+                                nameCollection="commonServices" freeQuery = "true"   ></combo> 
                    </div>
-
-
             </div>
                 
     </div>
@@ -122,7 +120,7 @@
     <button [disabled]="!form.valid" class="btn btn-outline-success" (click)="add()" >Agregar</button>
 </div>
 
-<button (click)="viewLog()"> log </button>
+<!-- <button (click)="viewLog()"> log </button> -->
  
 
 </form>
