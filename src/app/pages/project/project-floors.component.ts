@@ -123,7 +123,7 @@ export class ProjectFloorsComponent implements OnInit {
         //Creación del piso
         
         this._ps.saveObject(Util.URL_FLOORS, this.collection[k],0 ).subscribe(
-           res => {
+           async res => {
               this._ps.refresToken(res); 
                for(let i=0;i < res.floor.quantityDepartment; i++){
                 //Creación de los departamentos del piso  
@@ -134,14 +134,14 @@ export class ProjectFloorsComponent implements OnInit {
                       number: i+1,
                       status: 0   
                    }
-                  this._ps.saveObject(Util.URL_DEPARTMENTS, dep,0).subscribe(
-                     resp => {
+                  await this._ps.saveObject(Util.URL_DEPARTMENTS, dep,0).subscribe(
+                     async resp => {
                       this._ps.refresToken(res);
                       if( resp.success == true ) {
 
                         //se guardan automaticamente las tareas
                         let url = `${ Util.URL_TASKS_BY_TYPE }/DEPARTAMENTOS`
-                         this._ps.getObjectsAny(url,0).subscribe(
+                         await this._ps.getObjectsAny(url,0).subscribe(
                            respTask => {
                             this._ps.refresToken(respTask);
                             if( respTask.success == true ) {
@@ -157,16 +157,16 @@ export class ProjectFloorsComponent implements OnInit {
                                 }
 
                                this._ps.saveObject(Util.URL_DEPARTMENTS_TASKS, depTask,0).subscribe(
-                                  respSaveTasks => {
+                                  async respSaveTasks => {
                                     this._ps.refresToken(respSaveTasks);
                                     if( respSaveTasks.success == true ) {
                                       //se guardan automaticamente las sub tareas
-                                      this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id,0).subscribe(
-                                        respSubTasks => {
+                                      await this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id,0).subscribe(
+                                        async respSubTasks => {
                                           this._ps.refresToken(respSubTasks);
                                           if( respSubTasks.success == true ) {
-                                            respSubTasks.subTasks.forEach(
-                                              subtask => {
+                                            await respSubTasks.subTasks.forEach(
+                                              async subtask => {
                                               let depSubTask: DepartmentSubTask = {
                                                 department: resp.department._id,
                                                 subTask: subtask._id,
@@ -175,7 +175,7 @@ export class ProjectFloorsComponent implements OnInit {
                                                 project: res.floor.project,
                                                 status: 0
                                               }
-                                               this._ps.saveObject(Util.URL_DEPARTMENTS_SUB_TASKS, depSubTask,0).subscribe(
+                                               await this._ps.saveObject(Util.URL_DEPARTMENTS_SUB_TASKS, depSubTask,0).subscribe(
                                                 respSaveTasks => {
                                                   this._ps.refresToken(respSaveTasks);
                                                   if( respSaveTasks.success == true ) {
@@ -191,8 +191,7 @@ export class ProjectFloorsComponent implements OnInit {
                             }
                           }
                         );
- 
-                        this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );  
+                         
 
                       }
                     }
@@ -204,8 +203,11 @@ export class ProjectFloorsComponent implements OnInit {
         );
   
       };
+      
       this.saving = false;
-
+      console.log('debe salir al final');
+                         
+      this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );  
     }else{
         
 

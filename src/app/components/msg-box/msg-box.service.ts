@@ -26,6 +26,7 @@ export class MsgBoxService {
     this.hideModal = "modal-hide";
     this.title = null;
     this.message = null;
+    this.notify = null;
   }
 
   // show(title:string, message: string, type?: string) {
@@ -36,6 +37,7 @@ export class MsgBoxService {
   // }
 
   show(title:string, message: string, type?: string): Observable <any>  {
+    this.notify = new EventEmitter<any>()
     type?this.typeModal = type: this.typeModal = this.infoAction; 
     this.hideModal = "";
     this.title = title;

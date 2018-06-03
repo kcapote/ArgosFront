@@ -30,7 +30,7 @@ export class ProviderService {
     let user = JSON.parse(localStorage.getItem('user'));
    
     let urlTemp = `${url}?token=${ user.token }&generate=${ generateToken }`;
-    console.log('la url del pr ' + urlTemp);
+    //onsole.log('la url del pr ' + urlTemp);
 
     return this.http.get( urlTemp );                
   }

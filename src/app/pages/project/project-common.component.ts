@@ -52,7 +52,7 @@ export class ProjectCommonComponent implements OnInit {
     let emp = 0;
     let piso = 0;
 
-    this._ps.getObjectsByFather(Util.URL_COMMON_SERVICES,'project',0,this.idProject).subscribe(
+    this._ps.getObjectsByFather(Util.URL_COMMON_SERVICES,'project',0,this.idProject,0).subscribe(
       res => {
         this._ps.refresToken(res);
         console.log(res);
@@ -102,7 +102,7 @@ export class ProjectCommonComponent implements OnInit {
     if(!this.existRecords){ 
      
        Object.keys(this.form.value).forEach(
-         async res => {
+          async res => {
             console.log(res);
             
             for(let i=0; i <  this.form.controls[res].value; i++){
@@ -113,17 +113,17 @@ export class ProjectCommonComponent implements OnInit {
                 status: 0    
               }
               await this._ps.saveObject(Util.URL_COMMON_SERVICES,d,0).subscribe(
-                resp => { 
+                async resp => { 
                   this._ps.refresToken(resp);
                   if( resp.success == true ) {
                     //se guardan automaticamente las tareas
                     let url = `${ Util.URL_TASKS_BY_TYPE }/${ res }`
-                     this._ps.getObjectsAny(url,0).subscribe(
-                     respTask => {
+                     await this._ps.getObjectsAny(url,0).subscribe(
+                     async respTask => {
                         this._ps.refresToken(respTask);
                         if( respTask.success == true ) {
-                          respTask.tasks.forEach(
-                            task => {
+                        await respTask.tasks.forEach(
+                            async task => {
 
                             let commonTask: CommonServiceTask = {
                               commonService: resp.commonService._id,
@@ -133,17 +133,17 @@ export class ProjectCommonComponent implements OnInit {
                               status: 0
                             }
 
-                            this._ps.saveObject(Util.URL_COMMON_SERVICES_TASKS, commonTask,0).subscribe(
-                               respSaveTasks => {
+                            await this._ps.saveObject(Util.URL_COMMON_SERVICES_TASKS, commonTask,0).subscribe(
+                               async respSaveTasks => {
                                 this._ps.refresToken(respSaveTasks);
                                 if( respSaveTasks.success == true ) {
                                   //se guardan automaticamente las sub tareas
-                                   this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id,0).subscribe(
-                                   respSubTasks => {
+                                  await this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id,0).subscribe(
+                                   async respSubTasks => {
                                       this._ps.refresToken(respSubTasks);
                                       if( respSubTasks.success == true ) {
-                                       respSubTasks.subTasks.forEach(
-                                          subtask => {
+                                       await respSubTasks.subTasks.forEach(
+                                          async subtask => {
                                           
                                           let commonSubTask: CommonServiceSubTask = {
                                             commonService: resp._id,
@@ -154,7 +154,7 @@ export class ProjectCommonComponent implements OnInit {
                                             status: 0
                                           }
 
-                                          this._ps.saveObject(Util.URL_COMMON_SERVICES_SUB_TASKS, commonSubTask,0).subscribe(
+                                          await this._ps.saveObject(Util.URL_COMMON_SERVICES_SUB_TASKS, commonSubTask,0).subscribe(
                                             respSaveTasks => {
                                               this._ps.refresToken(respSaveTasks);
                                               if( respSaveTasks.success == true ) {
@@ -177,7 +177,9 @@ export class ProjectCommonComponent implements OnInit {
             }
           }
        );
-  
+            
+       console.log('al final ');
+        
        this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
          res => {
             this.router.navigate(['/pages/projectEmployees',this.idProject]);   
