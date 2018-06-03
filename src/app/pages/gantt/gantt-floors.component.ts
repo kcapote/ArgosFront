@@ -22,8 +22,13 @@ export class GanttFloorsComponent implements OnInit {
   collectionCommonServiceTask: CommonServiceTask[] = [];
   collectionTaskDepartment: Task[] = [];
   collectionTaskUnderground: Task[] = [];
+  collectionTaskFloorSC: Task[] = [];
+  collectionTaskEmplacement: Task[] = [];
   collectionGraphicFloor: any[] = [];
   collectionGraphicUnderground: any[] = [];
+  collectionGraphicFloorSC: any[] = [];
+  collectionGraphicEmplacement: any[] = [];
+
 
   constructor(private _ps: ProviderService,
               private router: Router,
@@ -132,6 +137,117 @@ export class GanttFloorsComponent implements OnInit {
                   this.collectionGraphicUnderground.push(graphicUnderground);                  
                   undergrounds = [];
                   graphicUnderground = {};
+
+              });
+            }                    
+          ).catch(
+            error=> { 
+              console.log(error);
+              }
+          );
+
+
+          // SE ARMA LA LISTA POR PISOS SC
+
+          url = `${ Util.URL_TASKS_BY_TYPE }/PISOS S.C`
+          await _ps.getObjectsAny(url,0).toPromise().then(
+            res => {
+              this._ps.refresToken(res);  
+              this.collectionTaskFloorSC = res.tasks;
+            }
+          ).catch(
+            error => {
+              console.log(error);
+              
+            }
+          );
+
+          this.collectionCommonServiceTask = [];
+          url = `${ Util.URL_COMMON_SERVICES_TASKS }/project/${this.idProject}/PISOS S.C`;
+          await _ps.getObjectsAny(url,0).toPromise().then(
+            res=> { 
+              this._ps.refresToken(res);
+              this.collectionCommonServiceTask = res.commonServiceTasks;
+              let graphicFlorrSC:any = {};
+                      
+              this.collectionTaskFloorSC.forEach(task => {
+                
+                  graphicFlorrSC.task = task;
+                  let floorSCs: CommonService[] = [];
+                  
+                  this.collectionCommonServiceTask.forEach(commonServiceTask => {
+                    let exist=false;
+                    if(commonServiceTask.task._id === task._id){
+                        floorSCs.forEach(element => {
+                        if(element._id === commonServiceTask._id){
+                          exist=true;
+                        }
+                      });
+                      if(!exist){
+                        floorSCs.push(commonServiceTask.commonService);
+                      }
+                    }
+                  });
+
+                  graphicFlorrSC.commonServices = floorSCs;
+                  this.collectionGraphicFloorSC.push(graphicFlorrSC);                  
+                  floorSCs = [];
+                  graphicFlorrSC = {};
+
+              });
+            }                    
+          ).catch(
+            error=> { 
+              console.log(error);
+              }
+          );
+
+        // SE ARMA LA LISTA POR EMPLAZAMIENTOS
+
+          url = `${ Util.URL_TASKS_BY_TYPE }/EMPLAZAMIENTOS`
+          await _ps.getObjectsAny(url,0).toPromise().then(
+            res => {
+              this._ps.refresToken(res);  
+              this.collectionTaskEmplacement = res.tasks;
+            }
+          ).catch(
+            error => {
+              console.log(error);
+              
+            }
+          );
+
+          this.collectionCommonServiceTask = [];
+          url = `${ Util.URL_COMMON_SERVICES_TASKS }/project/${this.idProject}/EMPLAZAMIENTOS`;
+          await _ps.getObjectsAny(url,0).toPromise().then(
+            res=> { 
+              this._ps.refresToken(res);
+              this.collectionCommonServiceTask = res.commonServiceTasks;
+              let graphicEmplacement:any = {};
+                      
+              this.collectionTaskEmplacement.forEach(task => {
+                
+                  graphicEmplacement.task = task;
+                  let emplacements: CommonService[] = [];
+                  
+                  this.collectionCommonServiceTask.forEach(commonServiceTask => {
+                    let exist=false;
+                    if(commonServiceTask.task._id === task._id){
+                        emplacements.forEach(element => {
+                        if(element._id === commonServiceTask._id){
+                          exist=true;
+                        }
+                      });
+                      if(!exist){
+                        emplacements.push(commonServiceTask.commonService);
+                      }
+                    }
+                  });
+
+                  graphicEmplacement.commonServices = emplacements;
+                  this.collectionGraphicEmplacement.push(graphicEmplacement);                  
+                  emplacements = [];
+                  graphicEmplacement = {};
 
               });
             }                    
