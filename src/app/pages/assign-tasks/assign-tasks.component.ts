@@ -125,10 +125,7 @@ export class AssignTasksComponent implements OnInit {
   add(){
     if(this.form.valid){
       let temp:EmployeeSubTask = this.form.value;
-     // console.log(this.form.value);
-      
-      //temp.employee = temp.employee['employee'];
-      //delete this.item['area'];  
+
       this.collection.push(temp);     
       console.log('despues del push ',this.collection);
     }
@@ -141,16 +138,6 @@ export class AssignTasksComponent implements OnInit {
 
   }
 
-
-  // if(c.task['type']===ValidTypesTasks.DEPARTAMENTOS) {
-  //   f.department = c.department['_id'];
-  //   f.floor = c.floor['_id'];
-  //   delete c['commonService'];  
-  // }else {
-  //   f.commonService = c.commonService['id'];
-  //   delete f['department'];
-  //   delete f['floor'];
-  // }
 
   save() {
 

@@ -1,1 +1,40 @@
 
+<h2 class="space-elements">Edición de horas</h2>
+
+<div class="form-group">
+    <label >Proyecto </label>
+    <combo [url]="urlProjects" nameCollection="projects" labelField ="name" (change) = "loadData()" [(ngModel)] ="project" ></combo>
+</div>
+
+
+<h3>Empleados</h3>
+
+<table class="table table-striped main-container ">
+    <thead class="">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Empleado </th>
+            <th scope="col">Area </th>
+            <th scope="col">Tarea </th>
+            <th scope="col">Fecha </th>
+            <th scope="col">Horas </th>
+            <th scope="col" class="text-center">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of collection; let i = index" >
+            <th scope="row"> 1 </th>
+            <td>{{ item.employee['name'] }}</td>
+            <td> {{ item['area'] }} </td>
+            <td> {{ item.subTask.name }} </td>
+            <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
+            <td> {{ item['hoursWorked'] }}</td>
+
+            <th scope="col" class="text-center">
+                <!-- <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button> -->
+                <button class="btn btn-outline-danger" (click)="delete(i)" ><i class="far fa-trash-alt"></i></button>
+            </th>
+        </tr>
+
+    </tbody>
+</table>

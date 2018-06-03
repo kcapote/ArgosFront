@@ -26,6 +26,7 @@ import { UserComponent } from './user/user.component';
 import { NewUserComponent } from './user/new-user.component';
 import { EditUserComponent } from './user/edit-user.component';
 import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.component';
+import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-employees.component';
 
 
 
@@ -57,6 +58,7 @@ const app_pages_routes: Routes = [
         {path: 'newUser', component: NewUserComponent },
         {path: 'editUser/:id', component: EditUserComponent },
         {path: 'employeeSubTask', component: EmployeeSubtaskComponent },
+        {path: 'editHours', component: EditHoursEmployeesComponent },
         {path: '', redirectTo: '/pages/home', pathMatch: 'full' },
         {path: 'home', component: HomeComponent },
 
