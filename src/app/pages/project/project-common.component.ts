@@ -114,6 +114,11 @@ export class ProjectCommonComponent implements OnInit {
               }
               await this._ps.saveObject(Util.URL_COMMON_SERVICES,d,0).subscribe(
                 resp => { 
+                  console.log("**********************");
+                  console.log(d);
+                  console.log(resp);
+                  console.log("**********************");
+                  
                   this._ps.refresToken(resp);
                   if( resp.success == true ) {
                     //se guardan automaticamente las tareas
@@ -126,10 +131,10 @@ export class ProjectCommonComponent implements OnInit {
                             task => {
 
                             let commonTask: CommonServiceTask = {
-                              commonService: resp._id,
+                              commonService: resp.commonService._id,
                               task: task._id,
                               type: res,
-                              project: resp.project,
+                              project: resp.commonService.project,
                               status: 0
                             }
 
