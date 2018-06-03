@@ -2,6 +2,8 @@
 <br>
 <h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Total Faenas del Edificio {{nombreProyecto}}</h5>
 <br>
+<h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Progreso de Pisos</h5>
+<br>
 <table class="table table-bordered" style="font-size: 12px">
     <thead>
         <tr>
@@ -20,13 +22,14 @@
     </tbody>
 </table>
 <br>
+<h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Progreso de Subterraneos</h5>
 <br>
 <table class="table table-bordered" style="font-size: 12px">
     <thead>
         <tr>
             <th scope="col" class="text-center">Nº</th>
             <th scope="col" class="text-center">Faena</th>
-            <th class="text-center" *ngFor="let item of collectionGraphicUnderground[0].commonServices; let i = index" scope="col">Piso_{{item.number}}</th>
+            <th class="text-center" *ngFor="let item of collectionGraphicUnderground[0].commonServices; let i = index" scope="col">Sub_{{item.number}}</th>
         </tr>
     </thead>
     <tbody>

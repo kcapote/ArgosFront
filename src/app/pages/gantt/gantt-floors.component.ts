@@ -101,17 +101,12 @@ export class GanttFloorsComponent implements OnInit {
               
             }
           );
-          console.log("AVANCE SUBTERRANEOS");
-          console.log(this.collectionTaskUnderground);
+
           url = `${ Util.URL_COMMON_SERVICES_TASKS }/project/${this.idProject}/SUBTERRANEOS`;
           await _ps.getObjectsAny(url,0).toPromise().then(
             res=> { 
               this._ps.refresToken(res);
               this.collectionCommonServiceTask = res.commonServiceTasks;
-              console.log("*****************************");
-              console.log(res);
-              console.log(this.collectionCommonServiceTask);
-              console.log("*****************************");
               let graphicUnderground:any = {};
                       
               this.collectionTaskUnderground.forEach(task => {
