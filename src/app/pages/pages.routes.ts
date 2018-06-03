@@ -54,6 +54,7 @@ const app_pages_routes: Routes = [
         {path: 'projectEmployees/:id', component: ProjectEmployeesComponent },
         {path: 'assignTasks', component: AssignTasksComponent },
         {path: 'gantt/:id/:name', component: GanttFloorsComponent },
+        {path: 'ganttDepartment/:idProyect/:idFloor', component: GanttDepartmentsComponent },
         {path: 'user', component: UserComponent },
         {path: 'newUser', component: NewUserComponent },
         {path: 'editUser/:id', component: EditUserComponent },

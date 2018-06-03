@@ -191,7 +191,7 @@ export class ProjectFloorsComponent implements OnInit {
                             }
                           }
                         );
-
+ 
                         this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );  
 
                       }

@@ -8,6 +8,7 @@ import { DepartmentTask } from '../../interfaces/departmentTask.interface';
 import { CommonService } from '../../interfaces/common-services.interface';
 //import { GraphicFloor } from '../../interfaces/graphicFloor.interface';
 import { CommonServiceTask } from '../../interfaces/commonServiceTask.interface';
+import { Project } from '../../interfaces/project.interface';
 
 @Component({
   selector: 'app-gantt-floors',
@@ -80,7 +81,7 @@ export class GanttFloorsComponent implements OnInit {
                   });
 
                   graphicFloor.floors = floors;
-                  this.collectionGraphicFloor.push(graphicFloor);
+                  this.collectionGraphicFloor.push(graphicFloor);                  
                   floors = [];
                   graphicFloor = {};
 
@@ -272,9 +273,9 @@ export class GanttFloorsComponent implements OnInit {
   ngOnInit() {
   }
 
-  detailByFloor(id: string) {
+  detailByFloor(idTask:String, idFloor: string) {
     
-    this.router.navigate(['/pages/editProjects',id])
+    this.router.navigate(['/pages/ganttDepartment', this.idProject, this.collectionGraphicFloor[Number(idTask)].floors[idFloor]._id])
 
   }
 
