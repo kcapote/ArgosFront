@@ -103,9 +103,7 @@ export class FormProjectComponent implements OnInit {
   save() {
 
       this.item = this.form.value;
-      console.log(this.item);
       
-
       if(this.idProject){
         this.item._id = this.idProject;
         this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE).subscribe(
