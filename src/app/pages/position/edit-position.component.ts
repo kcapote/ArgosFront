@@ -31,22 +31,7 @@ export class EditPositionComponent implements OnInit {
 
     );
 
-    this._msg.notify.subscribe(
-      res => {
-          
-          if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
-                      
-            this._ps.updateObject(Util.URL_POSITIONS,this.idPosition,this.item).subscribe(
-              res => {                    
-                this._ps.refresToken(res);
-                if(res.success == true){
-                     this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
-                     router.navigate(['/pages/positions']);   
-                }
-              })           
-          } 
-      }
-    );
+
 
   }
 
@@ -56,7 +41,23 @@ export class EditPositionComponent implements OnInit {
 
   save(position: Positions) {
     this.item = position;     
-    this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
+    this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE).subscribe(
+      res => {
+          
+          if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
+                      
+            this._ps.updateObject(Util.URL_POSITIONS,this.idPosition,this.item).subscribe(
+              res => {                    
+                this._ps.refresToken(res);
+                if(res.success == true){
+                     this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
+                     this.router.navigate(['/pages/positions']);   
+                }
+              })           
+          } 
+      }
+
+    ) ;
 
   }
   

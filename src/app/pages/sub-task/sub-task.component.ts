@@ -28,7 +28,7 @@ export class SubTaskComponent implements OnInit {
      let user = JSON.parse(localStorage.getItem('user'));
      this.userTemp = user;
 
-      _ps.getObjects(Util.URL_SUB_TASKS).subscribe(
+      _ps.getObjects(Util.URL_SUB_TASKS,0).subscribe(
           res => {
             this._ps.refresToken(res);   
             this.collection = res.subTasks;
@@ -37,21 +37,7 @@ export class SubTaskComponent implements OnInit {
 
       );
 
-      this._msg.notify.subscribe(
-        res => {
-            if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
-                this._ps.deleteObject(Util.URL_SUB_TASKS,this.idSubTasks).subscribe(
-                    res => {                        
-                        this._ps.refresToken(res);
-                        if(res.success == true) {
-                            this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
-                            this.collection.splice(this.idxSel,1); 
-                        }
-                    }
-                )
-            }
-        }
-    );
+
 
   }
 
@@ -70,7 +56,22 @@ export class SubTaskComponent implements OnInit {
     this.idSubTasks = this.collection[idx]._id;
     this.idxSel = idx;
     
-    this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE);
+    this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE).subscribe(
+        res => {
+            if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
+                this._ps.deleteObject(Util.URL_SUB_TASKS,this.idSubTasks).subscribe(
+                    res => {                        
+                        this._ps.refresToken(res);
+                        if(res.success == true) {
+                            this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
+                            this.collection.splice(this.idxSel,1); 
+                        }
+                    }
+                )
+            }
+        }
+
+    );
 
   }
 

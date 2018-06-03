@@ -181,11 +181,14 @@ export class AssignTasksComponent implements OnInit {
   //   );
 
    for(let i = 0; i++; i< collectionTemp.length){
-        this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,this.collection[i],0).toPromise().then(
-          async res => await console.log('salvado' , res)              
-        ).catch(
-          async err=> await console.error(err)              
-        )
+      this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,this.collection[i],0).subscribe(
+          res =>{ 
+             console.log('salvado' , res)  
+          },
+           err=> {
+             err=>  console.error(err)              
+          }
+        )            
    }
 
    
@@ -203,10 +206,5 @@ export class AssignTasksComponent implements OnInit {
   
 
 
-
-  viewLog() {
-    console.log(this.form);
-    
-  } 
 
 }
