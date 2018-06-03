@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
 
   viewGantt(idx: number){
     
-    this.router.navigate(['/pages/gantt',this.collection[idx]._id])
+    this.router.navigate(['/pages/gantt',this.collection[idx]._id, this.collection[idx].name])
 
   }
 
