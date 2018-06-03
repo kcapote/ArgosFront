@@ -27,7 +27,7 @@ export class FormProjectComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private _msg: MsgBoxService ) { 
     
-
+ 
       activatedRoute.params.subscribe(
         p  => {
             if(p['id']){

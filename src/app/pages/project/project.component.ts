@@ -70,7 +70,7 @@ export class ProjectComponent implements OnInit {
     this.router.navigate(['/pages/editProjects',id])
 
   }
-
+ 
   delete(idx:number ){
     this.id = this.collection[idx]._id;
     this.idxSel = idx;

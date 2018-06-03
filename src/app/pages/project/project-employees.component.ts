@@ -48,7 +48,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
           this.project = res.projects[0];
         }
     )
-
+ 
     //cargo la lista de empleados
     this._ps.getObjects(Util.URL_EMPLOYEE,0).subscribe(
         res => {
