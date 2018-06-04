@@ -40,23 +40,7 @@ export class ProjectComponent implements OnInit {
         }
       );
 
-
-      this._msg.notify.subscribe(
-        res => {
-            if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
-                this._ps.deleteObject(Util.URL_POJECTS,this.id).subscribe(
-                    res => {                        
-                        this._ps.refresToken(res);
-                        if(res.success == true) {
-                            this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
-                            this.collection.splice(this.idxSel,1); 
-                        }
-                    }
-                )
-            }
-        }
-    );
-      
+    
 
     } 
 
@@ -73,7 +57,21 @@ export class ProjectComponent implements OnInit {
   delete(idx:number ){
     this.id = this.collection[idx]._id;
     this.idxSel = idx;
-    this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE);
+    this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE).subscribe(
+        res => {
+            if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
+                this._ps.deleteObject(Util.URL_POJECTS,this.id).subscribe(
+                    res => {                        
+                        this._ps.refresToken(res);
+                        if(res.success == true) {
+                            this._msg.show("", Util.MSJ_DELETE_SUCCESS, Util.ACTION_SUCCESS);                                            
+                            this.collection.splice(this.idxSel,1); 
+                        }
+                    }
+                )
+            }
+        }
+    );
 
   }
  
