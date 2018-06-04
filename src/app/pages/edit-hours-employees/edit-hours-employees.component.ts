@@ -3,6 +3,7 @@ import { Util } from '../../util/util';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { ProviderService } from '../../services/provider.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { EmployeeSubTask } from '../../interfaces/employee-subtask';
 
 @Component({
   selector: 'app-edit-hours-employees',
@@ -13,7 +14,7 @@ export class EditHoursEmployeesComponent implements OnInit {
   
   urlEmployyeeSub = Util.URL_EMPLOYEE_SUBTASK;
   urlProjects = Util.URL_POJECTS;
-  collection:any [] = [];
+  collection:EmployeeSubTask [] = [];
   project: any = {};
   fromDate: string; 
   toDate: string;
@@ -32,7 +33,18 @@ export class EditHoursEmployeesComponent implements OnInit {
 
 
   delete (idx: number){
-
+    this._msg.show(Util.DELETE_TITLE,Util.MSJ_DELETE_QUESTION,Util.ACTION_DELETE).subscribe(
+      res => {
+        if(res.response == Util.OK_RESPONSE){
+          this._ps.deleteObject(Util.URL_EMPLOYEE_SUBTASK,this.collection[idx]._id,0).subscribe(
+            res=>{
+              console.log('delete success');
+              this.collection.splice(idx,1);
+            } 
+          )
+        }
+      }
+    )
 
   } 
 
@@ -40,15 +52,20 @@ export class EditHoursEmployeesComponent implements OnInit {
     
     console.log(this.collection[idx]);
     
-    // this._msg.show(Util.UPDATE_TITLE,Util.MSJ_UPDATE_QUESTION,Util.ACTION_UPDATE).subscribe(
-    //   res => {
-    //     if(res.response == Util.OK_RESPONSE){
-    //         let a = this.collection[idx];
-            
+    this._msg.show(Util.UPDATE_TITLE,Util.MSJ_UPDATE_QUESTION,Util.ACTION_UPDATE).subscribe(
+      res => {
+        if(res.response == Util.OK_RESPONSE){
+            let a = this.collection[idx];
+            this._ps.updateObject(Util.URL_EMPLOYEE_SUBTASK,a['_id'],a,0).subscribe(
+              res => {
+                console.log('update succes');
+                
+              }
+            )
 
-    //     }
-    //   }
-    // )
+        }
+      }
+    )
 
   }
 
@@ -57,6 +74,11 @@ export class EditHoursEmployeesComponent implements OnInit {
 
   }
 
+  updateElement(idx: number, val) {
+    this.collection[idx].hoursWorked = val;
+   
+    
+  }
 
   loadData() {
    

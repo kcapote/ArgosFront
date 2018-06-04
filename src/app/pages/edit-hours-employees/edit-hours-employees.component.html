@@ -49,7 +49,8 @@
             <td> {{ item['area'] }} </td>
             <td> {{ item.subTask.name }} </td>
             <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
-            <td> <input class="form-control" type="number" [(value)] = "item['hoursWorked']"> </td>
+            <td> <input class="form-control" type="number" [(value)] = "item['hoursWorked']" (keyup)= "updateElement(i, $event.target.value )" 
+                (change) = "updateElement(i, $event.target.value )" > </td>
 
             <th scope="col" class="text-center">
                 <!-- <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button> -->
