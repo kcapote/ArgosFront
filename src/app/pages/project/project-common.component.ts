@@ -146,11 +146,11 @@ export class ProjectCommonComponent implements OnInit {
                                           async subtask => {
                                           
                                           let commonSubTask: CommonServiceSubTask = {
-                                            commonService: resp._id,
+                                            commonService: resp.commonService._id,
                                             subTask: subtask._id,
                                             task: task._id,
                                             type: res,
-                                            project: resp.project,
+                                            project: resp.commonService.project,
                                             status: 0
                                           }
 

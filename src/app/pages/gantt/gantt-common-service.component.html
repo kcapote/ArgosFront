@@ -1,0 +1,29 @@
+<br>
+<br>
+<h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Porgreso Faenas del Proyecto {{nameProject}}</h5>
+<br>
+<h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Detalle Faena {{nameTask}} {{numberFloor}}º </h6>
+<br>
+<table class="table table-bordered" style="font-size: 12px">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center">Nº</th>
+            <th scope="col" class="text-center">Tarea</th>
+            <th class="text-center" *ngFor="let item of collectionGraphicCommonService[0].commonServices; let i = index" scope="col">{{item.number}}º</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of collectionGraphicCommonService; let i = index">
+            <th scope="row" class="text-center"> {{item.subTask.position}}</th>
+            <td>{{item.subTask.name}}</td>
+            <td (click)="detailByCommonService(i,i2)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+                *ngFor="let item2 of item.commonServices; let i2 = index">{{item2.status}}%</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button class="btn btn-outline-secondary" (click)="back()">Regresar</button>
+    </div>
+</div>

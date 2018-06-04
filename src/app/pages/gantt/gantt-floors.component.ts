@@ -284,4 +284,18 @@ export class GanttFloorsComponent implements OnInit {
 
   }
 
+  detailByCommonService(idTask:String, idFloor: string, type: string) {
+
+    if(type === 'FloorSC'){
+      this.router.navigate(['/pages/ganttCommonService', this.idProject, this.collectionGraphicFloorSC[Number(idTask)].commonServices[idFloor]._id, this.collectionGraphicFloorSC[Number(idTask)].task._id, this.nombreProyecto, this.collectionGraphicFloorSC[Number(idTask)].task.name, this.collectionGraphicFloorSC[Number(idTask)].commonServices[idFloor].number, type])
+    }
+    if(type === 'Underground'){
+      this.router.navigate(['/pages/ganttCommonService', this.idProject, this.collectionGraphicUnderground[Number(idTask)].commonServices[idFloor]._id, this.collectionGraphicUnderground[Number(idTask)].task._id, this.nombreProyecto, this.collectionGraphicUnderground[Number(idTask)].task.name, this.collectionGraphicUnderground[Number(idTask)].commonServices[idFloor].number, type])
+    }
+    if(type === 'Emplacement'){
+      this.router.navigate(['/pages/ganttCommonService', this.idProject, this.collectionGraphicEmplacement[Number(idTask)].commonServices[idFloor]._id, this.collectionGraphicEmplacement[Number(idTask)].task._id, this.nombreProyecto, this.collectionGraphicEmplacement[Number(idTask)].task.name, this.collectionGraphicEmplacement[Number(idTask)].commonServices[idFloor].number, type])
+    }
+
+  }
+
 }

@@ -20,6 +20,7 @@ import { ProjectCommonComponent } from './project/project-common.component';
 import { ProjectEmployeesComponent } from './project/project-employees.component';
 import { HomeComponent } from './home/home.component';
 import { GanttDepartmentsComponent } from './gantt/gantt-departments.component';
+import { GanttCommonServiceComponent } from './gantt/gantt-common-service.component';
 import { GanttFloorsComponent } from './gantt/gantt-floors.component';
 import { AssignTasksComponent } from './assign-tasks/assign-tasks.component';
 import { UserComponent } from './user/user.component';
@@ -55,6 +56,7 @@ const app_pages_routes: Routes = [
         {path: 'assignTasks', component: AssignTasksComponent },
         {path: 'gantt/:id/:name', component: GanttFloorsComponent },
         {path: 'ganttDepartment/:idProyect/:idFloor/:idTask/:nameProject/:nameTask/:numberFloor', component: GanttDepartmentsComponent },
+        {path: 'ganttCommonService/:idProyect/:idFloor/:idTask/:nameProject/:nameTask/:numberFloor/:type', component: GanttCommonServiceComponent },
         {path: 'user', component: UserComponent },
         {path: 'newUser', component: NewUserComponent },
         {path: 'editUser/:id', component: EditUserComponent },

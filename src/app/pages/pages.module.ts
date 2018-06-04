@@ -43,6 +43,7 @@ import { FormUserComponent } from './user/form-user.component';
 import { EditUserComponent } from './user/edit-user.component';
 import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.component';
 import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-employees.component';
+import { GanttCommonServiceComponent } from './gantt/gantt-common-service.component';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-e
      FormUserComponent,
      EditUserComponent,
      EmployeeSubtaskComponent,
-     EditHoursEmployeesComponent
+     EditHoursEmployeesComponent,
+     GanttCommonServiceComponent
 
    ],
    exports: [ 
