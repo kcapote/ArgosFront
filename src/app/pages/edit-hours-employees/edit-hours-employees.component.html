@@ -46,7 +46,7 @@
         <tr *ngFor="let item of collection; let i = index" >
             <th scope="row"> 1 </th>
             <td>{{ item.employee['name'] }}</td>
-            <td> {{ item['area'] }} </td>
+            <td> {{ item.task['type'] }} </td>
             <td> {{ item.subTask.name }} </td>
             <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
             <td> <input class="form-control" type="number" [(value)] = "item['hoursWorked']" (keyup)= "updateElement(i, $event.target.value )" 
