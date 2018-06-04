@@ -102,7 +102,7 @@ export class ProjectCommonComponent implements OnInit {
     if(!this.existRecords){ 
      
        Object.keys(this.form.value).forEach(
-          async res => {
+           res => {
             console.log(res);
             
             for(let i=0; i <  this.form.controls[res].value; i++){
@@ -112,18 +112,18 @@ export class ProjectCommonComponent implements OnInit {
                 type: res,
                 status: 0    
               }
-              await this._ps.saveObject(Util.URL_COMMON_SERVICES,d,0).subscribe(
-                async resp => { 
+               this._ps.saveObject(Util.URL_COMMON_SERVICES,d,0).subscribe(
+                 resp => { 
                   this._ps.refresToken(resp);
                   if( resp.success == true ) {
                     //se guardan automaticamente las tareas
                     let url = `${ Util.URL_TASKS_BY_TYPE }/${ res }`
-                     await this._ps.getObjectsAny(url,0).subscribe(
-                     async respTask => {
+                      this._ps.getObjectsAny(url,0).subscribe(
+                      respTask => {
                         this._ps.refresToken(respTask);
                         if( respTask.success == true ) {
-                        await respTask.tasks.forEach(
-                            async task => {
+                         respTask.tasks.forEach(
+                             task => {
 
                             let commonTask: CommonServiceTask = {
                               commonService: resp.commonService._id,
@@ -133,17 +133,17 @@ export class ProjectCommonComponent implements OnInit {
                               status: 0
                             }
 
-                            await this._ps.saveObject(Util.URL_COMMON_SERVICES_TASKS, commonTask,0).subscribe(
-                               async respSaveTasks => {
+                             this._ps.saveObject(Util.URL_COMMON_SERVICES_TASKS, commonTask,0).subscribe(
+                                respSaveTasks => {
                                 this._ps.refresToken(respSaveTasks);
                                 if( respSaveTasks.success == true ) {
                                   //se guardan automaticamente las sub tareas
-                                  await this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id,0).subscribe(
-                                   async respSubTasks => {
+                                   this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id,0).subscribe(
+                                    respSubTasks => {
                                       this._ps.refresToken(respSubTasks);
                                       if( respSubTasks.success == true ) {
-                                       await respSubTasks.subTasks.forEach(
-                                          async subtask => {
+                                        respSubTasks.subTasks.forEach(
+                                           subtask => {
                                           
                                           let commonSubTask: CommonServiceSubTask = {
                                             commonService: resp.commonService._id,
@@ -154,7 +154,7 @@ export class ProjectCommonComponent implements OnInit {
                                             status: 0
                                           }
 
-                                          await this._ps.saveObject(Util.URL_COMMON_SERVICES_SUB_TASKS, commonSubTask,0).subscribe(
+                                           this._ps.saveObject(Util.URL_COMMON_SERVICES_SUB_TASKS, commonSubTask,0).subscribe(
                                             respSaveTasks => {
                                               this._ps.refresToken(respSaveTasks);
                                               if( respSaveTasks.success == true ) {
