@@ -1,6 +1,6 @@
 <br>
 <br>
-<h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Porgreso Total Faenas del Edificio {{nombreProyecto}}</h5>
+<h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Porgreso Faenas del Proyecto {{nombreProyecto}}</h5>
 <br>
 <h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Progreso de Pisos</h6>
 <br>
@@ -36,7 +36,7 @@
         <tr *ngFor="let item of collectionGraphicFloorSC; let i = index">
             <th scope="row" class="text-center"> {{item.task.position}}</th>
             <td>{{item.task.name}}</td>
-            <td (click)="detailByFloor(item2._id)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+            <td (click)="detailByCommonService(i,i2,'FloorSC')" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
                 *ngFor="let item2 of item.commonServices; let i2 = index">{{item2.status}}%</td>
         </tr>
     </tbody>
@@ -56,7 +56,7 @@
         <tr *ngFor="let item of collectionGraphicUnderground; let i = index">
             <th scope="row" class="text-center"> {{item.task.position}}</th>
             <td>{{item.task.name}}</td>
-            <td (click)="detailByFloor(item2._id)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+            <td (click)="detailByCommonService(i,i2,'Underground')" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
                 *ngFor="let item2 of item.commonServices; let i2 = index">{{item2.status}}%</td>
         </tr>
     </tbody>
@@ -76,7 +76,7 @@
         <tr *ngFor="let item of collectionGraphicEmplacement; let i = index">
             <th scope="row" class="text-center"> {{item.task.position}}</th>
             <td>{{item.task.name}}</td>
-            <td (click)="detailByFloor(item2._id)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+            <td (click)="detailByCommonService(i,i2,'Emplacement')" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
                 *ngFor="let item2 of item.commonServices; let i2 = index">{{item2.status}}%</td>
         </tr>
     </tbody>
