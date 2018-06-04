@@ -175,11 +175,11 @@ export class AssignTasksComponent implements OnInit {
      console.log(collectionTemp[i]);
      
       this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,collectionTemp[i],0).subscribe(
-          async res =>{ 
-             await console.log('salvado' , res)  
+           res =>{ 
+              console.log('salvado' , res)  
           },
-          async err=> {
-             await console.log('salvado' , err)              
+           err=> {
+              console.log('salvado' , err)              
           }
         )            
    }
