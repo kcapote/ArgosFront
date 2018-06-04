@@ -51,16 +51,6 @@ export class ProjectFloorsComponent implements OnInit {
 
     )
 
-    this._msg.notify.subscribe(
-      res => {
-          if(res.type === Util.ACTION_SUCCESS && res.response === Util.OK_RESPONSE ){
-            this.router.navigate(['/pages/projectsCommon',this.idProject]);
-          }
-      }
-    )   
-    
-
-
 
   }
   
@@ -207,7 +197,13 @@ export class ProjectFloorsComponent implements OnInit {
       this.saving = false;
       console.log('debe salir al final');
                          
-      this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );  
+      this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(
+        res => {
+          if(res.type === Util.ACTION_SUCCESS && res.response === Util.OK_RESPONSE ){
+            this.router.navigate(['/pages/projectsCommon',this.idProject]);
+          }
+        }
+      );  
     }else{
         
 

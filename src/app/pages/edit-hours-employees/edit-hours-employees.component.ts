@@ -15,6 +15,8 @@ export class EditHoursEmployeesComponent implements OnInit {
   urlProjects = Util.URL_POJECTS;
   collection:any [] = [];
   project: any = {};
+  fromDate: string; 
+  toDate: string;
 
   constructor(
     private _msg: MsgBoxService,
@@ -35,6 +37,18 @@ export class EditHoursEmployeesComponent implements OnInit {
   } 
 
   saveOne (idx: number) {
+    
+    console.log(this.collection[idx]);
+    
+    // this._msg.show(Util.UPDATE_TITLE,Util.MSJ_UPDATE_QUESTION,Util.ACTION_UPDATE).subscribe(
+    //   res => {
+    //     if(res.response == Util.OK_RESPONSE){
+    //         let a = this.collection[idx];
+            
+
+    //     }
+    //   }
+    // )
 
   }
 
@@ -46,8 +60,14 @@ export class EditHoursEmployeesComponent implements OnInit {
 
   loadData() {
    
-    let urlTemp = `${ Util.URL_EMPLOYEE_SUBTASK }/project/${ this.project['_id'] }` ;
-    console.log(urlTemp);
+    console.log(this.fromDate);
+    let urlTemp;
+    
+    if(this.fromDate && this.toDate){
+      urlTemp = `${ Util.URL_EMPLOYEE_SUBTASK }/employee/calendar/project/${ this.project['_id']}/${ this.fromDate }/${ this.toDate }`
+    } else {
+      urlTemp = `${ Util.URL_EMPLOYEE_SUBTASK }/project/${ this.project['_id'] }` ;
+    }
     
     this._ps.getObjectsAny(urlTemp,0).subscribe(
       res => {
