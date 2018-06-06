@@ -83,6 +83,8 @@ export class EditHoursEmployeesComponent implements OnInit {
   loadData() {
    
     console.log(this.fromDate);
+    console.log(this.toDate);
+    console.log(this.project['_id']);
     let urlTemp;
     
     if(this.fromDate && this.toDate){
