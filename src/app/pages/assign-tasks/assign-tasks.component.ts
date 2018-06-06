@@ -88,20 +88,25 @@ export class AssignTasksComponent implements OnInit {
   updateId(){
    
     this.idProject = this.form.get('project').value['_id'];
+    this.updateType();
+    this.updateIdFloor();
+    this.updateIdTask();
+    this.idTask = "";
   }
   
   updateIdFloor(){
-    this.idFloor = this.form.get('floor').value['_id'];
+    if(this.form.get('area').value == 'DEPARTAMENTOS'){
+      this.idFloor = this.form.get('floor').value['_id'];
+    }
   } 
   
   updateType(){
     this.taskType = this.form.get('area').value;
-
+    this.idTask = "sss";
     if(this.form.get('area').value !== 'DEPARTAMENTOS'){
       
       this.urlCommonServices =  `${Util.URL_COMMON_SERVICES}/project/${ this.idProject }/${this.taskType}` ;
-
-      
+     
       //  this._ps.getObjectsAny(this.urlCommonServices,0).subscribe(
       //   res =>  (this.collectionCommonServices = res['commonService'])        
       // )
@@ -114,9 +119,16 @@ export class AssignTasksComponent implements OnInit {
     //this.urlCommonServices = this.urlCommonServices + 
 
   }
+
+
+
   
   updateIdTask(){
-    this.idTask = this.form.get('task').value['_id'];
+    // if(this.form.get('task').value['_id']){
+      this.idTask = this.form.get('task').value['_id'];
+     console.log('el idtask es ',this.idTask);
+     
+    // }
     //console.log(this.idTask);    
   }
 

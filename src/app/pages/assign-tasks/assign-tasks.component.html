@@ -19,7 +19,7 @@
 
                 <div class="form-group col-md-6">
                     <label>Área: </label>
-                    <select class="form-control"  formControlName ="area"  (change)="updateType()">
+                    <select class="form-control"  formControlName ="area"  (change)="updateType(); cSubTask.collection = []">
                         <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
                     </select>
                     
@@ -33,7 +33,7 @@
                     <label for="">Faenas</label>
                     <combo #cTask [ngClass]="{'is-invalid':!form.controls['task'].valid && !form.get('task').pristine }" 
                     [url] = "urlTasks" formControlName="task" labelField ="name" nameFather = "type" [(idFather)] = "taskType"
-                    nameCollection="tasks" (change)="updateIdTask()" ></combo>    
+                    nameCollection="tasks" (change)="updateIdTask() " ></combo>    
                     <div *ngIf="!form.get('task').errors?.valid && !form.get('task').pristine" class="invalid-feedback">
                         La Faena es obligatoria
                     </div> 
@@ -75,7 +75,7 @@
             <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row" >         
                    <div class="form-group col-md-12">
                        <label for=""> {{taskType}} </label>
-                       <combo [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
+                       <combo #services [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
                                 nameCollection="commonServices" freeQuery = "true"   ></combo> 
                    </div>
             </div>

@@ -86,7 +86,7 @@ export class EditHoursEmployeesComponent implements OnInit {
     let urlTemp;
     
     if(this.fromDate && this.toDate){
-      urlTemp = `${ Util.URL_EMPLOYEE_SUBTASK }/employee/calendar/project/${ this.project['_id']}/${ this.fromDate }/${ this.toDate }`
+      urlTemp = `${ Util.URL_EMPLOYEE_SUBTASK }/employee/calendar/${ this.project['_id']}/${ this.fromDate }/${ this.toDate }`
     } else {
       urlTemp = `${ Util.URL_EMPLOYEE_SUBTASK }/project/${ this.project['_id'] }` ;
     }

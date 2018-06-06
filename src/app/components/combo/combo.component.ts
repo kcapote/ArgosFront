@@ -18,7 +18,7 @@ import { Util } from '../../util/util';
 export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
   @Input() title:string = ""; 
-  @Input() url;
+  @Input() urlDef;
   @Input() labelField: string;
   @Input() nameCollection: string;
   @Input() filterId;
@@ -29,8 +29,20 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   @Input('idFather') 
   set idFather(val: string) {
        if(val){
-        
+         
          this.idF = val;         
+         this.load();
+        } 
+       
+  }
+
+
+  @Input('url') 
+  set url(val: string) {
+       if(val){
+        
+         this.urlDef = val;
+                 
          this.load();
         } 
        
@@ -44,7 +56,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   itemId: any;
   nested: number;
   
-  collection = [];
+  public collection = [];
   
 
   constructor(private _ps: ProviderService) {
@@ -62,7 +74,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
   }
 
-  load() {
+  public load() {
         
     let c =  this.labelField.split(this.separator);
     this.nested = (c[0].split('.')).length;
@@ -83,7 +95,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
     }  
     
     if(this.freeQuery){
-      this._ps.getObjectsAny(this.url,0).subscribe(
+      this._ps.getObjectsAny(this.urlDef,0).subscribe(
         res => {
             this._ps.refresToken(res);
             //console.log(res);
@@ -96,13 +108,16 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             this.propagateChange(this.itemId);
             this.loading = false;
             this.loadSel();
+          },
+          err => {
+            this.collection = [];
           }
       );     
       
 
-    }else if(this.url && (!this.nameFather && !this.idF) ){
+    }else if(this.urlDef && (!this.nameFather && !this.idF) ){
       
-       this._ps.getObjects(this.url,0).subscribe(
+       this._ps.getObjects(this.urlDef,0).subscribe(
         res => {
             this._ps.refresToken(res);
             //console.log(res);
@@ -115,12 +130,15 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             this.propagateChange(this.itemId);
             this.loading = false;
             this.loadSel();
+          },
+          err => {
+            this.collection = [];
           }
       );     
-    }else if(this.url && this.nameFather && this.idF) {
+    }else if(this.urlDef && this.nameFather && this.idF) {
      //console.log(this.idF);
       
-      this._ps.getObjectsByFather(this.url,this.nameFather,0,this.idF,0).subscribe(
+      this._ps.getObjectsByFather(this.urlDef,this.nameFather,0,this.idF,0).subscribe(
         res =>{
           this._ps.refresToken(res);
           //console.log(res);          
@@ -132,7 +150,13 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
           this.propagateChange(this.itemId);
           this.loading = false;
           this.loadSel();
+        },
+        err => {
+          console.log('en el error ', this.nameCollection, ' ', this.idFather);
+          
+          this.collection = [];
         }
+
       ); 
     }
 
