@@ -18,6 +18,8 @@ export class EditHoursEmployeesComponent implements OnInit {
   project: any = {};
   fromDate: string; 
   toDate: string;
+  term: string;
+  totalRecords: number;
 
   constructor(
     private _msg: MsgBoxService,
@@ -95,6 +97,7 @@ export class EditHoursEmployeesComponent implements OnInit {
     
     this._ps.getObjectsAny(urlTemp,0).subscribe(
       res => {
+        this.totalRecords = res.totalRecords;
         console.log(res);
         this.collection = res['employeeSubTasks'];
       }
