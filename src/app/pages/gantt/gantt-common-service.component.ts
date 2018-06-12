@@ -131,9 +131,9 @@ export class GanttCommonServiceComponent implements OnInit {
     this.location.back()
   }
 
-  detailByCommonService(idTask:String, idFloor: string) {
+  detailByCommonService(idSubTask:String) {
 
-    //this.router.navigate(['/pages/ganttDepartment', this.idProject, this.collectionGraphicFloor[Number(idTask)].floors[idFloor]._id, this.collectionGraphicFloor[Number(idTask)].task._id])
+    this.router.navigate(['/pages/ganttDetailCommonServices', this.idProject, this.idFloor, this.idTask, idSubTask, this.type])
 
   }
 

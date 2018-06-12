@@ -45,6 +45,7 @@ import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.co
 import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-employees.component';
 import { GanttCommonServiceComponent } from './gantt/gantt-common-service.component';
 import { UpdateProgressComponent } from './update-progress/update-progress.component';
+import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-worked.component';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { UpdateProgressComponent } from './update-progress/update-progress.compo
      EmployeeSubtaskComponent,
      EditHoursEmployeesComponent,
      GanttCommonServiceComponent,
-     UpdateProgressComponent
+     UpdateProgressComponent,
+     GanttCommonDetailWorkedComponent
 
    ],
    exports: [ 
