@@ -28,11 +28,8 @@ import { NewUserComponent } from './user/new-user.component';
 import { EditUserComponent } from './user/edit-user.component';
 import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.component';
 import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-employees.component';
-<<<<<<< HEAD
 import { UpdateProgressComponent } from './update-progress/update-progress.component';
-=======
 import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-worked.component';
->>>>>>> 3ea69a7ab3dfd8e505b40f3a68a239e32fbbb1fd
 
 
 
