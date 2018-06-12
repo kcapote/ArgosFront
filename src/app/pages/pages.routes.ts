@@ -28,6 +28,7 @@ import { NewUserComponent } from './user/new-user.component';
 import { EditUserComponent } from './user/edit-user.component';
 import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.component';
 import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-employees.component';
+import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-worked.component';
 
 
 
@@ -57,6 +58,7 @@ const app_pages_routes: Routes = [
         {path: 'gantt/:id/:name', component: GanttFloorsComponent },
         {path: 'ganttDepartment/:idProyect/:idFloor/:idTask/:nameProject/:nameTask/:numberFloor', component: GanttDepartmentsComponent },
         {path: 'ganttCommonService/:idProyect/:idFloor/:idTask/:nameProject/:nameTask/:numberFloor/:type', component: GanttCommonServiceComponent },
+        {path: 'ganttDetailCommonServices/:idProyect/:idFloor/:idTask/:idSubTask/:type', component: GanttCommonDetailWorkedComponent },
         {path: 'user', component: UserComponent },
         {path: 'newUser', component: NewUserComponent },
         {path: 'editUser/:id', component: EditUserComponent },

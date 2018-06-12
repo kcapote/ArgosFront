@@ -44,6 +44,7 @@ import { EditUserComponent } from './user/edit-user.component';
 import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.component';
 import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-employees.component';
 import { GanttCommonServiceComponent } from './gantt/gantt-common-service.component';
+import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-worked.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { GanttCommonServiceComponent } from './gantt/gantt-common-service.compon
      EditUserComponent,
      EmployeeSubtaskComponent,
      EditHoursEmployeesComponent,
-     GanttCommonServiceComponent
+     GanttCommonServiceComponent,
+     GanttCommonDetailWorkedComponent
 
    ],
    exports: [ 

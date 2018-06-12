@@ -1,0 +1,63 @@
+<br>
+<br>
+<h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Porgreso Faenas del Proyecto {{this.collectionEmployeeSubTasks[0].project.name}}</h5>
+<br>
+<h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Faena {{this.collectionEmployeeSubTasks[0].task.name}} / Tarea {{this.collectionEmployeeSubTasks[0].subTask.name}}</h6>
+<br>
+<table class="table table-bordered" style="font-size: 12px">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center"></th>
+            <th scope="col" class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row" class="text-center">{{numberFloor}}</th>
+            <td class="text-center" [ngClass]="{'red': this.collectionEmployeeSubTasks[0].commonService.status <= 49, 'yellow': this.collectionEmployeeSubTasks[0].commonService.status >= 50 && this.collectionEmployeeSubTasks[0].commonService.status <= 74, 'greenSoft': this.collectionEmployeeSubTasks[0].commonService.status >= 75 && this.collectionEmployeeSubTasks[0].commonService.status <= 99, 'green': this.collectionEmployeeSubTasks[0].commonService.status === 100}">{{this.collectionEmployeeSubTasks[0].commonService.status}}%</td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-center">Faena</th>
+            <td class="text-center"><span>{{this.collectionEmployeeSubTasks[0].task.name}}</span></td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-center">Tarea</th>
+            <td class="text-center"><span>{{this.collectionEmployeeSubTasks[0].subTask.name}}</span></td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-center">Total Horas</th>
+            <td class="text-center"><span>{{totalHours}}</span></td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-center">Trabajadores</th>
+            <td class="text-center">
+                <table class="table table-bordered" style="font-size: 12px">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Nombre</th>
+                            <th scope="col" class="text-center">Cargo</th>
+                            <th scope="col" class="text-center">Fecha</th>
+                            <th scope="col" class="text-center">Horas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of collectionEmployeeSubTasks; let i = index">
+                            <th scope="row" class="text-left">{{item.employee.name}}</th>
+                            <td class="text-center">{{item.employee.position}}</td>
+                            <td class="text-center">{{item.recordDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item.hoursWorked}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <button class="btn btn-outline-secondary" (click)="back()">Regresar</button>
+    </div>
+</div>
+<br>
+<br>
