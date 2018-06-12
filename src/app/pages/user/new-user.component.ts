@@ -14,13 +14,7 @@ import { User } from '../../interfaces/user.interface';
 export class NewUserComponent implements OnInit {
 
   constructor(private location: Location,private _ps:ProviderService,private _msg: MsgBoxService,private router: Router) {
-    this._msg.notify.subscribe(
-      res => {
-        if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
-          router.navigate(['/pages/user']);  
-
-        }
-    });  
+ 
   }
 
   ngOnInit() {
@@ -31,7 +25,14 @@ export class NewUserComponent implements OnInit {
         res => {
           this._ps.refresToken(res);
           if( res.success == true ) {
-            this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS );      
+            this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(
+              res => {
+                if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
+                  this.router.navigate(['/pages/user']);  
+        
+                }
+            }
+            );      
           }          
         }    
     ) 

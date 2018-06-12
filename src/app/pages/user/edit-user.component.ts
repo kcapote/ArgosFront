@@ -26,21 +26,7 @@ export class EditUserComponent implements OnInit {
       }
     );
 
-    this._msg.notify.subscribe(
-      res => {
-          if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
-                      
-            this._ps.updateObject(Util.URL_USER,this.idUser,this.item).subscribe(
-              res => {
-                this._ps.refresToken(res);                     
-                if(res.success == true){
-                     this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
-                     router.navigate(['/pages/user']);   
-                }
-              })           
-          } 
-      }
-    );
+
 
 
   }
@@ -50,7 +36,21 @@ export class EditUserComponent implements OnInit {
 
   save(user: User) {
     this.item = user;     
-    this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE);
+    this._msg.show(Util.UPDATE_TITLE, Util.MSJ_UPDATE_QUESTION, Util.ACTION_UPDATE).subscribe(
+      res => {
+        if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
+                    
+          this._ps.updateObject(Util.URL_USER,this.idUser,this.item).subscribe(
+            res => {
+              this._ps.refresToken(res);                     
+              if(res.success == true){
+                   this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
+                   this.router.navigate(['/pages/user']);   
+              }
+            })           
+        } 
+    }
+    );
   }
   
   back() {
