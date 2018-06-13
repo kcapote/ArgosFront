@@ -59,6 +59,7 @@ const app_pages_routes: Routes = [
         {path: 'ganttDepartment/:idProyect/:idFloor/:idTask/:nameProject/:nameTask/:numberFloor', component: GanttDepartmentsComponent },
         {path: 'ganttCommonService/:idProyect/:idFloor/:idTask/:nameProject/:nameTask/:numberFloor/:type', component: GanttCommonServiceComponent },
         {path: 'ganttDetailCommonServices/:idProyect/:idFloor/:idTask/:idSubTask/:type', component: GanttCommonDetailWorkedComponent },
+        {path: 'ganttDetailCommonServices/:idProyect/:idFloor/:idDepartment/:idTask/:idSubTask/:type', component: GanttCommonDetailWorkedComponent },
         {path: 'user', component: UserComponent },
         {path: 'newUser', component: NewUserComponent },
         {path: 'editUser/:id', component: EditUserComponent },

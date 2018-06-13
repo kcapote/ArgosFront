@@ -15,6 +15,7 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
 
   idProject: string;
   idFloor: string;
+  idDepartment: string;
   idTask: string;
   idSubTask: string;
   type: string;
@@ -36,58 +37,70 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
           this.idTask = res['idTask'];
           this.idSubTask = res['idSubTask']; 
           this.type = res['type'];
-          
-          console.log(this.idProject);
-          console.log(this.idFloor );
-          console.log(this.idTask );
-          console.log(this.idSubTask);
-          console.log(this.type);
+          this.idDepartment = res['idDepartment'];
         
-
-          if(this.type === "0"){
-            this.viewCS = false;
-          }else{
-            this.viewCS = true;
-          }
-
-
-          let typeCS = "";
           if(this.type==="FloorSC"){
-            typeCS = "PISOS S.C";
             this.numberFloor = "Pisos SC ";
           }
           if(this.type==="Underground"){
-            typeCS = "SUBTERRANEOS";
             this.numberFloor = "Subterraneo ";
           }
           if(this.type==="Emplacement"){
-            typeCS = "EMPLAZAMIENTOS";
             this.numberFloor = "Emplazamiento ";
           }
-
-
-        let url = `${ Util.URL_EMPLOYEE_SUBTASK }/commonService/${this.idProject}/${this.idFloor}/${this.idTask}/${this.idSubTask}`
-        await _ps.getObjectsAny(url,0).toPromise().then(
-          res => {
-            this._ps.refresToken(res);  
-
-            this.collectionEmployeeSubTasks = res.employeeSubTasks;
-            this.numberFloor += String(this.collectionEmployeeSubTasks[0].commonService.number);
-            this.totalHours = 0;
-            this.collectionEmployeeSubTasks.forEach(element => {
-              this.totalHours += element.hoursWorked;
-            });
-            console.log(this.collectionEmployeeSubTasks);
-
+          if(this.type==="0"){
+            this.numberFloor = "Departamento ";
           }
-        ).catch(
-          error => {
-            console.log(error);
-            
+
+          if(this.type === "0"){
+            this.viewCS = false;
+            let url = `${ Util.URL_EMPLOYEE_SUBTASK }/department/${this.idProject}/${this.idFloor}/${this.idDepartment}/${this.idTask}/${this.idSubTask}`
+            await _ps.getObjectsAny(url,0).toPromise().then(
+              res => {
+                this._ps.refresToken(res);  
+                this.collectionEmployeeSubTasks = res.employeeSubTasks;
+                this.totalHours = 0;
+                if(this.collectionEmployeeSubTasks.length>0){
+                  let numberFloor = '';
+                  if(this.collectionEmployeeSubTasks[0].floor.number<10){
+                    numberFloor+= this.collectionEmployeeSubTasks[0].floor.number+'0';
+                  }                  
+                  this.numberFloor += numberFloor+String(this.collectionEmployeeSubTasks[0].department.number);
+                }
+                this.collectionEmployeeSubTasks.forEach(element => {
+                  this.totalHours += element.hoursWorked;
+                });
+                console.log(this.collectionEmployeeSubTasks);
+              }
+            ).catch(
+              error => {
+                console.log(error);
+              }
+            );
+          }else{
+            this.viewCS = true;
+            let url = `${ Util.URL_EMPLOYEE_SUBTASK }/commonService/${this.idProject}/${this.idFloor}/${this.idTask}/${this.idSubTask}`
+            await _ps.getObjectsAny(url,0).toPromise().then(
+              res => {
+                this._ps.refresToken(res);  
+
+                this.collectionEmployeeSubTasks = res.employeeSubTasks;
+                this.totalHours = 0;
+                if(this.collectionEmployeeSubTasks.length>0){
+                  this.numberFloor += String(this.collectionEmployeeSubTasks[0].commonService.number);
+                }
+                this.collectionEmployeeSubTasks.forEach(element => {
+                  this.totalHours += element.hoursWorked;
+                });
+                console.log(this.collectionEmployeeSubTasks);
+
+              }
+            ).catch(
+              error => {
+                console.log(error);
+              }
+            );
           }
-        );
-
-
         }
       )
 

@@ -67,7 +67,7 @@ export class GanttDepartmentsComponent implements OnInit {
               
                 graphicDepartment.subTask = subTask;
                 let departments: Department[] = [];
-                
+                let numberFloor = '';
                 this.collectionDepartmentSubTasks.forEach(departmentSubTask => {
                   let exist=false;
                   if(departmentSubTask.subTask._id === subTask._id){
@@ -78,6 +78,17 @@ export class GanttDepartmentsComponent implements OnInit {
                     });
                     if(!exist){
                       departmentSubTask.department.status = departmentSubTask.status;
+                      if(this.collectionDepartmentSubTasks[0].floor.number<10){
+                        numberFloor = this.collectionDepartmentSubTasks[0].floor.number+'0'+departmentSubTask.department.number;
+                      }else{
+                        if(departmentSubTask.department.number<10){
+                          numberFloor = this.collectionDepartmentSubTasks[0].floor.number+'0'+departmentSubTask.department.number;
+                        }else{
+                          numberFloor = this.collectionDepartmentSubTasks[0].floor.number+''+departmentSubTask.department.number;
+                        }
+                      }
+
+                      departmentSubTask.department.number =  numberFloor;
                       departments.push(departmentSubTask.department);
                     }
                   }
@@ -120,9 +131,10 @@ export class GanttDepartmentsComponent implements OnInit {
     this.location.back()
   }
 
-  detailByDepartment(idTask:String, idFloor: string) {
 
-    //this.router.navigate(['/pages/ganttDepartment', this.idProject, this.collectionGraphicFloor[Number(idTask)].floors[idFloor]._id, this.collectionGraphicFloor[Number(idTask)].task._id])
+  detailByDepartment(idDepartment:string,idSubTask:string) {
+
+    this.router.navigate(['/pages/ganttDetailCommonServices', this.idProject, this.idFloor, idDepartment, this.idTask, idSubTask, "0"])
 
   }
 

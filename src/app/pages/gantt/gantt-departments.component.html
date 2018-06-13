@@ -16,7 +16,7 @@
         <tr *ngFor="let item of collectionGraphiDepartments; let i = index">
             <th scope="row" class="text-center"> {{item.subTask.position}}</th>
             <td>{{item.subTask.name}}</td>
-            <td (click)="detailByDepartment(i,i2)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+            <td (click)="detailByDepartment(item2._id,item.subTask._id)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
                 *ngFor="let item2 of item.departments; let i2 = index">{{item2.status}}%</td>
         </tr>
     </tbody>
