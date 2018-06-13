@@ -44,6 +44,7 @@ import { EditUserComponent } from './user/edit-user.component';
 import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.component';
 import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-employees.component';
 import { GanttCommonServiceComponent } from './gantt/gantt-common-service.component';
+import { UpdateProgressComponent } from './update-progress/update-progress.component';
 import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-worked.component';
 
 
@@ -89,6 +90,7 @@ import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-wo
      EmployeeSubtaskComponent,
      EditHoursEmployeesComponent,
      GanttCommonServiceComponent,
+     UpdateProgressComponent,
      GanttCommonDetailWorkedComponent
 
    ],

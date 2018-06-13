@@ -1,0 +1,51 @@
+<h2 class="space-elements">Actualizar Progreso</h2>
+
+<form class="main-container" [formGroup]="form" >
+
+  <div class="row"> 
+      <div class="form-group col-md-6">
+        <label for="">Proyecto: </label>
+        <combo #cProject [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url] = "urlProjects"  
+            labelField ="name" nameCollection="projects" formControlName = "project"  >  
+        </combo>    
+        <div *ngIf="!form.get('project').errors?.valid && !form.get('project').pristine" class="invalid-feedback">
+            El proyecto es obligatorio
+        </div>
+
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Área: </label>
+        <select class="form-control"  formControlName ="area"  >
+            <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
+        </select>
+        
+      </div>
+  </div>
+  
+  <div class="row">
+
+    <div class="form-group col-md-6" >
+        <label for="">Faenas</label>
+        <combo #cTask [ngClass]="{'is-invalid':!form.controls['task'].valid && !form.get('task').pristine }" 
+        [url] = "urlTasks" formControlName="task" labelField ="name" nameFather = "type" [(idFather)] = "taskType"
+        nameCollection="tasks" (change)="updateIdTask() " ></combo>    
+        <div *ngIf="!form.get('task').errors?.valid && !form.get('task').pristine" class="invalid-feedback">
+            La Faena es obligatoria
+        </div> 
+    </div>
+     
+    
+    <div  class="form-group col-md-6" >
+        <label for="">Tarea</label>
+        <combo  #cSubTask [url] = "urlSubTasks" 
+                formControlName="subTask" labelField ="name"
+                nameCollection="subTasks" 
+                nameFather = "task" [(idFather)] = "idTask"></combo>    
+    </div> 
+
+
+  </div>  
+
+
+</form>

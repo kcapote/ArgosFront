@@ -40,7 +40,7 @@ export class AssignTasksComponent implements OnInit {
     r => {
       return ValidTypesTasks[r]
     }
-  ) ;
+  );
 
   constructor(private _ps: ProviderService, 
               private _msg: MsgBoxService,
@@ -86,7 +86,7 @@ export class AssignTasksComponent implements OnInit {
   // hoursWorked: number;
 
   updateId(){
-   
+    this.collection = [];
     this.idProject = this.form.get('project').value['_id'];
     this.updateType();
     this.updateIdFloor();
