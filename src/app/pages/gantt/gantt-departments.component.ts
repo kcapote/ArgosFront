@@ -94,6 +94,17 @@ export class GanttDepartmentsComponent implements OnInit {
                   }
                 });
 
+                let departmentsTemp:any = {};
+                for(let i=0;i<(departments.length-1);i++){
+                  for(let j=0;j<((departments.length-1)-i);j++){
+                      if(Number(String(departments[j].number).substring(String(departments[j].number).length-2))>Number(String(departments[j+1].number).substring(String(departments[j+1].number).length-2))){
+                        departmentsTemp=departments[j];
+                        departments[j]=departments[j+1];
+                        departments[j+1]=departmentsTemp;
+                      }
+                  }
+                }
+
                 graphicDepartment.departments = departments;
                 this.collectionGraphiDepartments.push(graphicDepartment);
                 console.log(this.collectionGraphiDepartments);

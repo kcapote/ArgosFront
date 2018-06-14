@@ -92,10 +92,25 @@ export class GanttCommonServiceComponent implements OnInit {
                       });
                       if(!exist){
                         commonServiceSubTask.commonService.status = commonServiceSubTask.status;
+                        if(typeCS==="SUBTERRANEOS"){
+                          commonServiceSubTask.commonService.number = "Sub "+commonServiceSubTask.commonService.number;
+                        }
                         commonServices.push(commonServiceSubTask.commonService);
                       }
                     }
                   });
+
+                  /*
+                  let commonServicesTemp:any = {};
+                  for(let i=0;i<(commonServices.length-1);i++){
+                    for(let j=0;j<((commonServices.length-1)-i);j++){
+                        if(Number(String(commonServices[j].number).substring(String(commonServices[j].number).length-2))>Number(String(commonServices[j+1].number).substring(String(commonServices[j+1].number).length-2))){
+                          commonServicesTemp=commonServices[j];
+                          commonServices[j]=commonServices[j+1];
+                          commonServices[j+1]=commonServicesTemp;
+                        }
+                    }
+                  }*/
 
                   graphicCommonService.commonServices = commonServices;
                   this.collectionGraphicCommonService.push(graphicCommonService);                                    

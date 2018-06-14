@@ -56,7 +56,7 @@ export class GanttFloorsComponent implements OnInit {
                 
               }
             );
-           await this._ps.getObjectsByFather(Util.URL_DEPARTMENTS_TASKS,'project',0, this.idProject).toPromise().then(
+           this._ps.getObjectsByFather(Util.URL_DEPARTMENTS_TASKS,'project',0, this.idProject).toPromise().then(
             res=> { 
               this._ps.refresToken(res);
               this.collectionDepartmentTasks = res.departmentTasks;
@@ -81,14 +81,24 @@ export class GanttFloorsComponent implements OnInit {
                     }
                   });
 
+                  let floorTemp:any = {};
+                  for(let i=0;i<(floors.length-1);i++){
+                    for(let j=0;j<((floors.length-1)-i);j++){
+                        if(floors[j].number>floors[j+1].number){
+                          floorTemp=floors[j];
+                          floors[j]=floors[j+1];
+                          floors[j+1]=floorTemp;
+                        }
+                    }
+                  }
+
                   graphicFloor.floors = floors;
                   this.collectionGraphicFloor.push(graphicFloor);                  
                   floors = [];
                   graphicFloor = {};
-
               });
-            }                    
-          ).catch(
+
+            }).catch(
             error=> { 
               console.log(error);
               }
@@ -110,7 +120,7 @@ export class GanttFloorsComponent implements OnInit {
           );
 
           url = `${ Util.URL_COMMON_SERVICES_TASKS }/project/${this.idProject}/SUBTERRANEOS`;
-          await _ps.getObjectsAny(url,0).toPromise().then(
+          _ps.getObjectsAny(url,0).toPromise().then(
             res=> { 
               this._ps.refresToken(res);
               this.collectionCommonServiceTask = res.commonServiceTasks;
@@ -130,10 +140,22 @@ export class GanttFloorsComponent implements OnInit {
                         }
                       });
                       if(!exist){
+                        commonServiceTask.commonService.number = "Sub "+commonServiceTask.commonService.number;
                         undergrounds.push(commonServiceTask.commonService);
                       }
                     }
                   });
+
+                  let underGroundsTemp:any = {};
+                  for(let i=0;i<(undergrounds.length-1);i++){
+                    for(let j=0;j<((undergrounds.length-1)-i);j++){
+                        if(undergrounds[j].number>undergrounds[j+1].number){
+                          underGroundsTemp=undergrounds[j];
+                          undergrounds[j]=undergrounds[j+1];
+                          undergrounds[j+1]=underGroundsTemp;
+                        }
+                    }
+                  }
 
                   graphicUnderground.commonServices = undergrounds;
                   this.collectionGraphicUnderground.push(graphicUnderground);                  
@@ -166,7 +188,7 @@ export class GanttFloorsComponent implements OnInit {
 
           this.collectionCommonServiceTask = [];
           url = `${ Util.URL_COMMON_SERVICES_TASKS }/project/${this.idProject}/PISOS S.C`;
-          await _ps.getObjectsAny(url,0).toPromise().then(
+          _ps.getObjectsAny(url,0).toPromise().then(
             res=> { 
               this._ps.refresToken(res);
               this.collectionCommonServiceTask = res.commonServiceTasks;
@@ -190,6 +212,17 @@ export class GanttFloorsComponent implements OnInit {
                       }
                     }
                   });
+
+                  let floorSCTemp:any = {};
+                  for(let i=0;i<(floorSCs.length-1);i++){
+                    for(let j=0;j<((floorSCs.length-1)-i);j++){
+                        if(floorSCs[j].number>floorSCs[j+1].number){
+                          floorSCTemp=floorSCs[j];
+                          floorSCs[j]=floorSCs[j+1];
+                          floorSCs[j+1]=floorSCTemp;
+                        }
+                    }
+                  }
 
                   graphicFlorrSC.commonServices = floorSCs;
                   this.collectionGraphicFloorSC.push(graphicFlorrSC);                  
@@ -221,7 +254,7 @@ export class GanttFloorsComponent implements OnInit {
 
           this.collectionCommonServiceTask = [];
           url = `${ Util.URL_COMMON_SERVICES_TASKS }/project/${this.idProject}/EMPLAZAMIENTOS`;
-          await _ps.getObjectsAny(url,0).toPromise().then(
+           _ps.getObjectsAny(url,0).toPromise().then(
             res=> { 
               this._ps.refresToken(res);
               this.collectionCommonServiceTask = res.commonServiceTasks;
@@ -245,6 +278,17 @@ export class GanttFloorsComponent implements OnInit {
                       }
                     }
                   });
+
+                  let emplacementsTemp:any = {};
+                  for(let i=0;i<(emplacements.length-1);i++){
+                    for(let j=0;j<((emplacements.length-1)-i);j++){
+                        if(emplacements[j].number>emplacements[j+1].number){
+                          emplacementsTemp=emplacements[j];
+                          emplacements[j]=emplacements[j+1];
+                          emplacements[j+1]=emplacementsTemp;
+                        }
+                    }
+                  }
 
                   graphicEmplacement.commonServices = emplacements;
                   this.collectionGraphicEmplacement.push(graphicEmplacement);                  
