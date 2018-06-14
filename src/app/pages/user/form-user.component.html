@@ -52,7 +52,7 @@
 
                 <div class="form-group col-md-4">
                     <label>Contraseña: </label>
-                    <input [ngClass]="{'is-invalid':!form.controls['password'].valid && !form.get('password').pristine }" type="text" class="form-control" formControlName="password">
+                    <input [ngClass]="{'is-invalid':!form.controls['password'].valid && !form.get('password').pristine }" type="password" class="form-control" formControlName="password">
                     <div *ngIf="!form.get('password').errors?.valid && !form.get('password').pristine" class="invalid-feedback">
                         La contraseña es obligatoria
                     </div>
@@ -60,7 +60,7 @@
 
                 <div class="form-group col-md-4">
                     <label>Confirmar Contraseña: </label>
-                    <input [ngClass]="{'is-invalid':!form.controls['password2'].valid && !form.get('password2').pristine }" type="text" class="form-control" formControlName="password2">
+                    <input [ngClass]="{'is-invalid':!form.controls['password2'].valid && !form.get('password2').pristine }" type="password" class="form-control" formControlName="password2">
                     <div *ngIf="!form.get('password2').errors?.valid && !form.get('password2').pristine" class="invalid-feedback">
                         Las contraseña no son iguales
                     </div>
