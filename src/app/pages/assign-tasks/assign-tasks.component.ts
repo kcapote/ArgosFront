@@ -184,7 +184,6 @@ export class AssignTasksComponent implements OnInit {
 
   
    for(let i = 0; i< collectionTemp.length; i++){
-     console.log(collectionTemp[i]);
      
       this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,collectionTemp[i],0).subscribe(
            res =>{ 
@@ -199,7 +198,6 @@ export class AssignTasksComponent implements OnInit {
    
   this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
     res => {
-      console.log(res);
       this.collection = [];      
       // this.router.navigate(['/pages','home']);
     }
