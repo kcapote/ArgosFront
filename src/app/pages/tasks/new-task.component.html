@@ -1,15 +1,12 @@
+<app-form-task #task title="Crear Faena">
 
-
-<app-form-task #task title="Crear Faena"></app-form-task>
+</app-form-task>
 
 <div class="row">
-     <div class="col-md-12 text-right">
-           <button (click)="save(task.getTask())"
-                   class="btn btn-outline-success"
-                   [disabled] = "!task.form.valid">
+    <div class="col-md-12 text-right">
+        <button (click)="save(task.getTask())" class="btn btn-success" [disabled]="!task.form.valid">
                  Guardar
-            </button> 
-           <button class="btn btn-outline-secondary" (click)="back()">Regresar</button> 
-     </div>   
+            </button>
+        <button class="btn btn-secondary" (click)="back()">Regresar</button>
+    </div>
 </div>
-

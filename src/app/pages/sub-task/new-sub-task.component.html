@@ -1,17 +1,13 @@
+<app-form-subtask #subTask title="Crear Tarea">
 
-
-<app-form-subtask #subTask title="Crear Tarea"></app-form-subtask>
+</app-form-subtask>
 
 
 <div class="row">
     <div class="col-md-12 text-right">
-          <button (click)="save(subTask.getSubTask())"
-                  class="btn btn-outline-success"
-                  [disabled] = "!subTask.form.valid">
+        <button (click)="save(subTask.getSubTask())" class="btn btn-success" [disabled]="!subTask.form.valid">
                 Guardar
-           </button> 
-          <button class="btn btn-outline-secondary" (click)="back()">Regresar</button> 
-    </div>   
+           </button>
+        <button class="btn btn-secondary" (click)="back()">Regresar</button>
+    </div>
 </div>
-
- 

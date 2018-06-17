@@ -1,12 +1,10 @@
-<app-form-position #position [idPosition]="idPosition" ></app-form-position>
+<app-form-position #position [idPosition]="idPosition"></app-form-position>
 
 <div class="row">
-  <div class="col-md-12 text-right">
-        <button (click)="save(position.getPosition())"
-                class="btn btn-outline-success"
-                [disabled] = "!position.form.valid">
+    <div class="col-md-12 text-right">
+        <button (click)="save(position.getPosition())" class="btn btn-success" [disabled]="!position.form.valid">
               Guardar
-         </button> 
-        <button class="btn btn-outline-secondary" (click)="back()">Regresar</button> 
-  </div>   
-</div> 
+         </button>
+        <button class="btn btn-secondary" (click)="back()">Regresar</button>
+    </div>
+</div>
