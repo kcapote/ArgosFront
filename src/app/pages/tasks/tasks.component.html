@@ -7,14 +7,14 @@
 
             <input [(ngModel)]="term" (keyup.enter)="search()" type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
             <div class="input-group-prepend">
-                <button (click)="search()" class="btn btn-outline-secondary" id="btnGroupAddon">Buscar</button>
+                <button (click)="search()" class="btn btn--secondary" id="btnGroupAddon">Buscar</button>
             </div>
 
         </div>
     </div>
 
     <div class="col-md-6 text-right space-elements">
-        <a *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" [routerLink]="['/pages/newTask']" class="btn btn-outline-success">Nueva Faena</a>
+        <a *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" [routerLink]="['/pages/newTask']" class="btn btn-success">Nueva Faena</a>
     </div>
 
 </div>

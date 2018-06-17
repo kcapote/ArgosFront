@@ -1,17 +1,15 @@
-<div *ngIf="idTask"> 
+<div *ngIf="idTask">
 
 
-      <app-form-task   #task title="Editar Faena" [(idTask)] = "idTask" > </app-form-task>
+    <app-form-task #task title="Editar Faena" [(idTask)]="idTask"> </app-form-task>
 
-      <div class="row">
-      <div class="col-md-12 text-right">
-            <button (click)="save(task.getTask())"
-                        class="btn btn-outline-success"
-                        [disabled] = "!task.form.valid">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button (click)="save(task.getTask())" class="btn btn-success" [disabled]="!task.form.valid">
                   Guardar
-                  </button> 
-            <button class="btn btn-outline-secondary" (click)="back()">Regresar</button> 
-      </div>    
-      </div>
+                  </button>
+            <button class="btn btn-secondary" (click)="back()">Regresar</button>
+        </div>
+    </div>
 
 </div>
