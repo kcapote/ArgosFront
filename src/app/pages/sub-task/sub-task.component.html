@@ -14,7 +14,7 @@
     </div>
 
     <div class="col-md-6 text-right space-elements">
-        <a [routerLink]="['/pages/newSubTask']" class="btn btn-outline-success">Nueva Tarea</a>
+        <a *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" [routerLink]="['/pages/newSubTask']" class="btn btn-outline-success">Nueva Tarea</a>
     </div>
 
 </div>
