@@ -95,6 +95,8 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
     }  
     
     if(this.freeQuery){
+      console.log(this.urlDef);
+      
       this._ps.getObjectsAny(this.urlDef,0).subscribe(
         res => {
             this._ps.refresToken(res);

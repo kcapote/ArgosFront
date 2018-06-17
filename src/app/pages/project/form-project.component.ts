@@ -17,7 +17,7 @@ export class FormProjectComponent implements OnInit {
   title:string = "Crear Proyecto";
   idProject: string;
   form: FormGroup;
-  url_employee:string = Util.URL_EMPLOYEE;
+  url_employee:string = Util.URL_EMPLOYEE+"/all";
   item: Project;
   
 
