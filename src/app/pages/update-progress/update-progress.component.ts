@@ -97,7 +97,7 @@ export class UpdateProgressComponent implements OnInit {
   
   updateIdDeparment(){
    
-      this.idFloor = this.form.get('department').value['_id'];
+      this.idDepartment = this.form.get('department').value['_id'];
        
   }
 
@@ -124,6 +124,12 @@ export class UpdateProgressComponent implements OnInit {
   search() {
    
    if(this.form.get('area').value === ValidTypesTasks.DEPARTAMENTOS){
+      //let url = `${ Util.URL_EMPLOYEE_SUBTASK }/department/${this.idProject}/${this.idFloor}/${this.idDepartment}/${this.idTask}/${this.idSubTask}`
+      ///department/:idProject/:idFloor/:idDepartment/:idTask
+   
+      console.log('project ', this.idProject, ' floor ', this.idFloor, ' department ', this.idDepartment, ' task ',this.idTask  ,' sub task ', this.idSubTask);
+      
+
       let url = `${ Util.URL_EMPLOYEE_SUBTASK }/department/${this.idProject}/${this.idFloor}/${this.idDepartment}/${this.idTask}/${this.idSubTask}`;
       console.log('URL',url);
       
@@ -133,7 +139,7 @@ export class UpdateProgressComponent implements OnInit {
               
 
         },err => {
-           console.log(err);
+           console.log('ERROR',err);
             
         }
       )
