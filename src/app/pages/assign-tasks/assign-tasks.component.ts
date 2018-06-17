@@ -30,7 +30,7 @@ export class AssignTasksComponent implements OnInit {
   taskType = "";
   idTask: any;
   showServices = false;
-  collectionCommonServices:any[] = [];
+
  
 
   collection: EmployeeSubTask[] = [];
@@ -102,7 +102,7 @@ export class AssignTasksComponent implements OnInit {
   
   updateType(){
     this.taskType = this.form.get('area').value;
-    this.idTask = "sss";
+    //this.idTask = "sss";
     if(this.form.get('area').value !== 'DEPARTAMENTOS'){
       
       this.urlCommonServices =  `${Util.URL_COMMON_SERVICES}/project/${ this.idProject }/${this.taskType}` ;
