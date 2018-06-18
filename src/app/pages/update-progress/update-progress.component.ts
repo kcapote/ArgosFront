@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProviderService } from '../../services/provider.service';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { Router } from '@angular/router';
+import { DepartmentSubTask } from '../../interfaces/departmentSubTask.interface';
 
 @Component({
   selector: 'app-update-progress',
@@ -115,7 +116,32 @@ export class UpdateProgressComponent implements OnInit {
 
 
   saveOne (idx: number) {
-    
+
+    console.log(this.collection[idx]);     
+    this._msg.show(Util.UPDATE_TITLE,Util.MSJ_UPDATE_QUESTION,Util.ACTION_UPDATE).subscribe(
+      res => {
+        if(res.response == Util.OK_RESPONSE){
+            let a:DepartmentSubTask = this.collection[idx];
+            a.project = a.project['_id'];
+            a.floor = a.floor['_id'];
+            a.subTask = a.subTask['_id'];
+            a.task = a.task['_id'];
+            a.department = a.department['_id'];
+            
+            if(a.status ==100 ){
+              a.endDate = new Date().toString();
+            }
+
+            this._ps.updateObject(Util.URL_DEPARTMENTS_SUB_TASKS,a['_id'],a,0).subscribe(
+              res => {
+                console.log('update succes');
+                
+              }
+            )
+
+        }
+      }
+    );
     
 
   }
@@ -124,19 +150,15 @@ export class UpdateProgressComponent implements OnInit {
   search() {
    
    if(this.form.get('area').value === ValidTypesTasks.DEPARTAMENTOS){
-      //let url = `${ Util.URL_EMPLOYEE_SUBTASK }/department/${this.idProject}/${this.idFloor}/${this.idDepartment}/${this.idTask}/${this.idSubTask}`
-      ///department/:idProject/:idFloor/:idDepartment/:idTask
-   
       console.log('project ', this.idProject, ' floor ', this.idFloor, ' department ', this.idDepartment, ' task ',this.idTask  ,' sub task ', this.idSubTask);
-      
-
-      let url = `${ Util.URL_EMPLOYEE_SUBTASK }/department/${this.idProject}/${this.idFloor}/${this.idDepartment}/${this.idTask}/${this.idSubTask}`;
+    
+      let url = `${ Util.URL_DEPARTMENTS_SUB_TASKS }/department/${this.idProject}/${this.idDepartment}/${this.idTask}`;
       console.log('URL',url);
       
       this._ps.getObjectsAny(url,0).subscribe(
         res=>{
            console.log(res);
-              
+           this.collection = res.departmentSubTasks;   
 
         },err => {
            console.log('ERROR',err);

@@ -52,8 +52,7 @@ export class EditHoursEmployeesComponent implements OnInit {
 
   saveOne (idx: number) {
     
-    console.log(this.collection[idx]);
-    
+   
     this._msg.show(Util.UPDATE_TITLE,Util.MSJ_UPDATE_QUESTION,Util.ACTION_UPDATE).subscribe(
       res => {
         if(res.response == Util.OK_RESPONSE){
@@ -67,7 +66,7 @@ export class EditHoursEmployeesComponent implements OnInit {
 
         }
       }
-    )
+    );
 
   }
 
