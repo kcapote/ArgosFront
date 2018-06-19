@@ -1,4 +1,3 @@
-
-  <select class="custom-select " name="combo" (change)="onChange($event.target.value)" > 
-    <option *ngFor="let item of collection; let i = index" [value]="item._id">{{item.name}}</option>
-  </select>
+<select class="custom-select " name="combo" (change)="onChange($event.target.value)"> 
+    <option *ngFor="let item of collection; let i = index" [value]="item._id">{{item.type}} - {{item.name}}</option>
+  </select> 
