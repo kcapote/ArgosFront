@@ -40,6 +40,8 @@ export class Util {
     public static MSJ_DELETE_QUESTION = "¿Está seguro que desea eliminar el registro?";
     public static ERROR = "ERROR";
     public static OK_RESPONSE = "OK";
+    public static ATENTION = "ATENCIÓN";
+    public static GENERIC_ERROR_MSG = "No se puede completar la operación, intente más tarde.";
      
     
 

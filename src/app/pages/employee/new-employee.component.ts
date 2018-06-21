@@ -43,8 +43,27 @@ export class NewEmployeeComponent implements OnInit {
             });       
           }          
 
-        }    
-    ) 
+        },err => {
+          if(err.error.errors.errors.rut){
+            this._msg.show(Util.ATENTION, err.error.errors.errors.rut.message, Util.ACTION_INFO ).subscribe(
+              res => {
+                if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
+                  this.router.navigate(['/pages/newEmployee']);  
+        
+                }
+            });
+          }else{
+            this._msg.show(Util.ATENTION, Util.GENERIC_ERROR_MSG, Util.ACTION_INFO ).subscribe(
+              res => {
+                if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
+                  this.router.navigate(['/pages/newEmployee']);  
+        
+                }
+            });
+          }
+             
+       }    
+    )
 
       
 

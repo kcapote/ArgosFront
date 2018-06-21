@@ -34,8 +34,26 @@ export class NewUserComponent implements OnInit {
             }
             );      
           }          
+        },err => {
+          if(err.error.errors.errors.email){
+            this._msg.show(Util.ATENTION, err.error.errors.errors.email.message, Util.ACTION_INFO ).subscribe(
+              res => {
+                if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
+                  this.router.navigate(['/pages/newUser']);  
+        
+                }
+            });
+          }else{
+            this._msg.show(Util.ATENTION, Util.GENERIC_ERROR_MSG, Util.ACTION_INFO ).subscribe(
+              res => {
+                if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
+                  this.router.navigate(['/pages/newUser']);  
+        
+                }
+            });
+          }
         }    
-    ) 
+    )
   }
 
   back() {
