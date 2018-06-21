@@ -52,7 +52,7 @@
                     <div class="form-group col-md-12">
                         <label for=""> {{taskType}} </label>
                         <combo #services [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
-                                nameCollection="commonServices" freeQuery = "true"   ></combo> 
+                                nameCollection="commonServices" freeQuery = "true" (click)="updateIdCommonServices()" ></combo> 
                     </div>
             </div>
             
