@@ -93,10 +93,9 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
           }
         )
     }  
-    
+
     if(this.freeQuery){
-      console.log(this.urlDef);
-      
+
       this._ps.getObjectsAny(this.urlDef,0).subscribe(
         res => {
             this._ps.refresToken(res);
@@ -118,14 +117,27 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
       
 
     }else if(this.urlDef && (!this.nameFather && !this.idF) ){
-      
-       this._ps.getObjects(this.urlDef,0).subscribe(
+      console.log(this.urlDef); 
+      this._ps.getObjects(this.urlDef,0).subscribe(
         res => {
             this._ps.refresToken(res);
             //console.log(res);
             
             this.collection = res[this.nameCollection];
-            
+            if(this.urlDef==='http://localhost:3001/project'){
+              let p = {
+                _id: 0,
+                name: "Todos",
+                adress: '',
+                builder: '',
+                supervisor1: '',
+                supervisor2: '',
+                status: 0,
+                startDate: '',
+                endDate: ''
+              };
+              this.collection.push(p);
+            }
             this.collection.map( e => {
                e['output'] =  this.concatenateFields(e,arr);               
             });
@@ -162,11 +174,6 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
       ); 
     }
 
-    
-  
-    
-    
-    
   }
   
 
