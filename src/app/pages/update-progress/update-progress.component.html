@@ -1,17 +1,16 @@
 <h2 class="space-elements">Actualizar Progreso</h2>
 
-<form class="main-container" [formGroup]="form" >
+<form class="main-container" [formGroup]="form">
 
-    <div class="card " >
+    <div class="card ">
         <div class="card-body">
-            <h5 class="card-title col-md-12"><i class="fas fa-address-card configureIcon"></i>Datos del Proyecto </h5>    
+            <h5 class="card-title col-md-12"><i class="fas fa-address-card configureIcon"></i>Datos del Proyecto </h5>
 
-            <div class="row"> 
+            <div class="row">
                 <div class="form-group col-md-6">
                     <label for="">Proyecto: </label>
-                    <combo #cProject [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url] = "urlProjects"  
-                        labelField ="name" nameCollection="projects" formControlName = "project" (change) ="updateId()" >  
-                    </combo>    
+                    <combo #cProject [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url]="urlProjects" labelField="name" nameCollection="projects" formControlName="project" (change)="updateId()">
+                    </combo>
                     <div *ngIf="!form.get('project').errors?.valid && !form.get('project').pristine" class="invalid-feedback">
                         El proyecto es obligatorio
                     </div>
@@ -20,94 +19,87 @@
 
                 <div class="form-group col-md-6">
                     <label>Área: </label>
-                    <select class="form-control"  formControlName ="area" (change)="updateType()" >
+                    <select class="form-control" formControlName="area" (change)="updateType()">
                         <option *ngFor="let item  of  enumType ; let i = index" [value]="item" > {{ item }} </option>        
                     </select>
-                    
+
                 </div>
             </div>
 
             <!-- Si seleccionaron un departamento -->
-            <div *ngIf="(form.get('area').value == 'DEPARTAMENTOS') " class="row" >
-    
-                <div class="form-group col-md-6"  >
+            <div *ngIf="(form.get('area').value == 'DEPARTAMENTOS') " class="row">
+
+                <div class="form-group col-md-6">
                     <label for="">Pisos</label>
-                    <combo *ngIf="idProject" #cFloor [url] = "urlFloors" 
-                            formControlName="floor" labelField ="number, type" (change) = "updateIdFloor()"
-                            nameCollection="floors" nameFather = "project"  [(idFather)] = "idProject" separator=" - "></combo>    
-                                
-                </div> 
-        
-                <div *ngIf="idFloor" class="form-group col-md-6"  >
+                    <combo *ngIf="idProject" #cFloor [url]="urlFloors" formControlName="floor" labelField="number, type" (change)="updateIdFloor()" nameCollection="floors" nameFather="project" [(idFather)]="idProject" separator=" - "></combo>
+
+                </div>
+
+                <div *ngIf="idFloor" class="form-group col-md-6">
                     <label for="">Departamentos</label>
-                    <combo #cDepart [url] = "urlDepartments" formControlName="department" labelField ="number" 
-                                nameCollection="departments" nameFather = "floor"  [(idFather)] = "idFloor" (click) = "updateIdDeparment()"  ></combo>    
-                </div> 
-                    
+                    <combo #cDepart [url]="urlDepartments" formControlName="department" labelField="number" nameCollection="departments" nameFather="floor" [(idFather)]="idFloor" (click)="updateIdDeparment()"></combo>
+                </div>
+
             </div>
 
 
             <!-- si seleccionaron un common services -->
-            <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row" >         
-                    <div class="form-group col-md-12">
-                        <label for=""> {{taskType}} </label>
-                        <combo #services [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
-                                nameCollection="commonServices" freeQuery = "true"   ></combo> 
-                    </div>
+            <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row">
+                <div class="form-group col-md-12">
+                    <label for=""> {{taskType}} </label>
+                    <combo #services [url]="urlCommonServices" formControlName="commonService" labelField="number" nameCollection="commonServices" freeQuery="true"></combo>
+                </div>
             </div>
-            
+
             <div class="row">
 
-                <div class="form-group col-md-12" >
+                <div class="form-group col-md-12">
                     <label for="">Faenas</label>
-                    <combo #cTask [ngClass]="{'is-invalid':!form.controls['task'].valid && !form.get('task').pristine }" 
-                    [url] = "urlTasks" formControlName="task" labelField ="name" nameFather = "type" [(idFather)] = "taskType"
-                    nameCollection="tasks" (change)="updateIdTask() " ></combo>    
+                    <combo #cTask [ngClass]="{'is-invalid':!form.controls['task'].valid && !form.get('task').pristine }" [url]="urlTasks" formControlName="task" labelField="name" nameFather="type" [(idFather)]="taskType" nameCollection="tasks" (change)="updateIdTask() "></combo>
                     <div *ngIf="!form.get('task').errors?.valid && !form.get('task').pristine" class="invalid-feedback">
                         La Faena es obligatoria
-                    </div> 
+                    </div>
                 </div>
- 
 
-            </div>  
+
+            </div>
         </div>
     </div>
-    
-    <div class="text-right main-container">  
-        <button  class="btn btn-outline-success" (click)="search()" >Buscar</button>
+
+    <div class="text-right main-container">
+        <button class="btn btn-secondary" (click)="search()">Buscar</button>
     </div>
 
 </form>
 
 
 <table class="table table-striped main-container ">
-        <thead class="">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Faena </th>
-                <th scope="col">Tarea </th>
-                <th scope="col">Area </th>
-                <th scope="col">Avance </th>
-                <th scope="col" class="text-center">Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of collection; let i = index" >
-                <th scope="row"> 1 </th>
-                <td>{{ item.task['name'] }}</td>
-                <td> {{ item.subTask['name'] }} </td>
-                <td> {{ item.task['type'] }} </td>
-                <td> <input class="form-control" type="number" [(value)] = "item['status']" (keyup)= "updateElement(i, $event.target.value )" 
-                    (change) = "updateElement(i, $event.target.value )" > </td>
-     
-                <th scope="col" class="text-center">
-                    <!-- <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button> -->
-                    <button class="btn btn-outline-success" (click)="saveOne(i)" ><i class="far fa-save"></i></button>
-                   
-                </th>
-            </tr>
-    
-        </tbody>
-    </table>
-    
-    <!-- <pagination #p [(ngModel)]="collection" [url]="urlEmployyeeSub" [term]="term" collectionName="projects" [totalRecords]="totalRecords"></pagination> -->
+    <thead class="">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Faena </th>
+            <th scope="col">Tarea </th>
+            <th scope="col">Area </th>
+            <th scope="col">Avance </th>
+            <th scope="col" class="text-center">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of collection; let i = index">
+            <th scope="row"> 1 </th>
+            <td>{{ item.task['name'] }}</td>
+            <td> {{ item.subTask['name'] }} </td>
+            <td> {{ item.task['type'] }} </td>
+            <td> <input class="form-control" type="number" [(value)]="item['status']" (keyup)="updateElement(i, $event.target.value )" (change)="updateElement(i, $event.target.value )"> </td>
+
+            <th scope="col" class="text-center">
+                <!-- <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button> -->
+                <button class="btn btn-secondary" (click)="saveOne(i)"><i class="far fa-save"></i></button>
+
+            </th>
+        </tr>
+
+    </tbody>
+</table>
+
+<!-- <pagination #p [(ngModel)]="collection" [url]="urlEmployyeeSub" [term]="term" collectionName="projects" [totalRecords]="totalRecords"></pagination> -->
