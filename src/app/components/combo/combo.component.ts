@@ -124,20 +124,6 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             //console.log(res);
             
             this.collection = res[this.nameCollection];
-            if(this.urlDef==='http://localhost:3001/project'){
-              let p = {
-                _id: 0,
-                name: "Todos",
-                adress: '',
-                builder: '',
-                supervisor1: '',
-                supervisor2: '',
-                status: 0,
-                startDate: '',
-                endDate: ''
-              };
-              this.collection.push(p);
-            }
             this.collection.map( e => {
                e['output'] =  this.concatenateFields(e,arr);               
             });
