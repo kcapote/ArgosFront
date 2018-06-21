@@ -48,10 +48,12 @@ export class EmployeeSubtaskComponent implements OnInit {
   } 
 
   query(){
-    console.log(Util.URL_EMPLOYEE_SUBTASK+'/employee/'+this.idProject+'/'+this.idEmployee);
-   
-    
-    this._ps.getObjectsAny(Util.URL_EMPLOYEE_SUBTASK+'/employee/'+this.idProject+'/'+this.idEmployee).subscribe(
+
+    let url = Util.URL_EMPLOYEE_SUBTASK+'/employee/'+this.idProject+'/'+this.idEmployee;
+    if(this.idProject===0){
+      url = Util.URL_EMPLOYEE_SUBTASK+'/employee/'+this.idEmployee;
+    }
+    this._ps.getObjectsAny(url).subscribe(
       res => {   
         console.log('********************');
         console.log(res);

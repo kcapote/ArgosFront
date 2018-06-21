@@ -26,11 +26,32 @@ export class ComboTasksComponent implements OnInit, ControlValueAccessor {
     _ps.getObjects(Util.URL_TASKS).subscribe(
         res =>{
           this._ps.refresToken(res);
-          this.collection = res.tasks;
+
+          res.tasks.forEach(element => {
+            if(element.type==="DEPARTAMENTOS"){
+              this.collection.push(element);
+            }
+          });
+          res.tasks.forEach(element => {
+            if(element.type==="PISOS S.C"){
+              this.collection.push(element);
+            }
+          });
+          res.tasks.forEach(element => {
+            if(element.type==="SUBTERRANEOS"){
+              this.collection.push(element);
+            }
+          });
+          res.tasks.forEach(element => {
+            if(element.type==="EMPLAZAMIENTOS"){
+              this.collection.push(element);
+            }
+          });
+          
           this.itemId = this.collection[0]._id; 
           this.propagateChange(this.itemId);
         }        
-    );
+    ); 
     
   }
   
