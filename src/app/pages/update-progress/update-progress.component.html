@@ -9,7 +9,8 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="">Proyecto: </label>
-                    <combo #cProject [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url]="urlProjects" labelField="name" nameCollection="projects" formControlName="project" (change)="updateId()">
+                    <combo #cProject [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url]="urlProjects" 
+                                    labelField="name" nameCollection="projects" formControlName="project" (change)="updateId()">
                     </combo>
                     <div *ngIf="!form.get('project').errors?.valid && !form.get('project').pristine" class="invalid-feedback">
                         El proyecto es obligatorio
@@ -44,11 +45,14 @@
 
 
             <!-- si seleccionaron un common services -->
-            <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row">
-                <div class="form-group col-md-12">
-                    <label for=""> {{taskType}} </label>
-                    <combo #services [url]="urlCommonServices" formControlName="commonService" labelField="number" nameCollection="commonServices" freeQuery="true"></combo>
-                </div>
+
+            <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row" >         
+                    <div class="form-group col-md-12">
+                        <label for=""> {{taskType}} </label>
+                        <combo #services [url] = "urlCommonServices" formControlName="commonService" labelField ="number" 
+                                nameCollection="commonServices" freeQuery = "true" (click)="updateIdCommonServices()" ></combo> 
+                    </div>
+            
             </div>
 
             <div class="row">

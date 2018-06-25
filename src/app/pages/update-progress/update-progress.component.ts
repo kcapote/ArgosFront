@@ -6,6 +6,7 @@ import { ProviderService } from '../../services/provider.service';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { Router } from '@angular/router';
 import { DepartmentSubTask } from '../../interfaces/departmentSubTask.interface';
+import { CommonServiceSubTask } from '../../interfaces/commonServiceSubTask.interface';
 
 @Component({
   selector: 'app-update-progress',
@@ -23,6 +24,7 @@ export class UpdateProgressComponent implements OnInit {
   idFloor:string = "";
   idDepartment:string = "" ;
   idSubTask:string = "";
+  idCommonServices = "";
 
   collection: any [] = [];
   form: FormGroup;
@@ -79,13 +81,16 @@ export class UpdateProgressComponent implements OnInit {
   
 
   updateIdTask() {
-    this.idTask = this.form.get('task').value['_id'];
+    if(this.form.get('task').value){
+      this.idTask = this.form.get('task').value['_id'];
+    }
 
   }
 
   updateIdSubTask() {
-    this.idSubTask = this.form.get('subTask').value['_id'];
-
+    if(this.form.get('subTask').value){
+      this.idSubTask = this.form.get('subTask').value['_id'];
+    }
   }
 
   updateIdFloor(){
@@ -97,14 +102,22 @@ export class UpdateProgressComponent implements OnInit {
   }
   
   updateIdDeparment(){
-   
-      this.idDepartment = this.form.get('department').value['_id'];
+   if(this.form.get('department').value){
+     this.idDepartment = this.form.get('department').value['_id'];
+   }
        
   }
 
 
 
   load() {
+
+  }
+
+  updateIdCommonServices(){
+   if(this.form.get('commonService').value){
+     this.idCommonServices = this.form.get('commonService').value['_id'];
+   } 
 
   }
 
@@ -121,24 +134,11 @@ export class UpdateProgressComponent implements OnInit {
     this._msg.show(Util.UPDATE_TITLE,Util.MSJ_UPDATE_QUESTION,Util.ACTION_UPDATE).subscribe(
       res => {
         if(res.response == Util.OK_RESPONSE){
-            let a:DepartmentSubTask = this.collection[idx];
-            a.project = a.project['_id'];
-            a.floor = a.floor['_id'];
-            a.subTask = a.subTask['_id'];
-            a.task = a.task['_id'];
-            a.department = a.department['_id'];
-            
-            if(a.status ==100 ){
-              a.endDate = new Date().toString();
-            }
-
-            this._ps.updateObject(Util.URL_DEPARTMENTS_SUB_TASKS,a['_id'],a,0).subscribe(
-              res => {
-                console.log('update succes');
-                
-              }
-            )
-
+          if(this.form.get('area').value == 'DEPARTAMENTOS'){
+              this.saveDepartment(idx);
+          }else{
+              this.saveCommonServices(idx);
+          }
         }
       }
     );
@@ -147,13 +147,54 @@ export class UpdateProgressComponent implements OnInit {
   }
 
 
+  saveCommonServices(idx: number){
+    let a:CommonServiceSubTask = this.collection[idx];
+    a.project = a.project['_id'];
+    a.commonService = a.commonService['_id'];
+    a.subTask = a.subTask['_id'];
+    a.task = a.task['_id'];
+    if(a.status ==100 ){
+      a.endDate = new Date().toString();
+    }
+
+    this._ps.updateObject(Util.URL_COMMON_SERVICES_SUB_TASKS,a['_id'],a,0).subscribe(
+      res => {
+        console.log('update succes');        
+      }
+    );
+
+  }
+
+
+  saveDepartment(idx: number){
+
+    let a:DepartmentSubTask = this.collection[idx];
+    a.project = a.project['_id'];
+    a.floor = a.floor['_id'];
+    a.subTask = a.subTask['_id'];
+    a.task = a.task['_id'];
+    a.department = a.department['_id'];
+    
+    if(a.status ==100 ){
+      a.endDate = new Date().toString();
+    }
+
+    this._ps.updateObject(Util.URL_DEPARTMENTS_SUB_TASKS,a['_id'],a,0).subscribe(
+      res => {
+        console.log('update succes');        
+      }
+    );
+
+
+  }
+
   search() {
    
    if(this.form.get('area').value === ValidTypesTasks.DEPARTAMENTOS){
       console.log('project ', this.idProject, ' floor ', this.idFloor, ' department ', this.idDepartment, ' task ',this.idTask  ,' sub task ', this.idSubTask);
     
       let url = `${ Util.URL_DEPARTMENTS_SUB_TASKS }/department/${this.idProject}/${this.idDepartment}/${this.idTask}`;
-      console.log('URL',url);
+      //console.log('URL',url);
       
       this._ps.getObjectsAny(url,0).subscribe(
         res=>{
@@ -167,7 +208,17 @@ export class UpdateProgressComponent implements OnInit {
       )
 
     }else{
-      let url = `${ Util.URL_EMPLOYEE_SUBTASK }/commonService/${this.idProject}/${this.idFloor}/${this.idTask}/${this.idSubTask}`;
+      let url = `${ Util.URL_COMMON_SERVICES_SUB_TASKS }/task/${this.idProject}/${this.idTask}/${this.taskType}/${ this.idCommonServices }`;
+      console.log(url);
+      this._ps.getObjectsAny(url,0).subscribe(
+        res=>{
+          this.collection = res.commonServiceSubTasks;
+            
+        }, err=>{
+
+        }
+
+      )
 
     } 
   }
