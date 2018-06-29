@@ -8,6 +8,7 @@ import { Project } from '../../interfaces/project.interface';
 import { ProjectEmployees } from '../../interfaces/project-employees.interface';
 import { ValidTypesStatus } from '../../enums/valid-types-status.enum';
 import { Validators } from '@angular/forms';
+import { LoaderService } from '../../components/loader/loader.service';
 
 @Component({
   selector: 'app-project-employees',
@@ -31,7 +32,8 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   constructor(private activatedRoute: ActivatedRoute,
               private _ps:ProviderService,
               private router: Router,
-              private _msg: MsgBoxService) {
+              private _msg: MsgBoxService,
+              private loader: LoaderService) { 
                 
     activatedRoute.params.subscribe(
       p => {
@@ -64,6 +66,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+      this.loader.show();
       //Cargo los empleados del proyecto
       this._ps.getObjectsByFather(Util.URL_PROJECT_EMPLOYEES,"project",0,this.idProject,0).subscribe(
         res => {
@@ -80,6 +83,10 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
 
         }
       )
+  }
+
+  ngAfterViewChecked() {
+    this.loader.hide();
   }
 
   ngAfterViewInit() {
@@ -144,23 +151,6 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
       }
 
     }
-    
-    
-    // if(value){
-    //   let fec: Date = new Date() ;
-    //     let temp: ProjectEmployees = {
-    //        employee: this.collection[idx]._id,
-    //        project: this.idProject,
-    //        startDate: fec.toString(),
-    //        recordActive: ValidTypesStatus.ACTIVE  
-    //     }
-    //   this.selCollection.push(temp); 
-    // }else {
-       
-    //   this.selCollection = Util.removeFromArray( this.collection[idx]._id, this.selCollection);
-    
-    // }
-    // console.log(this.selCollection);    
 
   }
 
@@ -199,6 +189,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
 
 
   search() {
+    this.loader.show();
     if(this.term.length>0){
         this._ps.getObjects(Util.URL_EMPLOYEE,0 ,this.term ).subscribe(
             res => {

@@ -9,6 +9,7 @@ import { CommonService } from '../../interfaces/common-services.interface';
 import { Location } from '@angular/common';
 import { CommonServiceTask } from '../../interfaces/commonServiceTask.interface';
 import { Project } from '../../interfaces/project.interface';
+import { LoaderService } from '../../components/loader/loader.service';
 
 @Component({
   selector: 'app-gantt-floors',
@@ -34,7 +35,9 @@ export class GanttFloorsComponent implements OnInit {
   constructor(private _ps: ProviderService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private location: Location) {
+              private location: Location,
+              private loader: LoaderService) { 
+
 
     activatedRoute.params.subscribe(
       async p => {
@@ -316,6 +319,11 @@ export class GanttFloorsComponent implements OnInit {
   
 
   ngOnInit() {
+    this.loader.show();
+  }
+
+  ngAfterViewChecked() {
+    this.loader.hide();
   }
 
   back() {

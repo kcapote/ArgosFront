@@ -10,6 +10,7 @@ import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { IfStmt } from '@angular/compiler';
 import { CommonServiceTask } from '../../interfaces/commonServiceTask.interface';
 import { CommonServiceSubTask } from '../../interfaces/commonServiceSubTask.interface';
+import { LoaderService } from '../../components/loader/loader.service';
 
 @Component({
   selector: 'app-project-common',
@@ -31,8 +32,9 @@ export class ProjectCommonComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private _ps: ProviderService,
               private router: Router,
-              private _msg: MsgBoxService) {
-       
+              private _msg: MsgBoxService,
+              private loader: LoaderService) { 
+                
     this.enumType.splice(0,1);
     
     this.enumType.forEach(element => {
@@ -62,9 +64,9 @@ export class ProjectCommonComponent implements OnInit {
         sub = this.countOcurrences(res.commonServices, ValidTypesTasks.SUBTERRANEOS);         
         emp = this.countOcurrences(res.commonServices, ValidTypesTasks.EMPLAZAMIENTOS);         
         piso = this.countOcurrences(res.commonServices, ValidTypesTasks.PISOS); 
-        this.form.get(ValidTypesTasks.SUBTERRANEOS).setValue(sub);   
+        /*this.form.get(ValidTypesTasks.SUBTERRANEOS).setValue(sub);   
         this.form.get(ValidTypesTasks.EMPLAZAMIENTOS).setValue(emp);
-        this.form.controls[ValidTypesTasks.PISOS].setValue(piso);   
+        this.form.controls[ValidTypesTasks.PISOS].setValue(piso);*/   
         
       }        
     )
@@ -75,9 +77,15 @@ export class ProjectCommonComponent implements OnInit {
 
   }
 
+
   ngOnInit() {
-    
+    this.loader.show();
   }
+
+  ngAfterViewChecked() {
+    this.loader.hide();
+  }
+
 
 
   countOcurrences(c: CommonService[], task: string): number 
@@ -99,6 +107,7 @@ export class ProjectCommonComponent implements OnInit {
 
 
   save() {
+    this.loader.show();
     if(!this.existRecords){ 
      
        Object.keys(this.form.value).forEach(

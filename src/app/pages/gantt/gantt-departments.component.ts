@@ -6,6 +6,7 @@ import { Util } from '../../util/util';
 import { DepartmentSubTask } from '../../interfaces/departmentSubTask.interface';
 import { Department } from '../../interfaces/department.interface';
 import { Location } from '@angular/common';
+import { LoaderService } from '../../components/loader/loader.service';
 
 
 @Component({
@@ -29,11 +30,13 @@ export class GanttDepartmentsComponent implements OnInit {
   constructor(private _ps: ProviderService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private location: Location) { 
+              private location: Location,
+              private loader: LoaderService) { 
       
     
     activatedRoute.params.subscribe(
     async (res) => {
+        this.loader.show();
         this.idProject = res['idProyect'];
         this.idFloor = res['idFloor']; 
         this.idTask = res['idTask'];
@@ -43,7 +46,6 @@ export class GanttDepartmentsComponent implements OnInit {
 
         let url = `${ Util.URL_SUB_TASKS }/task/${this.idTask}`
         // SE ARMA LA LISTA POR PISOS
-
         await _ps.getObjectsAny(url,0).toPromise().then(
           res => {
             this._ps.refresToken(res);  
@@ -55,7 +57,6 @@ export class GanttDepartmentsComponent implements OnInit {
             
           }
         );
-        console.log(this.collectionSubtask);
         url = `${ Util.URL_DEPARTMENTS_SUB_TASKS }/floor/${this.idProject}/${this.idFloor}/${this.idTask}`
         await this._ps.getObjectsAny(url,0).toPromise().then(
           res=> { 
@@ -107,7 +108,6 @@ export class GanttDepartmentsComponent implements OnInit {
 
                 graphicDepartment.departments = departments;
                 this.collectionGraphiDepartments.push(graphicDepartment);
-                console.log(this.collectionGraphiDepartments);
                                   
                 departments = [];
                 graphicDepartment = {};
@@ -136,6 +136,10 @@ export class GanttDepartmentsComponent implements OnInit {
 
   ngOnInit(){
      
+  }
+
+  ngAfterViewChecked() {
+    this.loader.hide();
   }
 
   back() {

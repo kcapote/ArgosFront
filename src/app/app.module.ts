@@ -11,6 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MsgBoxComponent } from './components/msg-box/msg-box.component';
 import { MsgBoxService } from './components/msg-box/msg-box.service';
+import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderService } from './components/loader/loader.service';
 
 
 
@@ -20,7 +22,8 @@ import { MsgBoxService } from './components/msg-box/msg-box.service';
     AppComponent,    
     PagenotfoundComponent,
     LoginComponent,
-    MsgBoxComponent
+    MsgBoxComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ import { MsgBoxService } from './components/msg-box/msg-box.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ProviderService, MsgBoxService ],
+  providers: [ProviderService, MsgBoxService, LoaderService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

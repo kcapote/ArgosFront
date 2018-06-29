@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Project } from '../../interfaces/project.interface';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { LoaderService } from '../../components/loader/loader.service';
 
 @Component({
   selector: 'app-form-project',
@@ -25,8 +26,8 @@ export class FormProjectComponent implements OnInit {
               private _ps: ProviderService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private _msg: MsgBoxService ) { 
-    
+              private _msg: MsgBoxService,
+              private loader: LoaderService) { 
  
       activatedRoute.params.subscribe(
         p  => {
@@ -53,35 +54,13 @@ export class FormProjectComponent implements OnInit {
             }        
         }
       );
-
-
-      // this._msg.notify.subscribe(
-      //   res => {
-            
-      //       if( res.type == Util.ACTION_UPDATE && res.response == Util.OK_RESPONSE ) {
-      //         this._ps.updateObject(Util.URL_POJECTS,this.idProject,this.item).subscribe(
-      //           res => {                    
-      //             if(res.success == true){                        
-      //                  this._msg.show("",Util.MSJ_UPDATE_SUCCESS, Util.ACTION_SUCCESS);
-      //             }
-      //           })           
-      //       }else if( res.type == Util.ACTION_SUCCESS && res.response == Util.OK_RESPONSE ) {
-      //          this.router.navigate(['/projectsFloors',this.idProject]);     
-      //       }
-            
-
-      //   }
-      // );
-            
-            
-
-
   }
 
 
   
 
   ngOnInit() {
+      this.loader.show();
       this.form = new FormGroup({
       _id: new FormControl(''),
       name: new FormControl('', Validators.required),
@@ -98,10 +77,15 @@ export class FormProjectComponent implements OnInit {
 
   }
 
+  ngAfterViewChecked() {
+    this.loader.hide();
+  }
+
+
 
 
   save() {
-
+      this.loader.show();
       this.item = this.form.value;
       
       if(this.idProject){

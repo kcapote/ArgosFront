@@ -9,6 +9,7 @@ import { Util } from '../../util/util';
 import { Department } from '../../interfaces/department.interface';
 import { DepartmentTask } from '../../interfaces/departmentTask.interface';
 import { DepartmentSubTask } from '../../interfaces/departmentSubTask.interface';
+import { LoaderService } from '../../components/loader/loader.service';
 
 
 @Component({
@@ -30,8 +31,9 @@ export class ProjectFloorsComponent implements OnInit {
   constructor(private activedRoute: ActivatedRoute,
               private _ps: ProviderService,
               private _msg: MsgBoxService,
-              private router: Router ) { 
-
+              private router: Router,
+              private loader: LoaderService) { 
+                
     activedRoute.params.subscribe(
         p => {
           if(p['id']){
@@ -56,8 +58,13 @@ export class ProjectFloorsComponent implements OnInit {
   
 
   ngOnInit() {
-      
+    this.loader.show();
   }
+
+  ngAfterViewChecked() {
+    this.loader.hide();
+  }
+
 
 
   buildFloors(){
@@ -99,7 +106,7 @@ export class ProjectFloorsComponent implements OnInit {
 
 
   save() {
-
+    this.loader.show();
     if(!this.existFloors){
       
          

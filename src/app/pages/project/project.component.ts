@@ -5,6 +5,7 @@ import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { URL_POJECTS } from '../../services/config';
+import { LoaderService } from '../../components/loader/loader.service';
 
 @Component({
   selector: 'app-project',
@@ -26,8 +27,9 @@ export class ProjectComponent implements OnInit {
 
   constructor(private _ps:ProviderService,
               private router: Router,
-              private _msg: MsgBoxService) {
-
+              private _msg: MsgBoxService,
+              private loader: LoaderService) { 
+                  
     let user = JSON.parse(localStorage.getItem('user'));
     this.userTemp = user;
 
@@ -45,8 +47,13 @@ export class ProjectComponent implements OnInit {
     } 
 
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.loader.show();
+    }
+
+    ngAfterViewChecked() {
+        this.loader.hide();
+    }
 
   edit(id: string) {
     
@@ -57,6 +64,7 @@ export class ProjectComponent implements OnInit {
   delete(idx:number ){
     this.id = this.collection[idx]._id;
     this.idxSel = idx;
+    this.loader.show();
     this._msg.show(Util.DELETE_TITLE ,Util.MSJ_DELETE_QUESTION, Util.ACTION_DELETE).subscribe(
         res => {
             if(res.type == Util.ACTION_DELETE && res.response == Util.OK_RESPONSE ){
