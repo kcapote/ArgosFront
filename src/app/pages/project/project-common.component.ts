@@ -109,86 +109,28 @@ export class ProjectCommonComponent implements OnInit {
   save() {
     this.loader.show();
     if(!this.existRecords){ 
-     
+      let commonList: any[] = [];
        Object.keys(this.form.value).forEach(
            res => {
             console.log(res);
+            console.log(this.form.controls[res].value);
             
             for(let i=0; i <  this.form.controls[res].value; i++){
-              let d: any = {
+              let commonElement: any = {
                 project: this.idProject,
                 number: i+1,
                 type: res,
                 status: 0    
               }
-               this._ps.saveObject(Util.URL_COMMON_SERVICES,d,0).subscribe(
-                 resp => { 
-                  this._ps.refresToken(resp);
-                  if( resp.success == true ) {
-                    //se guardan automaticamente las tareas
-                    let url = `${ Util.URL_TASKS_BY_TYPE }/${ res }`
-                      this._ps.getObjectsAny(url,0).subscribe(
-                      respTask => {
-                        this._ps.refresToken(respTask);
-                        if( respTask.success == true ) {
-                         respTask.tasks.forEach(
-                             task => {
-
-                            let commonTask: CommonServiceTask = {
-                              commonService: resp.commonService._id,
-                              task: task._id,
-                              type: res,
-                              project: resp.commonService.project,
-                              status: 0
-                            }
-
-                             this._ps.saveObject(Util.URL_COMMON_SERVICES_TASKS, commonTask,0).subscribe(
-                                respSaveTasks => {
-                                this._ps.refresToken(respSaveTasks);
-                                if( respSaveTasks.success == true ) {
-                                  //se guardan automaticamente las sub tareas
-                                   this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id,0).subscribe(
-                                    respSubTasks => {
-                                      this._ps.refresToken(respSubTasks);
-                                      if( respSubTasks.success == true ) {
-                                        respSubTasks.subTasks.forEach(
-                                           subtask => {
-                                          
-                                          let commonSubTask: CommonServiceSubTask = {
-                                            commonService: resp.commonService._id,
-                                            subTask: subtask._id,
-                                            task: task._id,
-                                            type: res,
-                                            project: resp.commonService.project,
-                                            status: 0
-                                          }
-
-                                           this._ps.saveObject(Util.URL_COMMON_SERVICES_SUB_TASKS, commonSubTask,0).subscribe(
-                                            respSaveTasks => {
-                                              this._ps.refresToken(respSaveTasks);
-                                              if( respSaveTasks.success == true ) {
-                                              }
-                                            });
-                                        });
-                                      }
-                                    });
-                                }
-                              });
-
-                          });
-                        }
-                      }
-                    );
-                  }
-  
-                }
-              )  
+              commonList.push(commonElement);
             }
-          }
-       );
-            
-       console.log('al final ');
-        
+          });
+
+          this._ps.saveObject(Util.URL_PROJECT_ESTRUCTURE+'/commonServices', commonList,0 ).subscribe(
+            res => {
+          
+            });
+                    
        this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
          res => {
             this.router.navigate(['/pages/projectEmployees',this.idProject]);   

@@ -114,11 +114,18 @@ export class ProjectFloorsComponent implements OnInit {
       if(this.collection.length<1) {
         return;
       }
+
+      console.log(this.collection);
+      
+
+      this._ps.saveObject(Util.URL_PROJECT_ESTRUCTURE+'/floors', this.collection,0 ).subscribe(
+        res => {
+      
+        });
+
+      /*
   
       for(let k =0; k < this.collection.length; k++  ){
-      //this.collection.forEach(  element => {
-        //Creación del piso
-        
         this._ps.saveObject(Util.URL_FLOORS, this.collection[k],0 ).subscribe(
             res => {
               this._ps.refresToken(res); 
@@ -200,9 +207,9 @@ export class ProjectFloorsComponent implements OnInit {
         );
   
       };
-      
+      */
+
       this.saving = false;
-      console.log('debe salir al final');
                          
       this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(
         res => {
@@ -212,9 +219,6 @@ export class ProjectFloorsComponent implements OnInit {
         }
       );  
     }else{
-        
-
-     
         this.router.navigate(['/pages/projectsCommon',this.idProject]);
     }
   }
