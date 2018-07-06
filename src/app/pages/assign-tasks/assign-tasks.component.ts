@@ -149,7 +149,6 @@ export class AssignTasksComponent implements OnInit {
       
        await this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,item,0).subscribe(
           res =>{ 
-            console.log('SALVADO' , res)  
           },
          err=> {
             if(err.error.errors.message){
@@ -159,7 +158,6 @@ export class AssignTasksComponent implements OnInit {
         )            
     }
 
-    console.log(this.collectionErrors)  
     this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
       res => {
         this.collection = []; 
@@ -167,22 +165,4 @@ export class AssignTasksComponent implements OnInit {
     )
   }
   
-async insertAllUser(collectionTemp:EmployeeSubTask[]){
-  
-  for(const item of collectionTemp){
-      
-    await this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,item,0).subscribe(
-        res =>{ 
-            console.log('SALVADO' , res)  
-        },
-        err=> {
-          if(err.error.errors.message){
-            this.collectionErrors.push(String(err.error.errors.message));
-          }
-        }
-      )            
-  }
-}
-
-
 }
