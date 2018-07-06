@@ -34,6 +34,7 @@ export class AssignTasksComponent implements OnInit {
  
 
   collection: EmployeeSubTask[] = [];
+  collectionErrors: String[] = [];
   item: EmployeeSubTask;
 
   enumType = Object.keys(ValidTypesTasks).map(
@@ -45,13 +46,6 @@ export class AssignTasksComponent implements OnInit {
   constructor(private _ps: ProviderService, 
               private _msg: MsgBoxService,
               private router: Router) { 
-    // this._ps.getObjectsByFather(Util.URL_PROJECT_EMPLOYEES,'project',0,'5b009c6c113c341e571699f2').subscribe(
-    //   res => {
-    //       console.log(res);
-          
-    //   }
-    // )
-
   }
 
 
@@ -74,17 +68,6 @@ export class AssignTasksComponent implements OnInit {
 
   }
 
-
-  // employee: any;
-  // subTask: any;
-  // task: any;
-  // floor?: any;
-  // department?: any;
-  // commonService?: any;
-  // project: any;
-  // recordDate: string;
-  // hoursWorked: number;
-
   updateId(){
     this.collection = [];
     this.idProject = this.form.get('project').value['_id'];
@@ -102,21 +85,11 @@ export class AssignTasksComponent implements OnInit {
   
   updateType(){
     this.taskType = this.form.get('area').value;
-    //this.idTask = "sss";
     if(this.form.get('area').value !== 'DEPARTAMENTOS'){
       
       this.urlCommonServices =  `${Util.URL_COMMON_SERVICES}/project/${ this.idProject }/${this.taskType}` ;
      
-      //  this._ps.getObjectsAny(this.urlCommonServices,0).subscribe(
-      //   res =>  (this.collectionCommonServices = res['commonService'])        
-      // )
-      
     }
-
-
-
-
-    //this.urlCommonServices = this.urlCommonServices + 
 
   }
 
@@ -124,12 +97,7 @@ export class AssignTasksComponent implements OnInit {
 
   
   updateIdTask(){
-    // if(this.form.get('task').value['_id']){
       this.idTask = this.form.get('task').value['_id'];
-     console.log('el idtask es ',this.idTask);
-     
-    // }
-    //console.log(this.idTask);    
   }
 
 
@@ -137,9 +105,19 @@ export class AssignTasksComponent implements OnInit {
   add(){
     if(this.form.valid){
       let temp:EmployeeSubTask = this.form.value;
-
-      this.collection.push(temp);     
-      console.log('despues del push ',this.collection);
+      if(this.collection.length===0){
+        this.collection.push(temp);
+      } 
+      let exist = false;
+      for (var i = 0; i < this.collection.length; i++){
+        if(temp.employee._id===this.collection[i].employee._id){
+          exist = true;
+        }
+      }
+      if(!exist){
+        this.collection.push(temp);
+      }
+           
     }
 
   }
@@ -151,12 +129,9 @@ export class AssignTasksComponent implements OnInit {
   }
 
 
-  save() {
-
-    let collectionTemp = [];
-    console.log(collectionTemp);
-    
-    
+  async save() {
+  this.collectionErrors = [];       
+  let collectionTemp = []; 
     for(let i = 0; i< this.collection.length; i++){  
         let c = this.collection[i];
         let f:EmployeeSubTask = {
@@ -180,34 +155,26 @@ export class AssignTasksComponent implements OnInit {
         collectionTemp.push(f);
       
      }
-    console.log(collectionTemp);    
-
   
-   for(let i = 0; i< collectionTemp.length; i++){
-     
-      this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,collectionTemp[i],0).subscribe(
-           res =>{ 
-              console.log('salvado' , res)  
+  
+     for(const item of collectionTemp){
+      
+       await this._ps.saveObject(Util.URL_EMPLOYEE_SUBTASK,item,0).subscribe(
+          res =>{ 
           },
-           err=> {
-              console.log('salvado' , err)              
+         err=> {
+            if(err.error.errors.message){
+              this.collectionErrors.push(String(err.error.errors.message));
+            }
           }
         )            
-   }
-
-   
-  this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
-    res => {
-      this.collection = [];      
-      // this.router.navigate(['/pages','home']);
     }
-  )
-     
-    
 
+    this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
+      res => {
+        this.collection = []; 
+      }
+    )
   }
   
-
-
-
 }
