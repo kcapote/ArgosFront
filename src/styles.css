@@ -111,7 +111,9 @@
 }
 
 .backgroundNavbar {
-    background-color: #01579b;
+    background-image: linear-gradient(to right top, #393938, #5c5b5a, #818080, #a7a6a7, #cfcfcf);
+    width: 100%;
+    height: 100%;
 }
 
 .table {
@@ -266,4 +268,15 @@
     width: 100%;
     height: 100%;
     z-index: 9999;
+}
+
+.backgroundLogin {
+    background: url('assets/img/fondo.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    text-align: center;
 }
