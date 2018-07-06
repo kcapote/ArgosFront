@@ -43,8 +43,8 @@ export class FormProjectComponent implements OnInit {
                         this.item.startDate = this.item.startDate.toString().substr(0,10);
                         this.item.endDate = this.item.endDate?this.item.endDate.toString().substr(0,10):null,
                         this.item._id = this.idProject;
-                        this.item.supervisor1 = this.item.supervisor1['_id'];
-                        this.item.supervisor2 = this.item.supervisor2['_id'];
+                        this.item.supervisor1 = this.item.supervisor1;
+                        this.item.supervisor2 = this.item.supervisor2;
                         this.form.setValue(this.item);  
                         console.log(this.form.value);
                         

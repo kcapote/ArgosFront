@@ -64,9 +64,9 @@ export class ProjectCommonComponent implements OnInit {
         sub = this.countOcurrences(res.commonServices, ValidTypesTasks.SUBTERRANEOS);         
         emp = this.countOcurrences(res.commonServices, ValidTypesTasks.EMPLAZAMIENTOS);         
         piso = this.countOcurrences(res.commonServices, ValidTypesTasks.PISOS); 
-        /*this.form.get(ValidTypesTasks.SUBTERRANEOS).setValue(sub);   
+        this.form.get(ValidTypesTasks.SUBTERRANEOS).setValue(sub);   
         this.form.get(ValidTypesTasks.EMPLAZAMIENTOS).setValue(emp);
-        this.form.controls[ValidTypesTasks.PISOS].setValue(piso);*/   
+        this.form.controls[ValidTypesTasks.PISOS].setValue(piso);  
         
       }        
     )
