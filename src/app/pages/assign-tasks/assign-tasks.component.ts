@@ -105,7 +105,19 @@ export class AssignTasksComponent implements OnInit {
   add(){
     if(this.form.valid){
       let temp:EmployeeSubTask = this.form.value;
-      this.collection.push(temp);     
+      if(this.collection.length===0){
+        this.collection.push(temp);
+      } 
+      let exist = false;
+      for (var i = 0; i < this.collection.length; i++){
+        if(temp.employee._id===this.collection[i].employee._id){
+          exist = true;
+        }
+      }
+      if(!exist){
+        this.collection.push(temp);
+      }
+           
     }
 
   }
