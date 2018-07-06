@@ -157,11 +157,33 @@ export class UpdateProgressComponent implements OnInit {
       a.endDate = new Date().toString();
     }
 
-    this._ps.updateObject(Util.URL_COMMON_SERVICES_SUB_TASKS,a['_id'],a,0).subscribe(
-      res => {
-        console.log('update succes');        
-      }
-    );
+    if(!a.subTask || !a.task){
+      this._msg.show('Error','Debe completar los datos',Util.ACTION_INFO).subscribe();
+
+    }else {
+      this._ps.updateObject(Util.URL_COMMON_SERVICES_SUB_TASKS,a['_id'],a,0).subscribe(
+        res => {
+          console.log('update succes');
+          let url = `${ Util.URL_COMMON_SERVICES_SUB_TASKS }/sum`;
+          let obj = {
+            idTask: a.task
+          }   
+          this._ps.updateObject(url,a.task,obj)
+                  .subscribe(
+                    res=>{
+                      console.log(res);
+                      
+                    }
+                  );
+          
+        }
+      );
+
+
+
+
+    }
+
 
   }
 
@@ -222,5 +244,23 @@ export class UpdateProgressComponent implements OnInit {
 
     } 
   }
+
+  
+  sum() {
+    let url = `${ Util.URL_COMMON_SERVICES_SUB_TASKS }/sum`;
+    let obj = {
+      idTask: '5b32fb03a7dcec42aa0d95f2'
+    }   
+    this._ps.updateObject(url,'5b00976acdb619173b5c13e4',obj)
+            .subscribe(
+              res=>{
+                console.log(res);
+                
+              }
+            );
+    
+  }
+
+  
 
 }
