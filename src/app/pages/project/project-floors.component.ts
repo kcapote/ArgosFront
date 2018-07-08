@@ -214,6 +214,7 @@ export class ProjectFloorsComponent implements OnInit {
       this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(
         res => {
           if(res.type === Util.ACTION_SUCCESS && res.response === Util.OK_RESPONSE ){
+            this.collection = [];
             this.router.navigate(['/pages/projectsCommon',this.idProject]);
           }
         }
