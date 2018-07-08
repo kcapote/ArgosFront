@@ -123,92 +123,6 @@ export class ProjectFloorsComponent implements OnInit {
       
         });
 
-      /*
-  
-      for(let k =0; k < this.collection.length; k++  ){
-        this._ps.saveObject(Util.URL_FLOORS, this.collection[k],0 ).subscribe(
-            res => {
-              this._ps.refresToken(res); 
-               for(let i=0;i < res.floor.quantityDepartment; i++){
-                //Creación de los departamentos del piso  
-                              
-                if(res.success==true){
-                   let dep: Department = {
-                      floor: res.floor._id,
-                      number: i+1,
-                      status: 0   
-                   }
-                   this._ps.saveObject(Util.URL_DEPARTMENTS, dep,0).subscribe(
-                      resp => {
-                      this._ps.refresToken(res);
-                      if( resp.success == true ) {
-
-                        //se guardan automaticamente las tareas
-                        let url = `${ Util.URL_TASKS_BY_TYPE }/DEPARTAMENTOS`
-                          this._ps.getObjectsAny(url,0).subscribe(
-                           respTask => {
-                            this._ps.refresToken(respTask);
-                            if( respTask.success == true ) {
-                               respTask.tasks.forEach(
-                                task => {
-
-                                let depTask: DepartmentTask = {
-                                  department: resp.department._id,
-                                  task: task._id,
-                                  floor: res.floor._id,
-                                  project: res.floor.project,
-                                  status: 0,
-                                }
-
-                               this._ps.saveObject(Util.URL_DEPARTMENTS_TASKS, depTask,0).subscribe(
-                                   respSaveTasks => {
-                                    this._ps.refresToken(respSaveTasks);
-                                    if( respSaveTasks.success == true ) {
-                                      //se guardan automaticamente las sub tareas
-                                       this._ps.getObjectsByFather(Util.URL_SUB_TASKS,"task",0, task._id,0).subscribe(
-                                         respSubTasks => {
-                                          this._ps.refresToken(respSubTasks);
-                                          if( respSubTasks.success == true ) {
-                                             respSubTasks.subTasks.forEach(
-                                               subtask => {
-                                              let depSubTask: DepartmentSubTask = {
-                                                department: resp.department._id,
-                                                subTask: subtask._id,
-                                                task: task._id,
-                                                floor: res.floor._id,
-                                                project: res.floor.project,
-                                                status: 0
-                                              }
-                                                this._ps.saveObject(Util.URL_DEPARTMENTS_SUB_TASKS, depSubTask,0).subscribe(
-                                                respSaveTasks => {
-                                                  this._ps.refresToken(respSaveTasks);
-                                                  if( respSaveTasks.success == true ) {
-                                                  }
-                                                });
-                                            });
-                                          }
-                                        });
-                                    }
-                                  });
-
-                              });
-                            }
-                          }
-                        );
-                         
-
-                      }
-                    }
-                  );
-                }
-                 
-               } 
-             }
-        );
-  
-      };
-      */
-
       this.saving = false;
                          
       this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(
@@ -223,5 +137,7 @@ export class ProjectFloorsComponent implements OnInit {
         this.router.navigate(['/pages/projectsCommon',this.idProject]);
     }
   }
+
+  
 
 }

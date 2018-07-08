@@ -40,7 +40,6 @@ export class EditHoursEmployeesComponent implements OnInit {
         if(res.response == Util.OK_RESPONSE){
           this._ps.deleteObject(Util.URL_EMPLOYEE_SUBTASK,this.collection[idx]._id,0).subscribe(
             res=>{
-              console.log('delete success');
               this.collection.splice(idx,1);
             } 
           )
@@ -57,13 +56,27 @@ export class EditHoursEmployeesComponent implements OnInit {
       res => {
         if(res.response == Util.OK_RESPONSE){
             let a = this.collection[idx];
-            this._ps.updateObject(Util.URL_EMPLOYEE_SUBTASK,a['_id'],a,0).subscribe(
-              res => {
-                console.log('update succes');
-                
-              }
-            )
-
+            if(Number(a.hoursWorked) > 24){              
+              this._msg.show(Util.ATENTION, "No puede registrar más de 24 horas en un día",Util.ACTION_INFO).subscribe(
+                res => {
+                }
+              )
+            }else{
+              this._ps.updateObject(Util.URL_EMPLOYEE_SUBTASK,a['_id'],a,0).subscribe(
+                res => {
+                  this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
+                    res => {
+                    }
+                  )
+                },
+                err=> {
+                  this._msg.show(Util.ATENTION, Util.GENERIC_ERROR_MSG,Util.ACTION_SUCCESS).subscribe(
+                    res => {
+                    }
+                  )
+                }
+              )
+            }
         }
       }
     );
@@ -77,15 +90,10 @@ export class EditHoursEmployeesComponent implements OnInit {
 
   updateElement(idx: number, val) {
     this.collection[idx].hoursWorked = val;
-   
-    
   }
 
   loadData() {
    
-    console.log(this.fromDate);
-    console.log(this.toDate);
-    console.log(this.project['_id']);
     let urlTemp;
     
     if(this.fromDate && this.toDate){
@@ -97,7 +105,6 @@ export class EditHoursEmployeesComponent implements OnInit {
     this._ps.getObjectsAny(urlTemp,0).subscribe(
       res => {
         this.totalRecords = res.totalRecords;
-        console.log(res);
         this.collection = res['employeeSubTasks'];
       }
     )    
