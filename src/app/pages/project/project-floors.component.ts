@@ -114,10 +114,7 @@ export class ProjectFloorsComponent implements OnInit {
       if(this.collection.length<1) {
         return;
       }
-
-      console.log(this.collection);
       
-
       this._ps.saveObject(Util.URL_PROJECT_ESTRUCTURE+'/floors', this.collection,0 ).subscribe(
         res => {
       
