@@ -6,7 +6,7 @@ export class LoaderService {
   public hideModal: string ="modal-hide";
 
   constructor() {    
-   }
+  }
 
   hide() {
     this.hideModal = "modal-hide";

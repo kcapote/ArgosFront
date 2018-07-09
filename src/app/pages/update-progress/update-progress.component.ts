@@ -166,7 +166,10 @@ export class UpdateProgressComponent implements OnInit {
           console.log('update succes');
           let url = `${ Util.URL_COMMON_SERVICES_SUB_TASKS }/sum`;
           let obj = {
-            idTask: a.task
+            idTask: a.task,
+            projectId: a.project,
+            commonService: a.commonService,
+            typeCommon: this.taskType
           }   
           this._ps.updateObject(url,a.task,obj)
                   .subscribe(
@@ -203,12 +206,36 @@ export class UpdateProgressComponent implements OnInit {
 
     this._ps.updateObject(Util.URL_DEPARTMENTS_SUB_TASKS,a['_id'],a,0).subscribe(
       res => {
-        console.log('update succes');        
+        console.log('update succes');
+        this._ps.updateObject(Util.URL_DEPARTMENTS_SUB_TASKS,a['_id'],a,0).subscribe(
+          res => {
+            console.log('update succes');
+            let url = `${ Util.URL_DEPARTMENTS_SUB_TASKS }/sum`;
+            let obj = {
+              project: a.project,
+              floor: a.floor,
+              subTask: a.subTask,
+              task: a.task,
+              department: a.department
+            }   
+            this._ps.updateObject(url,a.task,obj)
+                    .subscribe(
+                      res=>{
+                        console.log(res);
+                        
+                      }
+                    );
+            
+          }
+        );        
       }
     );
 
 
   }
+
+
+
 
   search() {
    
