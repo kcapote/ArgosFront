@@ -128,7 +128,7 @@ export class ProjectCommonComponent implements OnInit {
 
           this._ps.saveObject(Util.URL_PROJECT_ESTRUCTURE+'/commonServices', commonList,0 ).subscribe(
             res => {
-          
+              console.log(res); 
             });
                     
        this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(

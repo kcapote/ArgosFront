@@ -114,10 +114,11 @@ export class ProjectFloorsComponent implements OnInit {
       if(this.collection.length<1) {
         return;
       }
+      console.log("- INICIO SAVE PISOS");
       
       this._ps.saveObject(Util.URL_PROJECT_ESTRUCTURE+'/floors', this.collection,0 ).subscribe(
         res => {
-      
+          console.log(res);
         });
 
       this.saving = false;
