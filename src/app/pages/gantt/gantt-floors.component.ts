@@ -144,6 +144,7 @@ export class GanttFloorsComponent implements OnInit {
                       });
                       if(!exist){
                         commonServiceTask.commonService.number = "Sub "+commonServiceTask.commonService.number;
+                        commonServiceTask.commonService.status = commonServiceTask.status;
                         undergrounds.push(commonServiceTask.commonService);
                       }
                     }
@@ -159,7 +160,6 @@ export class GanttFloorsComponent implements OnInit {
                         }
                     }
                   }
-
                   graphicUnderground.commonServices = undergrounds;
                   this.collectionGraphicUnderground.push(graphicUnderground);                  
                   undergrounds = [];
@@ -211,6 +211,7 @@ export class GanttFloorsComponent implements OnInit {
                         }
                       });
                       if(!exist){
+                        commonServiceTask.commonService.status = commonServiceTask.status;
                         floorSCs.push(commonServiceTask.commonService);
                       }
                     }
@@ -277,6 +278,7 @@ export class GanttFloorsComponent implements OnInit {
                         }
                       });
                       if(!exist){
+                        commonServiceTask.commonService.status = commonServiceTask.status;
                         emplacements.push(commonServiceTask.commonService);
                       }
                     }
