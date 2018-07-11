@@ -23,7 +23,7 @@ export class ComboTasksComponent implements OnInit, ControlValueAccessor {
   itemId:string; 
   
   constructor(private _ps: ProviderService) { 
-    _ps.getObjects(Util.URL_TASKS).subscribe(
+    _ps.getObjectsAny(Util.URL_TASKS+"/all").subscribe(
         res =>{
           this._ps.refresToken(res);
 
