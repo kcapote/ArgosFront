@@ -23,6 +23,7 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
   numberFloor: string;
   totalHours: number;
   collectionEmployeeSubTasks: EmployeeSubTask[] = [];
+  status = Number;
 
   constructor(private _ps: ProviderService,
     private router: Router,
@@ -38,18 +39,22 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
           this.idSubTask = res['idSubTask']; 
           this.type = res['type'];
           this.idDepartment = res['idDepartment'];
-        
+          let typeCS = "";
           if(this.type==="FloorSC"){
             this.numberFloor = "Pisos SC ";
+            typeCS = "PISOS";
           }
           if(this.type==="Underground"){
             this.numberFloor = "Subterraneo ";
+            typeCS = "SUBTERRANEOS";
           }
           if(this.type==="Emplacement"){
             this.numberFloor = "Emplazamiento ";
+            typeCS = "EMPLAZAMIENTOS";
           }
           if(this.type==="0"){
             this.numberFloor = "Departamento ";
+            typeCS = "DEPARTAMENTOS";
           }
 
           if(this.type === "0"){
@@ -85,6 +90,7 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
                 this._ps.refresToken(res);  
 
                 this.collectionEmployeeSubTasks = res.employeeSubTasks;
+                
                 this.totalHours = 0;
                 if(this.collectionEmployeeSubTasks.length>0){
                   this.numberFloor += String(this.collectionEmployeeSubTasks[0].commonService.number);
@@ -92,14 +98,26 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
                 this.collectionEmployeeSubTasks.forEach(element => {
                   this.totalHours += element.hoursWorked;
                 });
-                console.log(this.collectionEmployeeSubTasks);
-
               }
             ).catch(
               error => {
                 console.log(error);
               }
             );
+
+            url = `${ Util.URL_COMMON_SERVICES_TASKS }/task/${this.idProject}/${this.idTask}/${typeCS}`
+            await this._ps.getObjectsAny(url,0).toPromise().then(
+              res=> { 
+                this._ps.refresToken(res);
+                this.status = res.commonServiceTasks[0].status;
+              }                    
+            ).catch(
+              error=> { 
+                console.log(error);
+                }
+            );
+
+
           }
         }
       )

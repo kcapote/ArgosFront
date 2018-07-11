@@ -100,7 +100,7 @@ export class GanttCommonServiceComponent implements OnInit {
                     }
                   });
 
-                  /*
+                  
                   let commonServicesTemp:any = {};
                   for(let i=0;i<(commonServices.length-1);i++){
                     for(let j=0;j<((commonServices.length-1)-i);j++){
@@ -110,7 +110,7 @@ export class GanttCommonServiceComponent implements OnInit {
                           commonServices[j+1]=commonServicesTemp;
                         }
                     }
-                  }*/
+                  }
 
                   graphicCommonService.commonServices = commonServices;
                   this.collectionGraphicCommonService.push(graphicCommonService);                                    

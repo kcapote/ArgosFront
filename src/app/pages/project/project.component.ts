@@ -56,9 +56,11 @@ export class ProjectComponent implements OnInit {
     }
 
   edit(id: string) {
-    
     this.router.navigate(['/pages/editProjects',id])
+  }
 
+  editEmployee(id: string) {
+    this.router.navigate(['/pages/projectEmployees',id]);   
   }
  
   delete(idx:number ){

@@ -64,7 +64,8 @@ export class GanttFloorsComponent implements OnInit {
               this._ps.refresToken(res);
               this.collectionDepartmentTasks = res.departmentTasks;
               let graphicFloor:any = {};
-                      
+              console.log(this.collectionDepartmentTasks);
+              
               this.collectionTaskDepartment.forEach(task => {
                 
                   graphicFloor.task = task;
@@ -79,6 +80,7 @@ export class GanttFloorsComponent implements OnInit {
                         }
                       });
                       if(!exist){
+                        //departmentTask2.commonService.status = commonServiceTask.status;
                       floors.push(departmentTask2.floor);
                       }
                     }
