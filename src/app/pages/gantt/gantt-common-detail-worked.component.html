@@ -65,7 +65,7 @@
         <tbody>
             <tr>
                 <th scope="row" class="text-center">Piso {{this.collectionEmployeeSubTasks[0].floor.number}} {{numberFloor}}</th>
-                <td class="text-center" [ngClass]="{'red': this.collectionEmployeeSubTasks[0].department.status <= 49, 'yellow': this.collectionEmployeeSubTasks[0].department.status >= 50 && this.collectionEmployeeSubTasks[0].department.status <= 74, 'greenSoft': this.collectionEmployeeSubTasks[0].department.status >= 75 && this.collectionEmployeeSubTasks[0].department.status <= 99, 'green': this.collectionEmployeeSubTasks[0].department.status === 100}">{{this.collectionEmployeeSubTasks[0].department.status}}%</td>
+                <td class="text-center" [ngClass]="{'red': this.status <= 49, 'yellow': this.status >= 50 && this.status <= 74, 'greenSoft': this.status >= 75 && this.status <= 99, 'green': this.status === 100}">{{this.status}}%</td>
             </tr>
             <tr>
                 <th scope="row" class="text-center">Faena</th>

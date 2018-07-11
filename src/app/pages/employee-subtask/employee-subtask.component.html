@@ -33,6 +33,7 @@
             <th scope="col">#</th>
             <th scope="col">Proyecto </th>
             <th scope="col">Area </th>
+            <th scope="col">Faena </th>
             <th scope="col">Tarea </th>
             <th scope="col">Fecha </th>
             <th scope="col">Horas </th>
@@ -43,6 +44,7 @@
             <th scope="row"> 1 </th>
             <td> {{ item['project'].name }} </td>
             <td> {{ item['task'].type }} </td>
+            <td> {{ item['task'].name }} </td>
             <td> {{ item.subTask.name }} </td>
             <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
             <td> {{ item['hoursWorked'] }}</td>

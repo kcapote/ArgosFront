@@ -82,6 +82,19 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
                 console.log(error);
               }
             );
+
+            url = `${ Util.URL_DEPARTMENTS_TASKS }/task/${this.idProject}/${this.idTask}`
+            await this._ps.getObjectsAny(url,0).toPromise().then(
+              res=> { 
+                this._ps.refresToken(res);
+                this.status = res.departmentTasks[0].status;
+              }                    
+            ).catch(
+              error=> { 
+                console.log(error);
+                }
+            );
+
           }else{
             this.viewCS = true;
             let url = `${ Util.URL_EMPLOYEE_SUBTASK }/commonService/${this.idProject}/${this.idFloor}/${this.idTask}/${this.idSubTask}`
