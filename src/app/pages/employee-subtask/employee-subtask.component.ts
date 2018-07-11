@@ -13,7 +13,7 @@ import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 export class EmployeeSubtaskComponent implements OnInit {
 
   urlProjects: string = Util.URL_POJECTS; 
-  urlEmployees: string = Util.URL_PROJECT_EMPLOYEES;
+  urlEmployees: string = Util.URL_EMPLOYEE+"/all";
 
   form: FormGroup;
   idProject: any;
@@ -31,26 +31,25 @@ export class EmployeeSubtaskComponent implements OnInit {
 
     this.form = new FormGroup(
       {
-        project: new FormControl('',Validators.required),
-        employee: new FormControl('',Validators.required)
+        project: new FormControl(''),
+        employee: new FormControl('', Validators.required)
       })
 
   }
 
   updateId(){
-    
     this.idProject = this.form.get('project').value['_id'];
   }
   
   updateIdEmployee(){
-    
-    this.idEmployee = this.form.get('employee').value.employee['_id'];
+    this.idEmployee = this.form.get('employee').value['_id'];
   } 
 
   query(){
-
+    console.log(this.idProject+"-"+String(this.idProject).length);
+    
     let url = Util.URL_EMPLOYEE_SUBTASK+'/employee/'+this.idProject+'/'+this.idEmployee;
-    if(this.idProject===0){
+    if(this.idProject===0 || String(this.idProject).length===9){
       url = Util.URL_EMPLOYEE_SUBTASK+'/employee/'+this.idEmployee;
     }
     this._ps.getObjectsAny(url).subscribe(

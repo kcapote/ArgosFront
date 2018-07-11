@@ -121,12 +121,15 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
       this._ps.getObjects(this.urlDef,0).subscribe(
         res => {
             this._ps.refresToken(res);
-            //console.log(res);
-            
+            console.log(this.nameCollection);
             this.collection = res[this.nameCollection];
             this.collection.map( e => {
                e['output'] =  this.concatenateFields(e,arr);               
             });
+            if(this.nameCollection==="projects"){
+              let obj = {_id:0};
+              this.collection.unshift(obj);
+            }
             this.propagateChange(this.itemId);
             this.loading = false;
             this.loadSel();
