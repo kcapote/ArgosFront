@@ -132,7 +132,6 @@ export class UpdateProgressComponent implements OnInit {
           }else{
               this.saveCommonServices(idx);
               this.search();
-              res.unsubscribe();
           }
         }
       }
