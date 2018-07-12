@@ -64,10 +64,9 @@ export class GanttFloorsComponent implements OnInit {
               this._ps.refresToken(res);
               this.collectionDepartmentTasks = res.departmentTasks;
               let graphicFloor:any = {};
-              console.log(this.collectionDepartmentTasks);
               
               this.collectionTaskDepartment.forEach(task => {
-                
+
                   graphicFloor.task = task;
                   let floors: Floors[] = [];
                   
@@ -98,7 +97,9 @@ export class GanttFloorsComponent implements OnInit {
                   }
 
                   graphicFloor.floors = floors;
-                  this.collectionGraphicFloor.push(graphicFloor);                  
+                  if(graphicFloor.floors.length > 0){
+                    this.collectionGraphicFloor.push(graphicFloor); 
+                  }
                   floors = [];
                   graphicFloor = {};
               });
@@ -163,7 +164,9 @@ export class GanttFloorsComponent implements OnInit {
                     }
                   }
                   graphicUnderground.commonServices = undergrounds;
-                  this.collectionGraphicUnderground.push(graphicUnderground);                  
+                  if(graphicUnderground.commonServices.length > 0){
+                    this.collectionGraphicUnderground.push(graphicUnderground); 
+                  }                
                   undergrounds = [];
                   graphicUnderground = {};
 
@@ -231,7 +234,9 @@ export class GanttFloorsComponent implements OnInit {
                   }
 
                   graphicFlorrSC.commonServices = floorSCs;
-                  this.collectionGraphicFloorSC.push(graphicFlorrSC);                  
+                  if(graphicFlorrSC.commonServices.length > 0){
+                    this.collectionGraphicFloorSC.push(graphicFlorrSC); 
+                  }                   
                   floorSCs = [];
                   graphicFlorrSC = {};
 
@@ -298,7 +303,10 @@ export class GanttFloorsComponent implements OnInit {
                   }
 
                   graphicEmplacement.commonServices = emplacements;
-                  this.collectionGraphicEmplacement.push(graphicEmplacement);                  
+                    
+                  if(graphicEmplacement.commonServices.length > 0){
+                    this.collectionGraphicEmplacement.push(graphicEmplacement); 
+                  }                 
                   emplacements = [];
                   graphicEmplacement = {};
 
