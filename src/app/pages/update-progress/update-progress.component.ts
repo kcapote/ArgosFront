@@ -61,12 +61,8 @@ export class UpdateProgressComponent implements OnInit {
 
   updateType(){
     this.taskType = this.form.get('area').value;
-    //this.idTask = "sss";
     if(this.form.get('area').value !== 'DEPARTAMENTOS'){
-      
       this.urlCommonServices =  `${Util.URL_COMMON_SERVICES}/project/${ this.idProject }/${this.taskType}` ;
-    
-      
     }
 
   }
@@ -118,32 +114,30 @@ export class UpdateProgressComponent implements OnInit {
    if(this.form.get('commonService').value){
      this.idCommonServices = this.form.get('commonService').value['_id'];
    } 
-
   }
 
   updateElement(idx: number, val) {
     this.collection[idx].status = val;
-   
-    
   }
 
 
   saveOne (idx: number) {
-
     console.log(this.collection[idx]);     
     this._msg.show(Util.UPDATE_TITLE,Util.MSJ_UPDATE_QUESTION,Util.ACTION_UPDATE).subscribe(
       res => {
         if(res.response == Util.OK_RESPONSE){
           if(this.form.get('area').value == 'DEPARTAMENTOS'){
               this.saveDepartment(idx);
+              this.search();
           }else{
               this.saveCommonServices(idx);
+              this.search();
+              res.unsubscribe();
           }
         }
       }
     );
     
-
   }
 
 
@@ -175,16 +169,10 @@ export class UpdateProgressComponent implements OnInit {
                   .subscribe(
                     res=>{
                       console.log(res);
-                      
                     }
                   );
-          
         }
       );
-
-
-
-
     }
 
 
