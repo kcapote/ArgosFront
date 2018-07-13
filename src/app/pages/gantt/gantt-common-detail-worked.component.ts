@@ -121,7 +121,6 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
             await this._ps.getObjectsAny(url,0).toPromise().then(
               res=> { 
                 this._ps.refresToken(res);
-                console.log(res); 
                 this.status = res.commonServiceSubTasks[0].status;
               }                    
             ).catch(
