@@ -75,7 +75,6 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
                 this.collectionEmployeeSubTasks.forEach(element => {
                   this.totalHours += element.hoursWorked;
                 });
-                console.log(this.collectionEmployeeSubTasks);
               }
             ).catch(
               error => {
@@ -83,11 +82,11 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
               }
             );
 
-            url = `${ Util.URL_DEPARTMENTS_TASKS }/task/${this.idProject}/${this.idTask}`
+            url = `${ Util.URL_DEPARTMENTS_SUB_TASKS }/task/${this.idProject}/${this.idTask}/${this.idSubTask}`
             await this._ps.getObjectsAny(url,0).toPromise().then(
               res=> { 
                 this._ps.refresToken(res);
-                this.status = res.departmentTasks[0].status;
+                this.status = res.departmentSubTasks[0].status;
               }                    
             ).catch(
               error=> { 
@@ -118,11 +117,12 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
               }
             );
 
-            url = `${ Util.URL_COMMON_SERVICES_TASKS }/task/${this.idProject}/${this.idTask}/${typeCS}`
+            url = `${ Util.URL_COMMON_SERVICES_SUB_TASKS }/subtask/${this.idProject}/${this.idSubTask}/${typeCS}`
             await this._ps.getObjectsAny(url,0).toPromise().then(
               res=> { 
                 this._ps.refresToken(res);
-                this.status = res.commonServiceTasks[0].status;
+                console.log(res); 
+                this.status = res.commonServiceSubTasks[0].status;
               }                    
             ).catch(
               error=> { 
