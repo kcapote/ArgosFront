@@ -82,10 +82,12 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
               }
             );
 
-            url = `${ Util.URL_DEPARTMENTS_SUB_TASKS }/task/${this.idProject}/${this.idTask}/${this.idSubTask}`
+            url = `${ Util.URL_DEPARTMENTS_SUB_TASKS }/task/${this.idProject}/${this.idFloor}/${this.idDepartment}/${this.idTask}/${this.idSubTask}`
             await this._ps.getObjectsAny(url,0).toPromise().then(
               res=> { 
                 this._ps.refresToken(res);
+                console.log(res);
+                
                 this.status = res.departmentSubTasks[0].status;
               }                    
             ).catch(
@@ -117,10 +119,12 @@ export class GanttCommonDetailWorkedComponent implements OnInit {
               }
             );
 
-            url = `${ Util.URL_COMMON_SERVICES_SUB_TASKS }/subtask/${this.idProject}/${this.idSubTask}/${typeCS}`
+            url = `${ Util.URL_COMMON_SERVICES_SUB_TASKS }/subtask/${this.idProject}/${this.idFloor}/${this.idTask}/${this.idSubTask}/${typeCS}`
             await this._ps.getObjectsAny(url,0).toPromise().then(
               res=> { 
                 this._ps.refresToken(res);
+                console.log(res);
+                
                 this.status = res.commonServiceSubTasks[0].status;
               }                    
             ).catch(
