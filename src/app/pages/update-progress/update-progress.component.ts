@@ -122,16 +122,14 @@ export class UpdateProgressComponent implements OnInit {
 
 
   saveOne (idx: number) {
-    console.log(this.collection[idx]);     
+    console.log(this.collection);     
     this._msg.show(Util.UPDATE_TITLE,Util.MSJ_UPDATE_QUESTION,Util.ACTION_UPDATE).subscribe(
       res => {
         if(res.response == Util.OK_RESPONSE){
           if(this.form.get('area').value == 'DEPARTAMENTOS'){
               this.saveDepartment(idx);
-              this.search();
           }else{
               this.saveCommonServices(idx);
-              this.search();
           }
         }
       }
@@ -156,7 +154,6 @@ export class UpdateProgressComponent implements OnInit {
     }else {
       this._ps.updateObject(Util.URL_COMMON_SERVICES_SUB_TASKS,a['_id'],a,0).subscribe(
         res => {
-          console.log('update succes');
           let url = `${ Util.URL_COMMON_SERVICES_SUB_TASKS }/sum`;
           let obj = {
             idTask: a.task,
@@ -164,12 +161,12 @@ export class UpdateProgressComponent implements OnInit {
             commonService: a.commonService,
             typeCommon: this.taskType
           }   
-          this._ps.updateObject(url,a.task,obj)
-                  .subscribe(
-                    res=>{
-                      console.log(res);
-                    }
-                  );
+          this._ps.updateObject(url,a.task,obj).subscribe(
+              res=>{
+                console.log(this.collection);
+                console.log(res);
+              }
+            );
         }
       );
     }
@@ -193,10 +190,8 @@ export class UpdateProgressComponent implements OnInit {
 
     this._ps.updateObject(Util.URL_DEPARTMENTS_SUB_TASKS,a['_id'],a,0).subscribe(
       res => {
-        console.log('update succes');
         this._ps.updateObject(Util.URL_DEPARTMENTS_SUB_TASKS,a['_id'],a,0).subscribe(
           res => {
-            console.log('update succes');
             let url = `${ Util.URL_DEPARTMENTS_SUB_TASKS }/sum`;
             let obj = {
               project: a.project,

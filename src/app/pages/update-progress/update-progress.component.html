@@ -91,7 +91,7 @@
             <td>{{ item.task['name'] }}</td>
             <td> {{ item.subTask['name'] }} </td>
             <td> {{ item.task['type'] }} </td>
-            <td> <input class="form-control" type="number" [(value)]="item['status']" (keyup)="updateElement(i, $event.target.value )" (change)="updateElement(i, $event.target.value )"> </td>
+            <td> <input class="form-control" type="number" [(value)]="item['status']" (change)="updateElement(i, $event.target.value )"> </td>
 
             <th scope="col" class="text-center">
                 <!-- <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button> -->
