@@ -198,14 +198,11 @@ export class UpdateProgressComponent implements OnInit {
               task: a.task,
               department: a.department
             }   
-            this._ps.updateObject(url,a.task,obj)
-                    .subscribe(
-                      res=>{
-                        console.log(res);
-                        
-                      }
-                    );
-            
+            this._ps.updateObject(url,a.task,obj) .subscribe(
+              res=>{
+                this.search();
+              }
+            );
           }
         );        
       }
