@@ -122,7 +122,6 @@ export class UpdateProgressComponent implements OnInit {
 
 
   saveOne (idx: number) {
-    console.log(this.collection);     
     this._msg.show(Util.UPDATE_TITLE,Util.MSJ_UPDATE_QUESTION,Util.ACTION_UPDATE).subscribe(
       res => {
         if(res.response == Util.OK_RESPONSE){
@@ -163,8 +162,7 @@ export class UpdateProgressComponent implements OnInit {
           }   
           this._ps.updateObject(url,a.task,obj).subscribe(
               res=>{
-                console.log(this.collection);
-                console.log(res);
+                this.search();
               }
             );
         }
