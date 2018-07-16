@@ -81,7 +81,20 @@ export class GanttFloorsComponent implements OnInit {
                         }
                       });
                       if(!exist){
-                        departmentTask2.floor.status = departmentTask2.status;
+                        url = `${ Util.URL_DEPARTMENTS_TASKS }/taskstatus/${this.idProject}/${departmentTask2.floor._id}/${departmentTask2.task._id}`;
+                        _ps.getObjectsAny(url,0).toPromise().then(
+                          res => {
+                            this._ps.refresToken(res);
+                            console.log(res);
+                              
+                            departmentTask2.floor.status = res.statusTask;
+                          }
+                        ).catch(
+                          error => {
+                            console.log(error);
+                            
+                          }
+                        );
                         floors.push(departmentTask2.floor);
                       }
                     }
