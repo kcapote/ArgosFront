@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "assets/css/animate.css";
 
 .main-container {
     margin-top: 30px;
@@ -27,94 +28,18 @@
     display: none;
 }
 
-.animated {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-}
 
-@-webkit-keyframes bounceInDown {
-    from,
-    60%,
-    75%,
-    90%,
-    to {
-        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-    0% {
-        opacity: 0;
-        -webkit-transform: translate3d(0, -3000px, 0);
-        transform: translate3d(0, -3000px, 0);
-    }
-    60% {
-        opacity: 1;
-        -webkit-transform: translate3d(0, 25px, 0);
-        transform: translate3d(0, 25px, 0);
-    }
-    75% {
-        -webkit-transform: translate3d(0, -10px, 0);
-        transform: translate3d(0, -10px, 0);
-    }
-    90% {
-        -webkit-transform: translate3d(0, 5px, 0);
-        transform: translate3d(0, 5px, 0);
-    }
-    to {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-@keyframes bounceInDown {
-    from,
-    60%,
-    75%,
-    90%,
-    to {
-        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-    0% {
-        opacity: 0;
-        -webkit-transform: translate3d(0, -3000px, 0);
-        transform: translate3d(0, -3000px, 0);
-    }
-    60% {
-        opacity: 1;
-        -webkit-transform: translate3d(0, 25px, 0);
-        transform: translate3d(0, 25px, 0);
-    }
-    75% {
-        -webkit-transform: translate3d(0, -10px, 0);
-        transform: translate3d(0, -10px, 0);
-    }
-    90% {
-        -webkit-transform: translate3d(0, 5px, 0);
-        transform: translate3d(0, 5px, 0);
-    }
-    to {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-    }
-}
-
-.bounceInDown {
-    -webkit-animation-name: bounceInDown;
-    animation-name: bounceInDown;
-}
 
 .configureIcon {
     color: darkcyan;
     size: 64px;
 }
 
-.backgroundNavbar {
+/* .backgroundNavbar {
     background-image: linear-gradient(to right top, #393938, #5c5b5a, #818080, #a7a6a7, #cfcfcf);
     width: 100%;
     height: 100%;
-}
+} */
 
 .table {
     color: grey;
@@ -280,3 +205,99 @@
     width: 100%;
     text-align: center;
 }
+
+
+
+
+/* ************************************** */
+
+
+/* navbar */
+.navbar-default {
+    background-color: #fff;
+    border-color: #E7E7E7;
+    height: 100px;
+}
+/* Title */
+.navbar-default .navbar-brand {
+    color: #777;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #5867dd;
+}
+/* Link */
+.navbar-default .navbar-nav > li > a {
+    color: #676c7b;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #5867dd;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #5867dd;
+    background-color: #fff;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #5867dd;
+    background-color: #fff;
+}
+/* Caret */
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #777;
+    border-bottom-color: #777;
+}
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #333;
+    border-bottom-color: #333;
+}
+.navbar-default .navbar-nav > .open > a .caret,
+.navbar-default .navbar-nav > .open > a:hover .caret,
+.navbar-default .navbar-nav > .open > a:focus .caret {
+    border-top-color: #555;
+    border-bottom-color: #555;
+}
+/* Mobile version */
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #DDD;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #CCC;
+}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+          color: #5867dd;
+    }
+}
+
+
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+}
+
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+

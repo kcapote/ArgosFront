@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Util } from '../../util/util';
 import { ProviderService } from '../../services/provider.service';
@@ -13,7 +13,7 @@ import { LoaderService } from '../../components/loader/loader.service';
   templateUrl: './form-project.component.html',
   styles: []
 })
-export class FormProjectComponent implements OnInit {
+export class FormProjectComponent implements OnInit, AfterViewInit {
 
   title:string = "Crear Proyecto";
   idProject: string;
@@ -41,39 +41,17 @@ export class FormProjectComponent implements OnInit {
             }
         )
  
-      activatedRoute.params.subscribe(
-        p  => {
-            if(p['id']){
-                this.idProject = p['id'];  
-                this.title = "Editar Proyecto";  
-                _ps.getObject(Util.URL_POJECTS,this.idProject,0).subscribe(
-                    res => {
-                        this._ps.refresToken(res);
-                        this.item = res.projects[0];
-                        delete this.item['__v'];                        
-                        delete this.item['recordActive'];                        
-                        this.item.startDate = this.item.startDate.toString().substr(0,10);
-                        this.item.endDate = this.item.endDate?this.item.endDate.toString().substr(0,10):null,
-                        this.item._id = this.idProject;
-                        this.item.supervisor1 = this.item.supervisor1;
-                        this.item.supervisor2 = this.item.supervisor2;
-                        this.form.setValue(this.item);  
-                        console.log(this.form.value);
-                        
 
-                    }
-                )
-            }        
-        }
-      );
   }
 
 
   
 
   ngOnInit() {
-      this.loader.show();
-      this.form = new FormGroup({
+
+
+
+    this.form = new FormGroup({
       _id: new FormControl(''),
       name: new FormControl('', Validators.required),
       adress: new FormControl('', Validators.required),
@@ -85,13 +63,49 @@ export class FormProjectComponent implements OnInit {
       endDate: new FormControl('')
 
     });
+      // this.loader.show();
+      
 
 
   }
 
-  ngAfterViewChecked() {
-    this.loader.hide();
+  ngAfterViewInit() {
+    this.activatedRoute.params.subscribe(
+      p  => {
+          if(p['id']){
+              this.idProject = p['id'];  
+              this.title = "Editar Proyecto";  
+              this._ps.getObject(Util.URL_POJECTS,this.idProject,0).subscribe(
+                  res => {
+                      this._ps.refresToken(res);
+                      this.item = res.projects[0];
+                      console.log('*********',res);
+                      
+                      delete this.item['__v'];                        
+                      delete this.item['recordActive'];                        
+                      this.item.startDate = this.item.startDate.toString().substr(0,10);
+                      this.item.endDate = this.item.endDate?this.item.endDate.toString().substr(0,10):null,
+                      this.item._id = this.idProject;
+                      this.item.supervisor1 = res.projects[0].supervisor1;
+                      this.item.supervisor2 = res.projects[0].supervisor2;
+                      this.form.setValue(this.item);  
+                      console.log('el form',this.form.value);
+                      
+
+                  },err => {
+                    console.log('Error',err);
+                    
+                  }
+              )
+          }        
+      }
+    );
+    
   }
+
+  // ngAfterViewChecked() {
+  //   this.loader.hide();
+  // }
 
 
 

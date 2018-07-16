@@ -170,7 +170,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
     //console.log('el nameCollection es', this.nameCollection, ' la collection es ', this.collection);
     
     if(this.itemId){
-      this.itemId = this.collection.find( c => c['_id']== this.itemId);
+      this.itemId = this.collection.find( c => c['_id']== this.itemId['_id']);
 
     }
 
@@ -227,6 +227,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   writeValue(obj: any): void {
     this.itemId = obj; 
     this.propagateChange(this.itemId); 
+    this.loadSel();
     //throw new Error("Method not implemented.");
   }
 
