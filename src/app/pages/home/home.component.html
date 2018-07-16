@@ -2,26 +2,26 @@
 
 <div class="space-elements main-container table">
     <h3 style="color: #000;">
-        Bienvenido, ¿Qué proyecto deseas consultar?
+        Bienvenido, selecciona un proyecto para consultar:
     </h3>
 
 </div>
-
 <br>
-
-<hr>
 
 <div class="row animated fadeIn fast">
     <div *ngFor="let item of collection; let i = index" class="col-sm-4">
-        <div class="card" style="margin-top: 10%;">
-            <div class="card-header"><strong>{{ item.name }}</strong> </div>
-            <div class="card-body">
-                <strong>Dirección:</strong> {{ item.adress }}<br/>
-                <strong>Constructora:</strong> {{ item.builder }}<br/>
-                <strong>Estatus:</strong> {{ item.status | number }}%<br/>
-                <strong>Fecha Inicio:</strong> {{ item.startDate | date: "dd/MM/yyyy" }}<br/><br/>
-                <button (click)="viewGantt(i)" class="btn backgroundButtom textColor "> Detalle </button>
+        <div style="margin-top: 10%;">
+            <div (click)="viewGantt(i)" class="c100 p{{ item.status | number: '1.0-0' }}" style="cursor: pointer;">
+                <span>{{ item.status | number }}%</span>
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
             </div>
+            <strong>Proyecto:</strong> {{ item.name }}<br/>
+            <strong>Fecha Inicio:</strong> {{ item.startDate | date: "dd/MM/yyyy" }}<br/>
+            <strong>Constructora:</strong> {{ item.builder }}<br/>
+            <strong>Dirección:</strong> {{ item.adress }}<br/>
         </div>
     </div>
 </div>
