@@ -1,6 +1,6 @@
-<app-form-employee #employee title="Editar Empleado" [idEmployee]="idEmployee"></app-form-employee>
+<app-form-employee *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" #employee title="Editar Empleado" [idEmployee]="idEmployee"></app-form-employee>
 
-<div class="row">
+<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
     <div class="col-md-12 text-right">
         <button (click)="save(employee.getEmployee())" class="btn btn-secondary" [disabled]="!employee.form.valid">
               Guardar

@@ -15,7 +15,8 @@ import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 export class EditEmployeeComponent implements OnInit {
 
   idEmployee: string;
-  item: Employee; 
+  item: Employee;
+  userTemp: any; 
 
   constructor(private location: Location,
               private _ps:ProviderService,
@@ -32,7 +33,17 @@ export class EditEmployeeComponent implements OnInit {
           }
       );
       
-    
+      let user = JSON.parse(localStorage.getItem('user'));
+      this._ps.getObject(Util.URL_USER,user._id).subscribe(
+          res => { 
+              this._ps.refresToken(res);                                           
+              this.userTemp = res.users[0];
+              if(user.role != this.userTemp.role){
+                  localStorage.setItem('user','');
+                  this.router.navigate(['login'])
+              }
+          }
+      )
 
 
   }

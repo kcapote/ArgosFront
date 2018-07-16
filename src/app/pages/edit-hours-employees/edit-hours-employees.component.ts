@@ -4,6 +4,7 @@ import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { ProviderService } from '../../services/provider.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { EmployeeSubTask } from '../../interfaces/employee-subtask';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-hours-employees',
@@ -20,11 +21,24 @@ export class EditHoursEmployeesComponent implements OnInit {
   toDate: string;
   term: string;
   totalRecords: number;
+  userTemp: any;
 
   constructor(
     private _msg: MsgBoxService,
-    private _ps: ProviderService ) {
+    private _ps: ProviderService,
+    private router: Router ) {
 
+      let user = JSON.parse(localStorage.getItem('user'));
+      this._ps.getObject(Util.URL_USER,user._id).subscribe(
+          res => { 
+              this._ps.refresToken(res);                                           
+              this.userTemp = res.users[0];
+              if(user.role != this.userTemp.role){
+                  localStorage.setItem('user','');
+                  this.router.navigate(['login'])
+              }
+          }
+      )
 
    }
 

@@ -30,8 +30,17 @@ export class ProjectComponent implements OnInit {
               private _msg: MsgBoxService,
               private loader: LoaderService) { 
                   
-    let user = JSON.parse(localStorage.getItem('user'));
-    this.userTemp = user;
+                let user = JSON.parse(localStorage.getItem('user'));
+                this._ps.getObject(Util.URL_USER,user._id).subscribe(
+                    res => { 
+                        this._ps.refresToken(res);                                           
+                        this.userTemp = res.users[0];
+                        if(user.role != this.userTemp.role){
+                            localStorage.setItem('user','');
+                            this.router.navigate(['login'])
+                        }
+                    }
+                )
 
      this._ps.getObjects(Util.URL_POJECTS).subscribe(
         res => {

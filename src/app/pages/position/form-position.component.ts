@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { Positions } from '../../interfaces/position.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-position',
@@ -15,10 +16,21 @@ export class FormPositionComponent implements OnInit {
   @Input() idPosition;
   @Input() title = "Nuevo Cargo";
   item: Positions;
+  userTemp: any;
 
-  constructor(private _ps: ProviderService) { 
+  constructor(private _ps: ProviderService, private router: Router) { 
     
-    
+    let user = JSON.parse(localStorage.getItem('user'));
+        this._ps.getObject(Util.URL_USER,user._id).subscribe(
+            res => { 
+                this._ps.refresToken(res);                                           
+                this.userTemp = res.users[0];
+                if(user.role != this.userTemp.role){
+                    localStorage.setItem('user','');
+                    this.router.navigate(['login'])
+                }
+            }
+        )
 
   }
 

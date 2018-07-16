@@ -5,7 +5,7 @@ import { SubTask } from '../../interfaces/subTask.interface';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
 import { ValidTypesTasks } from '../../enums/valid-types-tasks.enum';
-
+import { Router } from '@angular/router';
 
 
 @Component({ 
@@ -30,7 +30,8 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
       }
   ) ;
 
-  constructor(private _ps:ProviderService) { 
+  constructor(private _ps:ProviderService,
+              private router: Router,) { 
 
     this.form = new FormGroup({
       'name': new FormControl('', Validators.required),
@@ -38,7 +39,17 @@ export class FormTaskComponent implements OnInit, AfterViewInit {
       'position': new FormControl('', [Validators.required, Validators.min(1), Validators.max(1000) ])
     });
  
-    
+    let user = JSON.parse(localStorage.getItem('user'));
+      this._ps.getObject(Util.URL_USER,user._id).subscribe(
+          res => { 
+              this._ps.refresToken(res);                                           
+              let userTemp = res.users[0];
+              if(user.role != userTemp.role){
+                  localStorage.setItem('user','');
+                  this.router.navigate(['login'])
+              }
+          }
+      )
 
   }
   

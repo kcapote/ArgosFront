@@ -1,9 +1,9 @@
-<app-form-subtask #subTask title="Crear Tarea">
+<app-form-subtask *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" #subTask title="Crear Tarea">
 
 </app-form-subtask>
 
 
-<div class="row">
+<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
     <div class="col-md-12 text-right">
         <button (click)="save(subTask.getSubTask())" class="btn btn-secondary" [disabled]="!subTask.form.valid">
                 Guardar

@@ -27,13 +27,26 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   project: Project;
   selCollection: ProjectEmployees[] = []; 
   notify: EventEmitter<boolean>;
-  @ViewChild('p') pag: ElementRef;   
+  @ViewChild('p') pag: ElementRef;
+  userTemp: any;   
 
   constructor(private activatedRoute: ActivatedRoute,
               private _ps:ProviderService,
               private router: Router,
               private _msg: MsgBoxService,
               private loader: LoaderService) { 
+
+      let user = JSON.parse(localStorage.getItem('user'));
+      this._ps.getObject(Util.URL_USER,user._id).subscribe(
+          res => { 
+              this._ps.refresToken(res);                                           
+              this.userTemp = res.users[0];
+              if(user.role != this.userTemp.role){
+                  localStorage.setItem('user','');
+                  this.router.navigate(['login'])
+              }
+          }
+      )
                 
     activatedRoute.params.subscribe(
       p => {

@@ -1,6 +1,6 @@
-<app-form-position #position></app-form-position>
+<app-form-position *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" #position></app-form-position>
 
-<div class="row">
+<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
     <div class="col-md-12 text-right">
         <button (click)="save(position.getPosition())" class="btn btn-secondary" [disabled]="!position.form.valid">
               Guardar
