@@ -1,6 +1,6 @@
-<app-form-user #user title="Editar Usuario" [idUser]="idUser"></app-form-user>
+<app-form-user *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" #user title="Editar Usuario" [idUser]="idUser"></app-form-user>
 
-<div class="row">
+<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
     <div class="col-md-12 text-right">
         <button (click)="save(user.getUser())" class="btn btn-secondary" [disabled]="!user.form.valid">
               Guardar

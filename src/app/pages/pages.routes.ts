@@ -30,8 +30,7 @@ import { EmployeeSubtaskComponent } from './employee-subtask/employee-subtask.co
 import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-employees.component';
 import { UpdateProgressComponent } from './update-progress/update-progress.component';
 import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-worked.component';
-
-
+import { LoginComponent } from '../login/login.component';
 
 const app_pages_routes: Routes = [
     {path: 'pages', component: PagesComponent,
@@ -62,12 +61,13 @@ const app_pages_routes: Routes = [
         {path: 'ganttDetailCommonServices/:idProyect/:idFloor/:idTask/:idSubTask/:type', component: GanttCommonDetailWorkedComponent },
         {path: 'ganttDetailCommonServices/:idProyect/:idFloor/:idDepartment/:idTask/:idSubTask/:type', component: GanttCommonDetailWorkedComponent },
         {path: 'user', component: UserComponent },
-        {path: 'newUser', component: NewUserComponent },
+        {path: 'newUser', component: NewUserComponent},
         {path: 'editUser/:id', component: EditUserComponent },
         {path: 'employeeSubTask', component: EmployeeSubtaskComponent },
         {path: 'editHours', component: EditHoursEmployeesComponent },
         {path: 'updateProgress', component: UpdateProgressComponent },
         {path: '', redirectTo: '/pages/home', pathMatch: 'full' },
+        {path: 'login', component: LoginComponent },
         {path: 'home', component: HomeComponent },
 
         

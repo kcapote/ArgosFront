@@ -27,7 +27,7 @@
             <th scope="col">Rut</th>
             <th scope="col">Nombre</th>
             <th scope="col">Tipo</th>
-            <th scope="col" class="text-center">Opciones</th>
+            <th *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" scope="col" class="text-center">Opciones</th>
         </tr>
     </thead>
     <tbody>
@@ -36,8 +36,7 @@
             <th scope="row"> {{ item.rut }} </th>
             <td>{{ item.name }} </td>
             <td>{{ item.position['name'] }}</td>
-            <th scope="col" class="text-center">
-                <!--button class="btn btn-outline-info"><i class="fas fa-eye"></i></button-->
+            <th *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" scope="col" class="text-center">
                 <button *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="btn btn-secondary" (click)="edit(item._id)"><i class="fas fa-edit"></i></button>
                 <button *ngIf="userTemp.role.match('ADMINISTRADOR')" class="btn btn-secondary" (click)="delete(i)"><i class="far fa-trash-alt"></i></button>
             </th>

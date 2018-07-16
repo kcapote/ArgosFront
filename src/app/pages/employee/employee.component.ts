@@ -26,8 +26,17 @@ export class EmployeeComponent implements OnInit {
               private router: Router,
               private _msg: MsgBoxService) {
 
-    let user = JSON.parse(localStorage.getItem('user'));
-    this.userTemp = user;
+        let user = JSON.parse(localStorage.getItem('user'));
+        this._ps.getObject(Util.URL_USER,user._id).subscribe(
+            res => { 
+                this._ps.refresToken(res);                                           
+                this.userTemp = res.users[0];
+                if(user.role != this.userTemp.role){
+                    localStorage.setItem('user','');
+                    this.router.navigate(['login'])
+                }
+            }
+        )
 
      this._ps.getObjectsByFather(Util.URL_EMPLOYEE,"recordActive",0,"true").subscribe(
         res => {

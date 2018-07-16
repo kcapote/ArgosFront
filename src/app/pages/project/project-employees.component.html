@@ -3,7 +3,7 @@
 <h5 class="main-container">Asignación de Empleados</h5>
 <hr>
 
-<div class="row animated fadeIn fast">
+<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row animated fadeIn fast">
     <div class="col-md-6 space-elements">
         <div class="input-group">
 
@@ -15,7 +15,7 @@
 
 </div>
 
-<table class="table table-striped animated fadeIn fast">
+<table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped animated fadeIn fast">
     <thead class="">
         <tr>
             <th scope="col">#</th>
@@ -39,7 +39,7 @@
 
 <pagination #p [(ngModel)]="collection" [url]="model" [term]="term" collectionName="employees" [totalRecords]="totalRecords"></pagination>
 
-<div class="row space-elements animated fadeIn fast">
+<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row space-elements animated fadeIn fast">
     <div class="col-md-12 text-right">
         <button (click)="saveAll()" class="btn btn-success">
             Guardar 

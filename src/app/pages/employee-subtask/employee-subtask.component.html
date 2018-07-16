@@ -1,4 +1,4 @@
-<form class="main-container animated fadeIn fast" [formGroup]="form">
+<form *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="main-container animated fadeIn fast" [formGroup]="form">
 
     <div class="card ">
         <div class="card-body">
@@ -27,7 +27,7 @@
 
 </form>
 
-<table class="table table-striped main-container animated fadeIn fast">
+<table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped main-container animated fadeIn fast">
     <thead class="">
         <tr>
             <th scope="col">#</th>

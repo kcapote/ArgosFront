@@ -20,16 +20,26 @@ export class FormProjectComponent implements OnInit, AfterViewInit {
   form: FormGroup;
   url_employee:string = Util.URL_EMPLOYEE+"/all";
   item: Project;
-  
+  userTemp: any;
 
   constructor(private location: Location,
               private _ps: ProviderService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private _msg: MsgBoxService,
-              private loader: LoaderService) { 
-
-
+              private loader: LoaderService) {
+                
+        let user = JSON.parse(localStorage.getItem('user'));
+        this._ps.getObject(Util.URL_USER,user._id).subscribe(
+            res => { 
+                this._ps.refresToken(res);                                           
+                this.userTemp = res.users[0];
+                if(user.role != this.userTemp.role){
+                    localStorage.setItem('user','');
+                    this.router.navigate(['login'])
+                }
+            }
+        )
  
 
   }

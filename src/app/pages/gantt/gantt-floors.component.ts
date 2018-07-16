@@ -64,7 +64,7 @@ export class GanttFloorsComponent implements OnInit {
               this._ps.refresToken(res);
               this.collectionDepartmentTasks = res.departmentTasks;
               console.log(this.collectionDepartmentTasks);
-              
+
               let graphicFloor:any = {};
               
               this.collectionTaskDepartment.forEach(task => {
@@ -105,6 +105,7 @@ export class GanttFloorsComponent implements OnInit {
                   floors = [];
                   graphicFloor = {};
               });
+              console.log(this.collectionGraphicFloor);
 
             }).catch(
             error=> { 

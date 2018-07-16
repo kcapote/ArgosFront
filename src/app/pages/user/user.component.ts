@@ -25,12 +25,19 @@ export class UserComponent implements OnInit {
   constructor(private _ps:ProviderService, private router: Router, private _msg: MsgBoxService) {
 
     let user = JSON.parse(localStorage.getItem('user'));
-    this.userTemp = user;
+    this._ps.getObject(Util.URL_USER,user._id).subscribe(
+        res => { 
+            this._ps.refresToken(res);                                           
+            this.userTemp = res.users[0];
+            if(user.role != this.userTemp.role){
+                localStorage.setItem('user','');
+                this.router.navigate(['login'])
+            }
+        }
+    )
 
     this._ps.getObjectsByFather(Util.URL_USER,"recordActive",0,"true").subscribe(
     res => {
-      console.log(res);
-
       this._ps.refresToken(res);
       this.collection = res.users;
       this.totalRecords = res.totalRecords;         

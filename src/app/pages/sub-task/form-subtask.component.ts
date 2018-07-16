@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SubTask } from '../../interfaces/subTask.interface';
 import { ProviderService } from '../../services/provider.service';
 import { Util } from '../../util/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-subtask',
@@ -17,7 +18,20 @@ export class FormSubtaskComponent implements OnInit, AfterViewInit {
   @Input() idSubTask: string;
   @Input() title: string ="";
 
-  constructor(private _ps: ProviderService) { 
+  constructor(private _ps: ProviderService,
+              private router: Router,) { 
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    this._ps.getObject(Util.URL_USER,user._id).subscribe(
+        res => { 
+            this._ps.refresToken(res);                                           
+            let userTemp = res.users[0];
+            if(user.role != userTemp.role){
+                localStorage.setItem('user','');
+                this.router.navigate(['login'])
+            }
+        }
+    )
        
   }
 

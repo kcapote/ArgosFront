@@ -38,9 +38,26 @@ export class UpdateProgressComponent implements OnInit {
     }
   );
 
+  userTemp: any;
+
   constructor(private _ps: ProviderService, 
               private _msg: MsgBoxService,
-              private router: Router) { }
+              private router: Router) {
+
+                let user = JSON.parse(localStorage.getItem('user'));
+                this._ps.getObject(Util.URL_USER,user._id).subscribe(
+                    res => { 
+                        this._ps.refresToken(res);                                           
+                        this.userTemp = res.users[0];
+                        if(user.role != this.userTemp.role){
+                            localStorage.setItem('user','');
+                            this.router.navigate(['login'])
+                        }
+                    }
+                )
+
+
+               }
 
   ngOnInit() {
     this.form = new FormGroup(

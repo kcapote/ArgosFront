@@ -1,9 +1,9 @@
 <div *ngIf="idTask">
 
 
-    <app-form-task #task title="Editar Faena" [(idTask)]="idTask"> </app-form-task>
+    <app-form-task *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" #task title="Editar Faena" [(idTask)]="idTask"> </app-form-task>
 
-    <div class="row">
+    <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
         <div class="col-md-12 text-right">
             <button (click)="save(task.getTask())" class="btn btn-secondary" [disabled]="!task.form.valid">
                   Guardar

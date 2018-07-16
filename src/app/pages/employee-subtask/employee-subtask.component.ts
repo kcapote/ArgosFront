@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EmployeeSubTask } from '../../interfaces/employee-subtask';
 import { ProviderService } from '../../services/provider.service';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-subtask',
@@ -22,10 +23,25 @@ export class EmployeeSubtaskComponent implements OnInit {
 
   collection: EmployeeSubTask[] = [];
   item: EmployeeSubTask;
-
+  userTemp: any;
 
   constructor(private _ps: ProviderService,
-              private _msg: MsgBoxService ) { }
+              private _msg: MsgBoxService,
+              private router: Router ) {
+
+                let user = JSON.parse(localStorage.getItem('user'));
+                this._ps.getObject(Util.URL_USER,user._id).subscribe(
+                    res => { 
+                        this._ps.refresToken(res);                                           
+                        this.userTemp = res.users[0];
+                        if(user.role != this.userTemp.role){
+                            localStorage.setItem('user','');
+                            this.router.navigate(['login'])
+                        }
+                    }
+                )
+
+               }
 
   ngOnInit() {
 

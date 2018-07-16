@@ -36,6 +36,7 @@ export class AssignTasksComponent implements OnInit {
   collection: EmployeeSubTask[] = [];
   collectionErrors: String[] = [];
   item: EmployeeSubTask;
+  userTemp: any;
 
   enumType = Object.keys(ValidTypesTasks).map(
     r => {
@@ -46,6 +47,20 @@ export class AssignTasksComponent implements OnInit {
   constructor(private _ps: ProviderService, 
               private _msg: MsgBoxService,
               private router: Router) { 
+
+
+                let user = JSON.parse(localStorage.getItem('user'));
+                this._ps.getObject(Util.URL_USER,user._id).subscribe(
+                    res => { 
+                        this._ps.refresToken(res);                                           
+                        this.userTemp = res.users[0];
+                        if(user.role != this.userTemp.role){
+                            localStorage.setItem('user','');
+                            this.router.navigate(['login'])
+                        }
+                    }
+                )
+
   }
 
 
