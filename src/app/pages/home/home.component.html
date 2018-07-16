@@ -18,7 +18,7 @@
             <div class="card-body">
                 <strong>Dirección:</strong> {{ item.adress }}<br/>
                 <strong>Constructora:</strong> {{ item.builder }}<br/>
-                <strong>Estatus:</strong> {{ item.status }} %<br/>
+                <strong>Estatus:</strong> {{ item.status | number }}%<br/>
                 <strong>Fecha Inicio:</strong> {{ item.startDate | date: "dd/MM/yyyy" }}<br/><br/>
                 <button (click)="viewGantt(i)" class="btn backgroundButtom textColor "> Detalle </button>
             </div>
