@@ -46,7 +46,9 @@ import { EditHoursEmployeesComponent } from './edit-hours-employees/edit-hours-e
 import { GanttCommonServiceComponent } from './gantt/gantt-common-service.component';
 import { UpdateProgressComponent } from './update-progress/update-progress.component';
 import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-worked.component';
-
+import { ChartsModule } from 'ng2-charts';
+import { BarChartComponent } from '../graphic/bar-chart/bar-chart.component';
+import { DoughnutChartComponent } from '../graphic/doughnut-chart/doughnut-chart.component';
 
 @NgModule({
    declarations: [
@@ -91,7 +93,9 @@ import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-wo
      EditHoursEmployeesComponent,
      GanttCommonServiceComponent,
      UpdateProgressComponent,
-     GanttCommonDetailWorkedComponent
+     GanttCommonDetailWorkedComponent,
+     BarChartComponent,
+     DoughnutChartComponent
 
    ],
    exports: [ 
@@ -107,7 +111,8 @@ import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-wo
         FormsModule,
         ReactiveFormsModule,  
         PAGES_ROUTES,
-        HttpClientModule
+        HttpClientModule,
+        ChartsModule
    ],
    providers: [
      // MsgBoxService

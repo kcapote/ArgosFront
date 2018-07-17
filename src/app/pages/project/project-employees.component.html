@@ -1,18 +1,20 @@
-<h5 *ngIf="project" class="space-elements">Obra: {{ project.name }} </h5>
+<h1 *ngIf="project" class="space-elements"> {{ project.name }} </h1>
 
 <h5 class="main-container">Asignación de Empleados</h5>
 <hr>
 
-<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row animated fadeIn fast">
-    <div class="col-md-6 space-elements">
-        <div class="input-group">
-
-            <input [(ngModel)]="term" (keyup)="search()" type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
-
-
+<div *ngIf="userTemp">
+    <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row animated fadeIn fast">
+        <div class="col-md-6 space-elements">
+            <div class="input-group">
+    
+                <input [(ngModel)]="term" (keyup)="search()" type="text" class="form-control" placeholder="Buscar..." aria-label="Input group example" aria-describedby="btnGroupAddon">
+    
+    
+            </div>
         </div>
+    
     </div>
-
 </div>
 
 <table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped animated fadeIn fast">

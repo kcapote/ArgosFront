@@ -85,12 +85,12 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
         res => {
           this._ps.refresToken(res);  
           this.selCollection = res.employeeProjects;
-            this.selCollection.forEach(
-               r => {
-                 r.load = true;
-               }        
-            );            
-            console.log(this.selCollection);
+            // this.selCollection.forEach(
+            //    r => {
+            //      r.load = true;
+            //    }        
+            // );            
+            console.log(res);
               
             this.resfreshSelected();
 
@@ -98,9 +98,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
       )
   }
 
-  ngAfterViewChecked() {
-    this.loader.hide();
-  }
+
 
   ngAfterViewInit() {
     this.resfreshSelected();

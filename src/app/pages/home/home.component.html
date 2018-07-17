@@ -1,12 +1,48 @@
 <br>
 
 <div class="space-elements main-container table">
-    <h3 style="color: #000;">
-        Bienvenido, selecciona un proyecto para consultar:
-    </h3>
+    <h1 style="color: #000;">
+        Indicadores de Proyectos
+    </h1>
 
 </div>
+<hr>
 <br>
+
+
+<div class="row">
+    
+        <div class="col-sm-6">
+            <!-- <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Avance de proyectos</h5> -->
+                <app-bar-chart></app-bar-chart>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                <!-- </div>
+            </div> -->
+        </div>
+
+        <div class="col-sm-6">
+                <!-- <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title"> <p style="font-weight: 50;">Horas por Proyectos</p> </h5> -->
+                    <app-doughnut-chart></app-doughnut-chart>
+                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    <!-- </div>
+                </div> -->
+            </div>
+
+
+</div>
+
+
+<br>
+
+<h1>Proyectos</h1>
+
+<hr>
+<br>
+
 
 <div class="row animated fadeIn fast">
     <div *ngFor="let item of collection; let i = index" class="col-sm-4">
@@ -18,7 +54,7 @@
                     <div class="fill"></div>
                 </div>
             </div>
-            <strong>Proyecto:</strong> {{ item.name }}<br/>
+            <h3>{{ item.name }}</h3>
             <strong>Fecha Inicio:</strong> {{ item.startDate | date: "dd/MM/yyyy" }}<br/>
             <strong>Constructora:</strong> {{ item.builder }}<br/>
             <strong>Dirección:</strong> {{ item.adress }}<br/>
