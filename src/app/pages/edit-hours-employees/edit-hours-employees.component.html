@@ -35,7 +35,9 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Empleado </th>
-            <th scope="col">Area </th>
+            <th scope="col">Piso/Nivel </th>
+            <th scope="col">Tipo </th>
+            <th scope="col">Faena </th>
             <th scope="col">Tarea </th>
             <th scope="col">Fecha </th>
             <th scope="col">Horas </th>
@@ -46,7 +48,14 @@
         <tr *ngFor="let item of collection; let i = index">
             <th scope="row"> 1 </th>
             <td>{{ item.employee['name'] }}</td>
-            <td> {{ item.task['type'] }} </td>
+            <td>
+                <p *ngIf="item.commonService && item.commonService.type.match('SUBTERRANEOS')">SUBTERRANEO {{ item['commonService'].number }} </p>
+                <p *ngIf="item.commonService && item.commonService.type.match('EMPLAZAMIENTOS')">EMPLAZAMIENTO {{ item['commonService'].number }} </p>
+                <p *ngIf="item.commonService && item.commonService.type.match('PISOS S.C')">PISO S.C {{ item['commonService'].number }} </p>
+                <p *ngIf="item.floor">PISO {{ item['floor'].number }} - DEPTO {{ item['floor'].number }}{{ item['department'].number | number:'2.0'}}</p>
+            </td>
+            <td> {{ item['task'].type }} </td>
+            <td> {{ item['task'].name }} </td>
             <td> {{ item.subTask.name }} </td>
             <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
             <td> <input class="form-control" type="number" [(value)]="item['hoursWorked']" (keyup)="updateElement(i, $event.target.value )" (change)="updateElement(i, $event.target.value )"> </td>
