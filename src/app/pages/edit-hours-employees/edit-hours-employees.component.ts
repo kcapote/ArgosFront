@@ -116,7 +116,7 @@ export class EditHoursEmployeesComponent implements OnInit {
       urlTemp = `${ Util.URL_EMPLOYEE_SUBTASK }/project/${ this.project['_id'] }` ;
     }
     
-    this._ps.getObjectsAny(urlTemp,0).subscribe(
+    this._ps.getObjects(Util.URL_EMPLOYEE_SUBTASK, 0).subscribe(
       res => {
         this.totalRecords = res.totalRecords;
         this.collection = res['employeeSubTasks'];

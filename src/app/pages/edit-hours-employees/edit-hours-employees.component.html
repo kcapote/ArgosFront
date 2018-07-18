@@ -33,7 +33,6 @@
 <table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped main-container animated fadeIn fast">
     <thead class="">
         <tr>
-            <th scope="col">#</th>
             <th scope="col">Empleado </th>
             <th scope="col">Piso/Nivel </th>
             <th scope="col">Tipo </th>
@@ -46,7 +45,6 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of collection; let i = index">
-            <th scope="row"> 1 </th>
             <td>{{ item.employee['name'] }}</td>
             <td>
                 <p *ngIf="item.commonService && item.commonService.type.match('SUBTERRANEOS')">SUBTERRANEO {{ item['commonService'].number }} </p>
@@ -70,4 +68,4 @@
     </tbody>
 </table>
 
-<pagination *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" #p [(ngModel)]="collection" [url]="urlEmployyeeSub" [term]="term" collectionName="projects" [totalRecords]="totalRecords"></pagination>
+<pagination #p [(ngModel)]="collection" [url]="urlEmployyeeSub" [term]="term" collectionName="employeeSubTasks" [totalRecords]="totalRecords"></pagination>

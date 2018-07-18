@@ -13,8 +13,11 @@ import { Router } from '@angular/router';
 })
 export class EmployeeSubtaskComponent implements OnInit {
 
-  urlProjects: string = Util.URL_POJECTS; 
+  urlEmployyeeSub = Util.URL_EMPLOYEE_SUBTASK; 
+  urlProjects: string = Util.URL_POJECTS;
   urlEmployees: string = Util.URL_EMPLOYEE+"/all";
+  totalRecords: number;
+  term: string;
 
   form: FormGroup;
   idProject: any;
@@ -76,7 +79,7 @@ export class EmployeeSubtaskComponent implements OnInit {
                 
         this._ps.refresToken(res);
         this.collection = res.employeeSubTasks;
-  
+        this.totalRecords = res.totalRecords;
         if(this.collection.length == 0 ) {
           this._msg.show('','El empleado no tiene horas asignadas al proyecto',Util.ACTION_INFO).subscribe();
         }
