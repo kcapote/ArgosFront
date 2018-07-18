@@ -35,7 +35,7 @@
     <tbody>
         <tr *ngFor="let item of collection; let i = index">
             <th scope="row"> {{ i+1 + p.numberPage }} </th>
-            <td>{{ item.name }} </td>
+            <td data-toggle="tooltip" data-placement="top" title="Ver Avances" class="text-primary" (click)="viewGantt(i)" style="cursor: pointer;">{{ item.name }} </td>
             <td>{{ item.startDate | date:'dd/MM/yyyy' }}</td>
             <td>{{ item.status }}%</td>
             <td>{{ item.supervisor1.name + ", " + item.supervisor2.name }} </td>
