@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ProviderService } from '../../services/provider.service';
 import { Project } from '../../interfaces/project.interface';
 import { Util } from '../../util/util';
@@ -11,9 +11,11 @@ import { LoaderService } from '../../components/loader/loader.service';
   styles: []
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
   collection: Project[] = [];
+  labelChart;
+  dataChart;
 
   constructor(private _ps: ProviderService,
               private router: Router,
@@ -25,6 +27,8 @@ export class HomeComponent implements OnInit {
            this.collection = res.projects;
          }   
       );
+      
+
 
   }
 
@@ -32,15 +36,19 @@ export class HomeComponent implements OnInit {
     this.loader.show();
   }
 
-  ngAfterViewChecked() {
-    this.loader.hide();
+  
+  ngAfterViewInit(){
+    
   }
-
 
   viewGantt(idx: number){
     
     this.router.navigate(['/pages/gantt',this.collection[idx]._id, this.collection[idx].name])
 
   }
+
+
+
+
 
 }
