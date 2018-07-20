@@ -15,7 +15,7 @@ export class BarChartComponent implements OnInit {
     responsive: true
   };
   
-  public barChartLabels:string[] = ['Porcentaje de avances'];
+  public barChartLabels:string[] = [];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
  
