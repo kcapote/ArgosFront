@@ -13,6 +13,8 @@ import { MsgBoxComponent } from './components/msg-box/msg-box.component';
 import { MsgBoxService } from './components/msg-box/msg-box.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './components/loader/loader.service';
+import { FooterComponent } from './components/footer/footer.component';
+
 
 
 
@@ -23,6 +25,7 @@ import { LoaderService } from './components/loader/loader.service';
     PagenotfoundComponent,
     LoginComponent,
     MsgBoxComponent,
+    FooterComponent,
     LoaderComponent
   ],
   imports: [

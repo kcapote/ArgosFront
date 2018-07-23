@@ -315,5 +315,14 @@ body {
     background-color: #fff;
 }
 
+footer {
+    height: 70px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: #FFF;
+}
+
 
 /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
