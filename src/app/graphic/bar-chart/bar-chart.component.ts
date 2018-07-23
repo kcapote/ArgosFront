@@ -20,9 +20,9 @@ export class BarChartComponent implements OnInit {
   public barChartLegend:boolean = true;
  
   public barChartData:any[] = [
-    {data: [65], label: 'Proyecto 1'},
-    {data: [75], label: 'Proyecto 2'},
-    {data: [85], label: 'Proyecto 3'},
+    // {data: [65], label: 'Proyecto 1'},
+    // {data: [75], label: 'Proyecto 2'},
+    // {data: [85], label: 'Proyecto 3'},
     // {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
   ];
 
