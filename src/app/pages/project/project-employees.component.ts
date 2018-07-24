@@ -65,7 +65,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     )
  
     //cargo la lista de empleados
-    this._ps.getObjectsAny(Util.URL_EMPLOYEE+"/all",0).subscribe(
+    this._ps.getObjectsAny(Util.URL_EMPLOYEE+"",0).subscribe(
         res => {
           this._ps.refresToken(res);
           this.collection = res.employees;
