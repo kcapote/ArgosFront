@@ -1,4 +1,4 @@
-<app-form-employee *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" #employee title="Editar Empleado" [idEmployee]="idEmployee"></app-form-employee>
+<app-form-employee #employee title="Editar Empleado" [idEmployee]="idEmployee"></app-form-employee>
 
 <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
     <div class="col-md-12 text-right">

@@ -54,7 +54,7 @@ export class FormEmployeeComponent implements OnInit, AfterViewInit {
       name: new FormControl('', Validators.required),
       //lastName: new FormControl(''),
       phone: new FormControl(''),
-      mail: new FormControl('', [Validators.email]),
+      mail: new FormControl(''),
       position:new FormControl('', Validators.required),
       sex: new FormControl('', Validators.required),
       contractStartDate:new FormControl('', Validators.required),
