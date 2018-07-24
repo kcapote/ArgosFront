@@ -18,6 +18,7 @@ export class DoughnutChartComponent implements OnInit {
 
     this._ps.getObjectsAny(Util.URL_EMPLOYEE_SUBTASK+"/find/top10").subscribe(
       res=> {
+        
         if(res){
           let col:any[] = res.donuts;
           this.doughnutChartData = [];
