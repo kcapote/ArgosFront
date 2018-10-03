@@ -1,4 +1,4 @@
-<form *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" [formGroup]="form" class="space-elements needs-validation animated fadeIn fast">
+<form *ngIf="userTemp?.role?.match('ADMINISTRADOR') || userTemp?.role?.match('CARGA')" [formGroup]="form" class="space-elements needs-validation animated fadeIn fast">
 
     <h5 class="main-container">{{ title }}</h5>
     <hr>
@@ -28,21 +28,54 @@
 
                 <div class="form-group col-md-3">
                     <label>Supervisor 1: </label>
+                    <select #combo1 name="combo1" class="custom-select" formControlName="supervisor1">
+                        <option *ngFor="let item of employees1; let i = index" [value]="item._id">{{item.rut + " " + item.name }}  </option>
+                    </select>
+
+                    <div *ngIf="!form.get('supervisor1').errors?.valid && !form.get('supervisor1').pristine" class="invalid-feedback">
+                        El campo es obligatorio
+                    </div>
+
+                </div>  
+
+
+                <div class="form-group col-md-3">
+                    <label>Supervisor 2: </label>
+                    <select class="custom-select" formControlName="supervisor2" >
+                        <option *ngFor="let item2 of employees2; let i = index" [value]="item2._id">{{item2.rut + " " + item2.name }}  </option>
+                    </select>
+
+                    <div *ngIf="!form.get('supervisor2').errors?.valid && !form.get('supervisor2').pristine" class="invalid-feedback">
+                        El campo es obligatorio
+                    </div>
+
+                </div>  
+
+                <!-- <select #combo class="custom-select"  name="combo" (change)="onChange( $event.target )" [(ngModel)] = "itemId" > 
+                    <option *ngFor="let item of collection; let i = index" [ngValue]="item">{{item['output']}}  </option>
+                                       
+                  </select> -->
+
+
+                <!-- <div class="form-group col-md-3">
+                    <label>Supervisor 1: </label>
                     <combo #cSuper1 [ngClass]="{'is-invalid':!form.controls['supervisor1'].valid && !form.get('supervisor1').pristine }" [url]="url_employee" labelField="rut, name" nameCollection="employees" formControlName="supervisor1" freeQuery="true"></combo>
 
                     <div *ngIf="!form.get('supervisor1').errors?.valid && !form.get('supervisor1').pristine" class="invalid-feedback">
                         El campo es obligatorio
                     </div>
-                </div>
+                </div> -->
 
-                <div class="form-group col-md-3">
+                <!-- <div class="form-group col-md-3">
                     <label>Supervisor 2: </label>
-                    <combo *ngIf="!cSuper1.loading" [ngClass]="{'is-invalid':!form.controls['supervisor2'].valid && !form.get('supervisor2').pristine }" [url]="url_employee" labelField="rut, name" nameCollection="employees" formControlName="supervisor2" freeQuery="true"></combo>
+                    <combo  #cSuper2 [ngClass]="{'is-invalid':!form.controls['supervisor2'].valid && !form.get('supervisor2').pristine }" 
+                           [url]="url_employee" labelField="rut, name" nameCollection="employees" formControlName="supervisor2" 
+                           freeQuery="true"></combo>
 
                     <div *ngIf="!form.get('supervisor2').errors?.valid && !form.get('supervisor2').pristine" class="invalid-feedback">
                         El campo es obligatorio
                     </div>
-                </div>
+                </div> -->
 
             </div>
 
@@ -94,6 +127,7 @@
 
     </div>
 
+
     <div class="row space-elements space-footer">
         <div class="col-md-12 text-right">
             <button [disabled]="!form.valid" class="btn btn-secondary" (click)=" save() ">
@@ -102,6 +136,6 @@
         </div>
     </div>
 
-
+  
 
 </form>

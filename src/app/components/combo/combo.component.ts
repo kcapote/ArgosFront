@@ -225,9 +225,14 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
 
   writeValue(obj: any): void {
-    this.itemId = obj; 
-    this.propagateChange(this.itemId); 
-    this.loadSel();
+    if(obj){
+
+      this.itemId = obj; 
+      console.log('el obj es ', this.itemId);
+      this.propagateChange(this.itemId); 
+      this.loadSel();
+      
+    }
     //throw new Error("Method not implemented.");
   }
 
