@@ -3,8 +3,6 @@ import { Util } from '../../util/util';
 import { ValidTypesTasks } from '../../enums/valid-types-tasks.enum';
 import { ProviderService } from '../../services/provider.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { EventEmitter } from 'protractor';
-import { CommonService } from '../../interfaces/common-services.interface';
 import { EmployeeSubTask } from '../../interfaces/employee-subtask';
 import { MsgBoxService } from '../../components/msg-box/msg-box.service';
 import { Router } from '@angular/router';

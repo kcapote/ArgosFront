@@ -4,7 +4,6 @@ import { Util } from '../../util/util';
 import { User } from '../../interfaces/user.interface';
 import { ValidTypesUser } from '../../enums/valid-types-user';
 import { ProviderService } from '../../services/provider.service';
-import { utils } from 'protractor';
 
 
 @Component({
