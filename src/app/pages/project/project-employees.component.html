@@ -15,37 +15,36 @@
         </div>
     
     </div>
-</div>
-
-<table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped animated fadeIn fast">
-    <thead class="">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Rut</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Seleccionados </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of collection; let i = index">
-            <th scope="row"> {{ i + 1 +p.numberPage }} </th>
-            <th scope="row"> {{ item.rut }} </th>
-            <td>{{ item.name }} </td>
-            <td>{{ item.position['name'] }}</td>
-            <td><input type="checkbox" (change)="updateSel($event.target.checked, i)" [checked]="item.sel"></td>
-        </tr>
-
-    </tbody>
-</table>
-
-<pagination #p [(ngModel)]="collection" [url]="model" [term]="term" collectionName="employees" [totalRecords]="totalRecords"></pagination>
-
-<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row space-elements animated fadeIn fast">
-    <div class="col-md-12 text-right">
-        <button (click)="saveAll()" class="btn btn-success">
-            Guardar 
-        </button>
-
+    <table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped animated fadeIn fast">
+        <thead class="">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Rut</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Seleccionados </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of collection; let i = index">
+                <th scope="row"> {{ i + 1 +p.numberPage }} </th>
+                <th scope="row"> {{ item.rut }} </th>
+                <td>{{ item.name }} </td>
+                <td>{{ item.position['name'] }}</td>
+                <td><input type="checkbox" (change)="updateSel($event.target.checked, i)" [checked]="item.sel"></td>
+            </tr>
+    
+        </tbody>
+    </table>
+    
+    <pagination #p [(ngModel)]="collection" [url]="model" [term]="term" collectionName="employees" [totalRecords]="totalRecords"></pagination>
+    
+    <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row space-elements animated fadeIn fast">
+        <div class="col-md-12 text-right">
+            <button (click)="saveAll()" class="btn btn-success">
+                Guardar 
+            </button>
+    
+        </div>
     </div>
 </div>
