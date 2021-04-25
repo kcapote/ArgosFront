@@ -1,10 +1,12 @@
 <app-form-user #user title="Editar Usuario" [idUser]="idUser"></app-form-user>
-
-<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
-    <div class="col-md-12 text-right">
-        <button (click)="save(user.getUser())" class="btn btn-secondary" [disabled]="!user.form.valid">
-              Guardar
-         </button>
-        <button class="btn btn-secondary" (click)="back()">Regresar</button>
+<div *ngIf="userTemp">
+    <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
+        <div class="col-md-12 text-right">
+            <button (click)="save(user.getUser())" class="btn btn-secondary" [disabled]="!user.form.valid">
+                  Guardar
+             </button>
+            <button class="btn btn-secondary" (click)="back()">Regresar</button>
+        </div>
     </div>
 </div>
+

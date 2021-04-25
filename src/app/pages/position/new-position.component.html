@@ -1,10 +1,12 @@
 <app-form-position #position></app-form-position>
-
-<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
-    <div class="col-md-12 text-right">
-        <button (click)="save(position.getPosition())" class="btn btn-secondary" [disabled]="!position.form.valid">
-              Guardar
-         </button>
-        <button class="btn btn-secondary" (click)="back()">Regresar</button>
+<div *ngIf="userTemp">
+    <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
+        <div class="col-md-12 text-right">
+            <button (click)="save(position.getPosition())" class="btn btn-secondary" [disabled]="!position.form.valid">
+                  Guardar
+             </button>
+            <button class="btn btn-secondary" (click)="back()">Regresar</button>
+        </div>
     </div>
 </div>
+

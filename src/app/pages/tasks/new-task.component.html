@@ -1,12 +1,14 @@
 <app-form-task #task title="Crear Faena">
 
 </app-form-task>
-
-<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
-    <div class="col-md-12 text-right">
-        <button (click)="save(task.getTask())" class="btn btn-secondary" [disabled]="!task.form.valid">
-                 Guardar
-            </button>
-        <button class="btn btn-secondary" (click)="back()">Regresar</button>
+<div *ngIf="userTemp">
+    <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row">
+        <div class="col-md-12 text-right">
+            <button (click)="save(task.getTask())" class="btn btn-secondary" [disabled]="!task.form.valid">
+                     Guardar
+                </button>
+            <button class="btn btn-secondary" (click)="back()">Regresar</button>
+        </div>
     </div>
 </div>
+

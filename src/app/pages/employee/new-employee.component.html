@@ -1,10 +1,11 @@
 <app-form-employee #employee title="Crear Empleado"></app-form-employee>
-
-<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row space-elements space-footer">
-    <div class="col-md-12 text-right">
-        <button (click)="save(employee.getEmployee())" class="btn btn-secondary" [disabled]="!employee.form.valid">
-              Guardar
-         </button>
-        <button class="btn btn-secondary" (click)="back()">Regresar</button>
+<div *ngIf="userTemp">
+    <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row space-elements space-footer">
+        <div class="col-md-12 text-right">
+            <button (click)="save(employee.getEmployee())" class="btn btn-secondary" [disabled]="!employee.form.valid">
+                  Guardar
+             </button>
+            <button class="btn btn-secondary" (click)="back()">Regresar</button>
+        </div>
     </div>
 </div>
