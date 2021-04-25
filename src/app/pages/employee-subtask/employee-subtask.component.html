@@ -1,60 +1,62 @@
-<form *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="main-container animated fadeIn fast" [formGroup]="form">
+<div *ngIf="userTemp">
+    <form *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="main-container animated fadeIn fast" [formGroup]="form">
 
-    <div class="card ">
-        <div class="card-body">
-            <h5 class="card-title col-md-12"><i class="far fa-clock configureIcon"></i> Consultar Horas por Empleado </h5>
-
-            <div class="row">
-
-                <div class="form-group col-md-6">
-                    <label for="">Empleado: </label>
-                    <combo [url]="urlEmployees" formControlName="employee" labelField="rut, name" nameCollection="employees" (change)="updateIdEmployee()"></combo>
+        <div class="card ">
+            <div class="card-body">
+                <h5 class="card-title col-md-12"><i class="far fa-clock configureIcon"></i> Consultar Horas por Empleado </h5>
+    
+                <div class="row">
+    
+                    <div class="form-group col-md-6">
+                        <label for="">Empleado: </label>
+                        <combo [url]="urlEmployees" formControlName="employee" labelField="rut, name" nameCollection="employees" (change)="updateIdEmployee()"></combo>
+                    </div>
+    
+                    <div class="form-group col-md-6">
+                        <label for="">Proyecto: </label>
+                        <combo [url]="urlProjects" labelField="name" nameCollection="projects" formControlName="project" (change)="updateId()"></combo>
+                    </div>
+    
                 </div>
-
-                <div class="form-group col-md-6">
-                    <label for="">Proyecto: </label>
-                    <combo [url]="urlProjects" labelField="name" nameCollection="projects" formControlName="project" (change)="updateId()"></combo>
-                </div>
-
             </div>
+            <br>
         </div>
-        <br>
-    </div>
-
-    <div class="text-right main-container">
-        <button [disabled]="!form.valid" class="btn btn-secondary" (click)="query()">Consultar</button>
-    </div>
-
-</form>
-
-<table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped main-container animated fadeIn fast">
-    <thead class="">
-        <tr>
-            <th scope="col">Proyecto </th>
-            <th scope="col">Piso/Nivel </th>
-            <th scope="col">Tipo </th>
-            <th scope="col">Faena </th>
-            <th scope="col">Tarea </th>
-            <th scope="col">Fecha </th>
-            <th scope="col">Horas </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of collection; let i = index">
-            <td> {{ item['project'].name }} </td>
-            <td>
-                <p *ngIf="item.commonService && item.commonService.type.match('SUBTERRANEOS')">SUBTERRANEO {{ item['commonService'].number }} </p>
-                <p *ngIf="item.commonService && item.commonService.type.match('EMPLAZAMIENTOS')">EMPLAZAMIENTO {{ item['commonService'].number }} </p>
-                <p *ngIf="item.commonService && item.commonService.type.match('PISOS S.C')">PISO S.C {{ item['commonService'].number }} </p>
-                <p *ngIf="item.floor">PISO {{ item['floor'].number }} - DEPTO {{ item['floor'].number }}{{ item['department'].number | number:'2.0'}}</p>
-            </td>
-            <td> {{ item['task'].type }} </td>
-            <td> {{ item['task'].name }} </td>
-            <td> {{ item.subTask.name }} </td>
-            <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
-            <td> {{ item['hoursWorked'] }}</td>
-        </tr>
-    </tbody>
-</table>
+    
+        <div class="text-right main-container">
+            <button [disabled]="!form.valid" class="btn btn-secondary" (click)="query()">Consultar</button>
+        </div>
+    
+    </form>
+    
+    <table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped main-container animated fadeIn fast">
+        <thead class="">
+            <tr>
+                <th scope="col">Proyecto </th>
+                <th scope="col">Piso/Nivel </th>
+                <th scope="col">Tipo </th>
+                <th scope="col">Faena </th>
+                <th scope="col">Tarea </th>
+                <th scope="col">Fecha </th>
+                <th scope="col">Horas </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of collection; let i = index">
+                <td> {{ item['project'].name }} </td>
+                <td>
+                    <p *ngIf="item.commonService && item.commonService.type.match('SUBTERRANEOS')">SUBTERRANEO {{ item['commonService'].number }} </p>
+                    <p *ngIf="item.commonService && item.commonService.type.match('EMPLAZAMIENTOS')">EMPLAZAMIENTO {{ item['commonService'].number }} </p>
+                    <p *ngIf="item.commonService && item.commonService.type.match('PISOS S.C')">PISO S.C {{ item['commonService'].number }} </p>
+                    <p *ngIf="item.floor">PISO {{ item['floor'].number }} - DEPTO {{ item['floor'].number }}{{ item['department'].number | number:'2.0'}}</p>
+                </td>
+                <td> {{ item['task'].type }} </td>
+                <td> {{ item['task'].name }} </td>
+                <td> {{ item.subTask.name }} </td>
+                <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
+                <td> {{ item['hoursWorked'] }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <pagination #p [(ngModel)]="collection" [url]="urlEmployyeeSub" [term]="term" collectionName="employeeSubTasks" [totalRecords]="totalRecords"></pagination>

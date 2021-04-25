@@ -1,158 +1,158 @@
-<h2 class="space-elements">
+<h2 class="space-elements"> Carga de horas</h2>
+<div *ngIf="userTemp">
+    <form *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="main-container animated fadeIn fast" [formGroup]="form">
 
-    Carga de horas</h2>
-<form *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="main-container animated fadeIn fast" [formGroup]="form">
-
-    <div class="card ">
-        <div class="card-body">
-            <h5 class="card-title col-md-12"><i class="fas fa-address-card configureIcon"></i>Datos del Proyecto </h5>
-
-            <div class="row">
-
-                <div class="form-group col-md-6">
-                    <label for="">Proyecto: </label>
-                    <combo #cProject [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url]="urlProjects" labelField="name" nameCollection="projects" formControlName="project" (change)="updateId()">
-                    </combo>
-                    <div *ngIf="!form.get('project').errors?.valid && !form.get('project').pristine" class="invalid-feedback">
-                        El proyecto es obligatorio
+        <div class="card ">
+            <div class="card-body">
+                <h5 class="card-title col-md-12"><i class="fas fa-address-card configureIcon"></i>Datos del Proyecto </h5>
+    
+                <div class="row">
+    
+                    <div class="form-group col-md-6">
+                        <label for="">Proyecto: </label>
+                        <combo #cProject [ngClass]="{'is-invalid':!form.controls['project'].valid && !form.get('project').pristine }" [url]="urlProjects" labelField="name" nameCollection="projects" formControlName="project" (change)="updateId()">
+                        </combo>
+                        <div *ngIf="!form.get('project').errors?.valid && !form.get('project').pristine" class="invalid-feedback">
+                            El proyecto es obligatorio
+                        </div>
+    
                     </div>
-
+    
+    
+                    <div class="form-group col-md-6">
+                        <label>Área: </label>
+                        <select class="form-control" formControlName="area" (change)="updateType(); cSubTask.collection = []">
+                            <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
+                        </select>
+    
+                    </div>
+    
                 </div>
-
-
-                <div class="form-group col-md-6">
-                    <label>Área: </label>
-                    <select class="form-control" formControlName="area" (change)="updateType(); cSubTask.collection = []">
-                        <option *ngFor="let item  of  enumType ; let i = index" [value]="item"> {{ item }} </option>        
-                    </select>
-
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="form-group col-md-6">
-                    <label for="">Faenas</label>
-                    <combo #cTask [ngClass]="{'is-invalid':!form.controls['task'].valid && !form.get('task').pristine }" [url]="urlTasks" formControlName="task" labelField="name" nameFather="type" [(idFather)]="taskType" nameCollection="tasks" (change)="updateIdTask() "></combo>
-                    <div *ngIf="!form.get('task').errors?.valid && !form.get('task').pristine" class="invalid-feedback">
-                        La Faena es obligatoria
+    
+                <div class="row">
+    
+                    <div class="form-group col-md-6">
+                        <label for="">Faenas</label>
+                        <combo #cTask [ngClass]="{'is-invalid':!form.controls['task'].valid && !form.get('task').pristine }" [url]="urlTasks" formControlName="task" labelField="name" nameFather="type" [(idFather)]="taskType" nameCollection="tasks" (change)="updateIdTask() "></combo>
+                        <div *ngIf="!form.get('task').errors?.valid && !form.get('task').pristine" class="invalid-feedback">
+                            La Faena es obligatoria
+                        </div>
+                    </div>
+    
+    
+                    <div class="form-group col-md-6">
+                        <label for="">Tarea</label>
+                        <combo #cSubTask [url]="urlSubTasks" formControlName="subTask" labelField="name" nameCollection="subTasks" nameFather="task" [(idFather)]="idTask"></combo>
                     </div>
                 </div>
-
-
-                <div class="form-group col-md-6">
-                    <label for="">Tarea</label>
-                    <combo #cSubTask [url]="urlSubTasks" formControlName="subTask" labelField="name" nameCollection="subTasks" nameFather="task" [(idFather)]="idTask"></combo>
+    
+    
+    
+                <!-- Si seleccionaron un departamento -->
+                <div *ngIf="(form.get('area').value == 'DEPARTAMENTOS') " class="row">
+    
+                    <div class="form-group col-md-6">
+                        <label for="">Pisos</label>
+                        <combo *ngIf="idProject" #cFloor [url]="urlFloors" formControlName="floor" labelField="number, type" (change)="updateIdFloor()" nameCollection="floors" nameFather="project" [(idFather)]="idProject" separator=" - "></combo>
+    
+                    </div>
+    
+                    <div *ngIf="idFloor" class="form-group col-md-6">
+                        <label for="">Departamentos</label>
+                        <combo #cDepart [url]="urlDepartments" formControlName="department" labelField="number" nameCollection="departments" nameFather="floor" [(idFather)]="idFloor"></combo>
+                    </div>
+    
                 </div>
+    
+    
+                <!-- si seleccionaron un common services -->
+                <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row">
+                    <div class="form-group col-md-12">
+                        <label for=""> {{taskType}} </label>
+                        <combo #services [url]="urlCommonServices" formControlName="commonService" labelField="number" nameCollection="commonServices" freeQuery="true"></combo>
+                    </div>
+                </div>
+    
             </div>
-
-
-
-            <!-- Si seleccionaron un departamento -->
-            <div *ngIf="(form.get('area').value == 'DEPARTAMENTOS') " class="row">
-
-                <div class="form-group col-md-6">
-                    <label for="">Pisos</label>
-                    <combo *ngIf="idProject" #cFloor [url]="urlFloors" formControlName="floor" labelField="number, type" (change)="updateIdFloor()" nameCollection="floors" nameFather="project" [(idFather)]="idProject" separator=" - "></combo>
-
-                </div>
-
-                <div *ngIf="idFloor" class="form-group col-md-6">
-                    <label for="">Departamentos</label>
-                    <combo #cDepart [url]="urlDepartments" formControlName="department" labelField="number" nameCollection="departments" nameFather="floor" [(idFather)]="idFloor"></combo>
-                </div>
-
-            </div>
-
-
-            <!-- si seleccionaron un common services -->
-            <div *ngIf="form.get('area').value !== 'DEPARTAMENTOS'  &&  form.get('area').value  && idProject " class="row">
-                <div class="form-group col-md-12">
-                    <label for=""> {{taskType}} </label>
-                    <combo #services [url]="urlCommonServices" formControlName="commonService" labelField="number" nameCollection="commonServices" freeQuery="true"></combo>
-                </div>
-            </div>
-
         </div>
+        <br>
+    
+        <div class="card ">
+            <div class="card-body">
+                <h5 class="card-title col-md-12"><i class="fas fa-address-card configureIcon"></i> Datos del empleado </h5>
+    
+                <div class="row">
+    
+                    <div class="form-group col-md-4">
+                        <label for="">Empleado: </label>
+                        <combo [url]="urlEmployees" formControlName="employee" labelField="employee.rut, employee.name" nameCollection="employeeProjects" nameFather="project" [(idFather)]="idProject"></combo>
+                    </div>
+    
+                    <div class="form-group col-md-4">
+                        <label for="">Fecha: </label>
+                        <input class="form-control" type="date" formControlName="recordDate">
+                    </div>
+    
+    
+                    <div class="form-group col-md-4">
+                        <label for="">Horas: </label>
+                        <input [ngClass]="{'is-invalid':!form.controls['hoursWorked'].valid && !form.get('hoursWorked').pristine }" class="form-control" type="number" formControlName="hoursWorked">
+                        <div *ngIf="!form.get('hoursWorked').errors?.valid && !form.get('hoursWorked').pristine" class="invalid-feedback">
+                            Debe seleccionar la cantidad de horas
+                        </div>
+                    </div>
+    
+                </div>
+    
+    
+            </div>
+        </div>
+    
+        <div class="text-right main-container">
+            <button [disabled]="!form.valid" class="btn btn-secondary" (click)="add()">Agregar</button>
+        </div>
+    
+    </form>
+    
+    <br>
+    <div class="card" *ngFor="let item of collectionErrors; let i = index">
+        <p style="color: red; padding-top: 1%; margin-left: 3%">
+            * {{ item }}
+        </p>
     </div>
     <br>
-
-    <div class="card ">
-        <div class="card-body">
-            <h5 class="card-title col-md-12"><i class="fas fa-address-card configureIcon"></i> Datos del empleado </h5>
-
-            <div class="row">
-
-                <div class="form-group col-md-4">
-                    <label for="">Empleado: </label>
-                    <combo [url]="urlEmployees" formControlName="employee" labelField="employee.rut, employee.name" nameCollection="employeeProjects" nameFather="project" [(idFather)]="idProject"></combo>
-                </div>
-
-                <div class="form-group col-md-4">
-                    <label for="">Fecha: </label>
-                    <input class="form-control" type="date" formControlName="recordDate">
-                </div>
-
-
-                <div class="form-group col-md-4">
-                    <label for="">Horas: </label>
-                    <input [ngClass]="{'is-invalid':!form.controls['hoursWorked'].valid && !form.get('hoursWorked').pristine }" class="form-control" type="number" formControlName="hoursWorked">
-                    <div *ngIf="!form.get('hoursWorked').errors?.valid && !form.get('hoursWorked').pristine" class="invalid-feedback">
-                        Debe seleccionar la cantidad de horas
-                    </div>
-                </div>
-
-            </div>
-
-
-        </div>
+    
+    <table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped main-container ">
+        <thead class="">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Empleado </th>
+                <th scope="col">Area </th>
+                <th scope="col">Tarea </th>
+                <th scope="col">Fecha </th>
+                <th scope="col">Horas </th>
+                <th scope="col" class="text-center">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of collection; let i = index">
+                <th scope="row"> 1 </th>
+                <td>{{ item.employee['employee'].name }}</td>
+                <td> {{ item['area'] }} </td>
+                <td> {{ item.subTask.name }} </td>
+                <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
+                <td> {{ item['hoursWorked'] }}</td>
+    
+                <th scope="col" class="text-center">
+                    <!-- <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button> -->
+                    <button class="btn btn-secondary" (click)="delete(i)"><i class="far fa-trash-alt"></i></button>
+                </th>
+            </tr>
+    
+        </tbody>
+    </table>
+    
+    <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="text-right main-container">
+        <button [disabled]="!form.valid" class="btn btn-secondary" (click)="save()">Guardar cambios</button>
     </div>
-
-    <div class="text-right main-container">
-        <button [disabled]="!form.valid" class="btn btn-secondary" (click)="add()">Agregar</button>
-    </div>
-
-</form>
-
-<br>
-<div class="card" *ngFor="let item of collectionErrors; let i = index">
-    <p style="color: red; padding-top: 1%; margin-left: 3%">
-        * {{ item }}
-    </p>
-</div>
-<br>
-
-<table *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="table table-striped main-container ">
-    <thead class="">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Empleado </th>
-            <th scope="col">Area </th>
-            <th scope="col">Tarea </th>
-            <th scope="col">Fecha </th>
-            <th scope="col">Horas </th>
-            <th scope="col" class="text-center">Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of collection; let i = index">
-            <th scope="row"> 1 </th>
-            <td>{{ item.employee['employee'].name }}</td>
-            <td> {{ item['area'] }} </td>
-            <td> {{ item.subTask.name }} </td>
-            <td> {{item['recordDate'] | date: "dd/MM/yyyy" }} </td>
-            <td> {{ item['hoursWorked'] }}</td>
-
-            <th scope="col" class="text-center">
-                <!-- <button class="btn btn-outline-primary" ><i class="fas fa-edit"></i></button> -->
-                <button class="btn btn-secondary" (click)="delete(i)"><i class="far fa-trash-alt"></i></button>
-            </th>
-        </tr>
-
-    </tbody>
-</table>
-
-<div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="text-right main-container">
-    <button [disabled]="!form.valid" class="btn btn-secondary" (click)="save()">Guardar cambios</button>
 </div>

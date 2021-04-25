@@ -2,7 +2,7 @@
     {{ title }}</h2>
 <hr>
 
-<div class="row animated fadeIn fast">
+<div *ngIf="userTemp" class="row animated fadeIn fast">
     <div class="col-md-6 space-elements">
         <div class="input-group">
 
@@ -21,7 +21,7 @@
 </div>
 
 
-<table class="table table-striped animated fadeIn fast">
+<table *ngIf="userTemp" class="table table-striped animated fadeIn fast">
     <thead class="">
         <tr>
             <th scope="col">#</th>
