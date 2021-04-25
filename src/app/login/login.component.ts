@@ -14,6 +14,7 @@ import { Util } from '../util/util';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
+  loading: boolean = false;
 
   constructor(private _ps: ProviderService,
               private router: Router,
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login(){
+    this.loading = true;
     let obj = {
       email: this.form.get('mail').value,
       password: this.form.get('pass').value,
@@ -37,8 +39,9 @@ export class LoginComponent implements OnInit {
             this._ps.refresToken(res);
             this.router.navigate(['/pages/home']);   
         }
+        this.loading = false;
       }, error => {
-                
+        this.loading = false;
         this._msg.show('Login',"Usuario o contraseña incorrectos ", Util.ACTION_INFO).subscribe(
                 
         )

@@ -14,6 +14,7 @@ import { MsgBoxService } from './components/msg-box/msg-box.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderService } from './components/loader/loader.service';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 
@@ -26,7 +27,8 @@ import { FooterComponent } from './components/footer/footer.component';
     LoginComponent,
     MsgBoxComponent,
     FooterComponent,
-    LoaderComponent
+    LoaderComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

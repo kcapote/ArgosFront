@@ -1,5 +1,8 @@
-<div class="backgroundLogin">
+<div *ngIf="loading" >
+    <app-loading></app-loading>
+</div>
 
+<div class="backgroundLogin">
     <form [formGroup]="form">
         <div class="row">
             <div class="col-md-4"></div>
