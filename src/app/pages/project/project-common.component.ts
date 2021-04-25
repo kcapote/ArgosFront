@@ -35,6 +35,7 @@ export class ProjectCommonComponent implements OnInit {
               private _msg: MsgBoxService,
               private loader: LoaderService) { 
                 
+    this._ps.loading =  true;           
     this.enumType.splice(0,1);
     
     this.enumType.forEach(element => {
@@ -67,7 +68,9 @@ export class ProjectCommonComponent implements OnInit {
         this.form.get(ValidTypesTasks.SUBTERRANEOS).setValue(sub);   
         this.form.get(ValidTypesTasks.EMPLAZAMIENTOS).setValue(emp);
         this.form.controls[ValidTypesTasks.PISOS].setValue(piso);  
-        
+        this._ps.loading = false;
+      }, err =>{
+        this._ps.loading = false;
       }        
     )
     

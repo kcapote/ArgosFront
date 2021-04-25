@@ -28,7 +28,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   selCollection: ProjectEmployees[] = []; 
   notify: EventEmitter<boolean>;
   @ViewChild('p') pag: ElementRef;
-  userTemp: any;   
+  userTemp: any;  
 
   constructor(private activatedRoute: ActivatedRoute,
               private _ps:ProviderService,
@@ -36,46 +36,49 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
               private _msg: MsgBoxService,
               private loader: LoaderService) { 
 
+    this.initData();
+
+  }
+
+  async initData(){
+    try{
+      this._ps.loading = true;
+
+      const params = await this.activatedRoute.params.toPromise();
+      if(params['id']){
+        this.idProject = params['id'];
+      }
+
       let user = JSON.parse(localStorage.getItem('user'));
-      this._ps.getObject(Util.URL_USER,user._id).subscribe(
-          res => { 
-              this._ps.refresToken(res);                                           
-              this.userTemp = res.users[0];
-              if(user.role != this.userTemp.role){
-                  localStorage.setItem('user','');
-                  this.router.navigate(['login'])
-              }
-          }
-      )
-                
-    activatedRoute.params.subscribe(
-      p => {
-        if(p['id']){
-          this.idProject = p['id'];
-        }
-      }      
-    );
-  
-    //Obtengo el nombre del proyecto
-    this._ps.getObject(Util.URL_POJECTS,this.idProject,0).subscribe(
-        res => {
-          this._ps.refresToken(res);
-          this.project = res.projects[0];
-        }
-    )
- 
-    //cargo la lista de empleados
-    this._ps.getObjectsAny(Util.URL_EMPLOYEE+"",0).subscribe(
-        res => {
-          this._ps.refresToken(res);
-          this.collection = res.employees;
-          this.totalRecords = res.totalRecords;         
-        }
-    );
+      const responseUser = await this._ps.getObject(Util.URL_USER,user._id).toPromise();
+      this._ps.refresToken(responseUser);                                           
+      this.userTemp = responseUser.users[0];
+      if(user.role != this.userTemp.role){
+          localStorage.setItem('user','');
+          this.router.navigate(['login'])
+      }
+
+      //Obtengo el nombre del proyecto
+      const responseProject = await this._ps.getObject(Util.URL_POJECTS,this.idProject,0).toPromise();
+      this._ps.refresToken(responseProject);
+      this.project = responseProject.projects[0];
+      
+      
+      //cargo la lista de empleados
+      const responseEmployee =  await this._ps.getObjectsAny(Util.URL_EMPLOYEE+"",0).toPromise();
+      this._ps.refresToken(responseEmployee);
+      this.collection = responseEmployee.employees;
+      this.totalRecords = responseEmployee.totalRecords; 
+      
+      this._ps.loading = false;
+
+    }catch(error){
+      this._ps.loading = false;
+      console.log(error);
+    }   
+
 
     
-
-
   }
 
   ngOnInit() {

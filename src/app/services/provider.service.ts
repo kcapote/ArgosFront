@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ProviderService {
+  loading: boolean = false; 
 
   constructor(public http: HttpClient) { }
 
@@ -21,8 +22,6 @@ export class ProviderService {
         } else {
           urlTemp = `${url}/recordActive/true?pagination=${ pagination }&token=${ user.token }&generate=${ generateToken }`;
         }
-
-
         return this.http.get( urlTemp );                
   }
 

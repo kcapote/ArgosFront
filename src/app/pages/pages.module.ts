@@ -49,7 +49,7 @@ import { GanttCommonDetailWorkedComponent } from './gantt/gantt-common-detail-wo
 import { ChartsModule } from 'ng2-charts';
 import { BarChartComponent } from '../graphic/bar-chart/bar-chart.component';
 import { DoughnutChartComponent } from '../graphic/doughnut-chart/doughnut-chart.component';
-
+import { LoadingComponent } from '../components/loading/loading.component';
 @NgModule({
    declarations: [
      NavbarComponent,        
@@ -95,16 +95,17 @@ import { DoughnutChartComponent } from '../graphic/doughnut-chart/doughnut-chart
      UpdateProgressComponent,
      GanttCommonDetailWorkedComponent,
      BarChartComponent,
-     DoughnutChartComponent
-
+     DoughnutChartComponent,
+     LoadingComponent
+    
    ],
    exports: [ 
       TasksComponent,
       PagesComponent,
       FormTaskComponent,
       NewTaskComponent,
-      EditTaskComponent      
-
+      EditTaskComponent,      
+      LoadingComponent
    ],
    imports: [
         BrowserModule,
