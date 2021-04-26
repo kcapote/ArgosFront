@@ -36,18 +36,19 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
               private _msg: MsgBoxService,
               private loader: LoaderService) { 
 
-    this.initData();
-
+    this.activatedRoute.params.subscribe(params =>{
+      if(params['id']){
+          this.idProject = params['id'];
+          this.initData();
+        }
+      }
+    );
   }
 
   async initData(){
     try{
       this._ps.loading = true;
-
-      const params = await this.activatedRoute.params.toPromise();
-      if(params['id']){
-        this.idProject = params['id'];
-      }
+      
 
       let user = JSON.parse(localStorage.getItem('user'));
       const responseUser = await this._ps.getObject(Util.URL_USER,user._id).toPromise();
