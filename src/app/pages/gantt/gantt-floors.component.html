@@ -4,7 +4,7 @@
 <br>
 <h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Progreso de Pisos</h6>
 <br>
-<div class="table-responsive animated fadeIn fast">
+<div *ngIf="collectionGraphicFloor.length > 0" class="table-responsive animated fadeIn fast">
     <table class="table table-sm" style="font-size: 12px">
         <thead>
             <tr>
@@ -26,7 +26,7 @@
 <br>
 <h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Progreso de Pisos SC</h6>
 <br>
-<div class="table-responsive animated fadeIn fast">
+<div *ngIf="collectionGraphicFloorSC.length > 0" class="table-responsive animated fadeIn fast">
     <table class="table table-sm" style="font-size: 12px">
         <thead>
             <tr>
@@ -48,7 +48,7 @@
 <br>
 <h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Progreso de Subterraneos</h6>
 <br>
-<div class="table-responsive animated fadeIn fast">
+<div *ngIf="collectionGraphicUnderground.length > 0" class="table-responsive animated fadeIn fast">
     <table class="table table-sm" style="font-size: 12px">
         <thead>
             <tr>
@@ -70,7 +70,7 @@
 <br>
 <h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Progreso de Emplazamientos</h6>
 <br>
-<div class="table-responsive animated fadeIn fast">
+<div *ngIf="collectionGraphicEmplacement.length > 0" class="table-responsive animated fadeIn fast">
     <table class="table table-sm" style="font-size: 12px">
         <thead>
             <tr>
