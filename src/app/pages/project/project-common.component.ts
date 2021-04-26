@@ -109,41 +109,45 @@ export class ProjectCommonComponent implements OnInit {
   }
 
 
-  save() {
-    this.loader.show();
-    if(!this.existRecords){ 
-      let commonList: any[] = [];
-       Object.keys(this.form.value).forEach(
-           res => {
-            console.log(res);
-            console.log(this.form.controls[res].value);
-            
-            for(let i=0; i <  this.form.controls[res].value; i++){
-              let commonElement: any = {
-                project: this.idProject,
-                number: i+1,
-                type: res,
-                status: 0    
+  async save() {
+    try{
+      this._ps.loading = true;
+      this.loader.show();
+      if(!this.existRecords){ 
+        let commonList: any[] = [];
+          Object.keys(this.form.value).forEach(
+             res => {
+              console.log(res);
+              console.log(this.form.controls[res].value);
+              
+              for(let i=0; i <  this.form.controls[res].value; i++){
+                let commonElement: any = {
+                  project: this.idProject,
+                  number: i+1,
+                  type: res,
+                  status: 0    
+                }
+                commonList.push(commonElement);
               }
-              commonList.push(commonElement);
-            }
           });
+  
+          await this._ps.saveObject(Util.URL_PROJECT_ESTRUCTURE+'/commonServices', commonList,0 ).toPromise();
+          this._ps.loading = false;            
+         this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
+           res => {
+             commonList = [];
+             this.form.controls[res] = null;
+             this.router.navigate(['/pages/projectEmployees',this.idProject]);   
+           }
+         );
+      }else {
+        this.router.navigate(['/pages/projectEmployees',this.idProject]);
+      }   
 
-          this._ps.saveObject(Util.URL_PROJECT_ESTRUCTURE+'/commonServices', commonList,0 ).subscribe(
-            res => {
-              console.log(res); 
-            });
-                    
-       this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS,Util.ACTION_SUCCESS).subscribe(
-         res => {
-           commonList = [];
-           this.form.controls[res] = null;
-           this.router.navigate(['/pages/projectEmployees',this.idProject]);   
-         }
-       )
-    }else {
-      this.router.navigate(['/pages/projectEmployees',this.idProject]);
-    }   
+    }catch(err){
+      console.log(err);
+      this._ps.loading = false;  
+    }
      
      
   }

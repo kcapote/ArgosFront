@@ -105,34 +105,38 @@ export class ProjectFloorsComponent implements OnInit {
 
 
 
-  save() {
-    this.loader.show();
-    if(!this.existFloors){
-      
-         
-      this.saving = true;
-      if(this.collection.length<1) {
-        return;
-      }
-      console.log("- INICIO SAVE PISOS");
-      
-      this._ps.saveObject(Util.URL_PROJECT_ESTRUCTURE+'/floors', this.collection,0 ).subscribe(
-        res => {
-          console.log(res);
-        });
+  async save() {
+    try{
+      this._ps.loading = true;
 
-      this.saving = false;
-                         
-      this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(
-        res => {
-          if(res.type === Util.ACTION_SUCCESS && res.response === Util.OK_RESPONSE ){
-            this.collection = [];
-            this.router.navigate(['/pages/projectsCommon',this.idProject]);
-          }
+      if(!this.existFloors){
+        this.saving = true;
+        if(this.collection.length<1) {
+          return;
         }
-      );  
-    }else{
-        this.router.navigate(['/pages/projectsCommon',this.idProject]);
+        console.log("- INICIO SAVE PISOS");
+        
+        await this._ps.saveObject(Util.URL_PROJECT_ESTRUCTURE+'/floors', this.collection,0 ).toPromise();
+        
+        this.saving = false;
+        
+        this._ps.loading = false;
+        
+        this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS ).subscribe(
+          res => {
+            if(res.type === Util.ACTION_SUCCESS && res.response === Util.OK_RESPONSE ){
+              this.collection = [];
+              this.router.navigate(['/pages/projectsCommon',this.idProject]);
+            }
+          }
+        );  
+      }else{
+          this.router.navigate(['/pages/projectsCommon',this.idProject]);
+      }
+
+    }catch(err){
+      this._ps.loading = false;
+      console.log(err);
     }
   }
 
