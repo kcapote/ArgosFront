@@ -8,7 +8,7 @@ import { ProviderService } from '../services/provider.service';
 })
 export class PagesComponent implements OnInit {
 
-  constructor(private _ps: ProviderService) { }
+  constructor(public _ps: ProviderService) { }
 
   ngOnInit() {
   }
