@@ -9,5 +9,6 @@ export interface Project {
     status: number;
     startDate: string;
     endDate: string;
+    creationFinished: boolean;
 }
 

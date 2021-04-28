@@ -41,10 +41,18 @@
             <td>{{ item.supervisor1.name + ", " + item.supervisor2.name }} </td>
 
             <th *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" scope="col" class="text-center">
-                <div class="btn-group">
+                <div *ngIf="item.creationFinished" class="btn-group">
                     <button style="size: 10px" *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="btn btn-secondary" (click)="editEmployee(item._id)"><i class="fas fa-user"></i></button>
                     <button *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="btn btn-secondary" (click)="edit(item._id)"><i class="fas fa-edit"></i></button>
                     <button *ngIf="userTemp.role.match('ADMINISTRADOR')" class="btn btn-secondary" (click)="delete(i)"><i class="far fa-trash-alt"></i></button>
+                </div>
+                <div *ngIf="!item.creationFinished" class="btn-group">
+                    <h5>Aún estamos creando este proyecto, por favor espera.</h5>
+                </div>
+            </th>
+            <th *ngIf="userTemp.role.match('CONSULTA')" scope="col" class="text-center">
+                <div *ngIf="!item.creationFinished" class="btn-group">
+                    <h5>Aún estamos creando este proyecto, por favor espera.</h5>
                 </div>
             </th>
         </tr>
