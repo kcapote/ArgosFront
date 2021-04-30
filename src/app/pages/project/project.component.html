@@ -47,12 +47,14 @@
                     <button *ngIf="userTemp.role.match('ADMINISTRADOR')" class="btn btn-secondary" (click)="delete(i)"><i class="far fa-trash-alt"></i></button>
                 </div>
                 <div *ngIf="!item.creationFinished" class="btn-group">
-                    <h5>Aún estamos creando este proyecto, por favor espera.</h5>
+                    <div><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+                    <div style="height: 50px;"><p style="position: absolute; top: 30px; left: -28px;">Creando</p></div>
                 </div>
             </th>
             <th *ngIf="userTemp.role.match('CONSULTA')" scope="col" class="text-center">
                 <div *ngIf="!item.creationFinished" class="btn-group">
-                    <h5>Aún estamos creando este proyecto, por favor espera.</h5>
+                    <div><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+                    <div style="height: 50px;"><p style="position: absolute; top: 30px; left: -28px;">Creando</p></div>
                 </div>
             </th>
         </tr>

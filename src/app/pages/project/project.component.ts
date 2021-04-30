@@ -10,7 +10,7 @@ import { LoaderService } from '../../components/loader/loader.service';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styles: []
+  styleUrls: ['./project.component.css']
 })
 
 
