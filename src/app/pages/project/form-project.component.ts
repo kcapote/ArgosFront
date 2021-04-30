@@ -183,6 +183,7 @@ export class FormProjectComponent implements OnInit, AfterViewInit {
                       // this.item.supervisor2 = res.projects[0].supervisor2;
                       this.item.supervisor1 = res.projects[0].supervisor1._id;
                       this.item.supervisor2 = res.projects[0].supervisor2._id;
+                      delete this.item.creationFinished;
                       this.form.setValue(this.item);  
                       console.log('el form',this.form.value);
                       
