@@ -70,9 +70,14 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
       this._ps.refresToken(responseEmployee);
       this.collection = responseEmployee.employees;
       this.totalRecords = responseEmployee.totalRecords; 
-      
+
+      //cargo la lista de empleados proyecto
+      const responseEmployeeProyect =  await this._ps.getObjectsByFather(Util.URL_PROJECT_EMPLOYEES,"project",0,this.idProject,0).toPromise();
+      this._ps.refresToken(responseEmployeeProyect);  
+      this.selCollection = responseEmployeeProyect.employeeProjects;
       this._ps.loading = false;
 
+      this.resfreshSelected();
     }catch(error){
       this._ps.loading = false;
       console.log(error);
@@ -84,21 +89,6 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
       this.loader.show();
-      //Cargo los empleados del proyecto
-      this._ps.getObjectsByFather(Util.URL_PROJECT_EMPLOYEES,"project",0,this.idProject,0).subscribe(
-        res => {
-          this._ps.refresToken(res);  
-          this.selCollection = res.employeeProjects;
-          this.selCollection.forEach( elemento => {
-            if(elemento.recordActive){
-              elemento.load = true;
-            }
-          });            
-          console.log(this.selCollection);
-          this.resfreshSelected();
-
-        }
-      )
   }
 
 
@@ -162,12 +152,13 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   resfreshSelected() {
     this.collection.forEach( e => {
       if(this.selCollection.find(f => {
-          return f.employee === e._id && f.recordActive == ValidTypesStatus.ACTIVE  ;
+          return f.employee === e._id && f.recordActive === ValidTypesStatus.ACTIVE  ;
         })
       ){
         e.sel = true;
       }
-    }) 
+    });
+    console.log(this.collection)
   }
 
 
