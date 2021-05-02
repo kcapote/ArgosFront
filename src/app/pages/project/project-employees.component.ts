@@ -228,19 +228,15 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   saveAll () {
     let listSave: ProjectEmployees[] = [];
     let listExist: String[] = [];
-    this.selCollection.forEach(
-      e => {
+    this.selCollection.forEach( e => {
         if(e.load){
           this.update(e);
-        }else{
-          if(e.recordActive === 1){
-            listSave.push(e)  
-          } else {
-            listExist.push(e.employee._id)  
-          }
-        }        
-      }
-    )
+        }
+        if(e.recordActive === 1){
+          listSave.push(e)  
+        }
+        listExist.push(e.employee._id)      
+    })
     const employees = listSave.filter(function(item) {
       for (let i = 0; i < listExist.length; i++) {
         if (String(item.employee) === String(listExist[i]))
