@@ -69,35 +69,28 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   }
 
   ngOnInit() {
-     
-      this.load();
-
+    this.load();
   }
 
   public load() {
-        
     let c =  this.labelField.split(this.separator);
     this.nested = (c[0].split('.')).length;
     this.loadElements(this.labelField.split(",").map( e => e.trim() ) );
   }
   
   loadElements(arr:string[]){
-
+    this.collection = this.collection.filter(element => element.recordActive);
     if(this.nested > 1 ) {
       let b = (arr[0]).split('.') ;
       let c = [b[0], '_id']
            
-        this.collection.forEach(
-          r => {
-             r['_id'] =  this.extractValue(r,c);
-          }
-        )
+      this.collection.forEach( r => {
+          r['_id'] =  this.extractValue(r,c);
+      })
     }  
 
     if(this.freeQuery){
-
-      this._ps.getObjectsAny(this.urlDef,0).subscribe(
-        res => {
+      this._ps.getObjectsAny(this.urlDef,0).subscribe(res => {
             this._ps.refresToken(res);
             //console.log(res);
             
@@ -114,9 +107,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             this.collection = [];
           }
       );     
-      
-
-    }else if(this.urlDef && (!this.nameFather && !this.idF) ){
+    } else if(this.urlDef && (!this.nameFather && !this.idF) ){
       console.log(this.urlDef); 
       this._ps.getObjects(this.urlDef,0).subscribe(
         res => {
@@ -138,7 +129,7 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
             this.collection = [];
           }
       );     
-    }else if(this.urlDef && this.nameFather && this.idF) {
+    } else if(this.urlDef && this.nameFather && this.idF) {
      //console.log(this.idF);
       
       this._ps.getObjectsByFather(this.urlDef,this.nameFather,0,this.idF,0).subscribe(
@@ -167,15 +158,10 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
   
 
   loadSel(){
-    //console.log('el nameCollection es', this.nameCollection, ' la collection es ', this.collection);
-    
+    this.collection = this.collection.filter(element => element.recordActive);
     if(this.itemId){
       this.itemId = this.collection.find( c => c['_id']== this.itemId['_id']);
-
     }
-
-
-
   }
 
 
@@ -208,18 +194,15 @@ export class ComboComponent implements OnInit, ControlValueAccessor, AfterViewIn
 
 
   ngAfterViewInit() {
-   
     
-        
   }
 
 
     
   onChange(value: any){
-       
-  
+
     //console.log('el id es en el onchenge ', this.itemId);
-    
+
     this.propagateChange(this.itemId);
   }
 
