@@ -2,93 +2,123 @@
 <br>
 <h5 class="card-title"><i class="fas fa-tasks configureIcon"></i> Porgreso Faenas del Proyecto {{nombreProyecto}}</h5>
 <br>
+
 <h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Progreso de Pisos</h6>
 <br>
-<div *ngIf="collectionGraphicFloor.length > 0" class="table-responsive animated fadeIn fast">
-    <table class="table table-sm" style="font-size: 12px">
-        <thead>
-            <tr>
-                <th scope="col" class="text-center">Nº</th>
-                <th scope="col" class="text-center">Faena</th>
-                <th class="text-center" *ngFor="let item of collectionGraphicFloor[0].floors; let i = index" scope="col">Piso {{item.number}}º</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of collectionGraphicFloor; let i = index">
-                <th scope="row" class="text-center"> {{item.task.position}}</th>
-                <td>{{item.task.name}}</td>
-                <td (click)="detailByFloor(i,i2)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
-                    *ngFor="let item2 of item.floors; let i2 = index">{{ item2.status | number }}%</td>
-            </tr>
-        </tbody>
-    </table>
+<div *ngIf="loadingFloors === false" >
+    <div *ngIf="_gs.collectionGraphicFloor.length > 0" class="table-responsive animated fadeIn fast">
+        <table class="table table-sm" style="font-size: 12px">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Nº</th>
+                    <th scope="col" class="text-center">Faena</th>
+                    <th class="text-center" *ngFor="let item of _gs.collectionGraphicFloor[0].floors; let i = index" scope="col">Piso {{item.number}}º</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of _gs.collectionGraphicFloor; let i = index">
+                    <th scope="row" class="text-center"> {{item.task.position}}</th>
+                    <td>{{item.task.name}}</td>
+                    <td (click)="detailByFloor(i,i2)" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+                        *ngFor="let item2 of item.floors; let i2 = index">{{ item2.status | number }}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<div *ngIf="loadingFloors === true">
+    <app-small-loading></app-small-loading>
+</div>
+
+
 <br>
+
 <h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Progreso de Pisos SC</h6>
 <br>
-<div *ngIf="collectionGraphicFloorSC.length > 0" class="table-responsive animated fadeIn fast">
-    <table class="table table-sm" style="font-size: 12px">
-        <thead>
-            <tr>
-                <th scope="col" class="text-center">Nº</th>
-                <th scope="col" class="text-center">Faena</th>
-                <th class="text-center" *ngFor="let item of collectionGraphicFloorSC[0].commonServices; let i = index" scope="col">{{item.number}}º</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of collectionGraphicFloorSC; let i = index">
-                <th scope="row" class="text-center"> {{item.task.position}}</th>
-                <td>{{item.task.name}}</td>
-                <td (click)="detailByCommonService(i,i2,'FloorSC')" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
-                    *ngFor="let item2 of item.commonServices; let i2 = index">{{ item2.status | number }}%</td>
-            </tr>
-        </tbody>
-    </table>
+<div *ngIf="loadingFloorsSC === false">
+    <div *ngIf="_gs.collectionGraphicFloorSC.length > 0" class="table-responsive animated fadeIn fast">
+        <table class="table table-sm" style="font-size: 12px">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Nº</th>
+                    <th scope="col" class="text-center">Faena</th>
+                    <th class="text-center" *ngFor="let item of _gs.collectionGraphicFloorSC[0].commonServices; let i = index" scope="col">{{item.number}}º</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of _gs.collectionGraphicFloorSC; let i = index">
+                    <th scope="row" class="text-center"> {{item.task.position}}</th>
+                    <td>{{item.task.name}}</td>
+                    <td (click)="detailByCommonService(i,i2,'FloorSC')" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+                        *ngFor="let item2 of item.commonServices; let i2 = index">{{ item2.status | number }}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<div *ngIf="loadingFloorsSC === true">
+    <app-small-loading></app-small-loading>
+</div>
+
 <br>
+
 <h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Progreso de Subterraneos</h6>
 <br>
-<div *ngIf="collectionGraphicUnderground.length > 0" class="table-responsive animated fadeIn fast">
-    <table class="table table-sm" style="font-size: 12px">
-        <thead>
-            <tr>
-                <th scope="col" class="text-center">Nº</th>
-                <th scope="col" class="text-center">Faena</th>
-                <th class="text-center" *ngFor="let item of collectionGraphicUnderground[0].commonServices; let i = index" scope="col">{{item.number}}º</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of collectionGraphicUnderground; let i = index">
-                <th scope="row" class="text-center"> {{item.task.position}}</th>
-                <td>{{item.task.name}}</td>
-                <td (click)="detailByCommonService(i,i2,'Underground')" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
-                    *ngFor="let item2 of item.commonServices; let i2 = index">{{ item2.status | number }}%</td>
-            </tr>
-        </tbody>
-    </table>
+<div *ngIf="loadindUndergrounds === false">
+    <div *ngIf="_gs.collectionGraphicUnderground.length > 0" class="table-responsive animated fadeIn fast">
+        <table class="table table-sm" style="font-size: 12px">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Nº</th>
+                    <th scope="col" class="text-center">Faena</th>
+                    <th class="text-center" *ngFor="let item of _gs.collectionGraphicUnderground[0].commonServices; let i = index" scope="col">{{item.number}}º</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of _gs.collectionGraphicUnderground; let i = index">
+                    <th scope="row" class="text-center"> {{item.task.position}}</th>
+                    <td>{{item.task.name}}</td>
+                    <td (click)="detailByCommonService(i,i2,'Underground')" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+                        *ngFor="let item2 of item.commonServices; let i2 = index">{{ item2.status | number }}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<div *ngIf="loadindUndergrounds === true">
+    <app-small-loading></app-small-loading>
+</div>
+
 <br>
+
 <h6 class="card-title"><i class="fas fa-percent configureIcon"></i> Progreso de Emplazamientos</h6>
 <br>
-<div *ngIf="collectionGraphicEmplacement.length > 0" class="table-responsive animated fadeIn fast">
-    <table class="table table-sm" style="font-size: 12px">
-        <thead>
-            <tr>
-                <th scope="col" class="text-center">Nº</th>
-                <th scope="col" class="text-center">Faena</th>
-                <th class="text-center" *ngFor="let item of collectionGraphicEmplacement[0].commonServices; let i = index" scope="col">{{item.number}}º</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of collectionGraphicEmplacement; let i = index">
-                <th scope="row" class="text-center"> {{item.task.position}}</th>
-                <td>{{item.task.name}}</td>
-                <td (click)="detailByCommonService(i,i2,'Emplacement')" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
-                    *ngFor="let item2 of item.commonServices; let i2 = index">{{ item2.status | number }}%</td>
-            </tr>
-        </tbody>
-    </table>
+<div *ngIf="loadingEmplacement === false">
+    <div *ngIf="_gs.collectionGraphicEmplacement.length > 0" class="table-responsive animated fadeIn fast">
+        <table class="table table-sm" style="font-size: 12px">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Nº</th>
+                    <th scope="col" class="text-center">Faena</th>
+                    <th class="text-center" *ngFor="let item of _gs.collectionGraphicEmplacement[0].commonServices; let i = index" scope="col">{{item.number}}º</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of _gs.collectionGraphicEmplacement; let i = index">
+                    <th scope="row" class="text-center"> {{item.task.position}}</th>
+                    <td>{{item.task.name}}</td>
+                    <td (click)="detailByCommonService(i,i2,'Emplacement')" class="text-center" style="cursor: pointer" [ngClass]="{'red': item2.status <= 49, 'yellow': item2.status >= 50 && item2.status <= 74, 'greenSoft': item2.status >= 75 && item2.status <= 99, 'green': item2.status === 100}"
+                        *ngFor="let item2 of item.commonServices; let i2 = index">{{ item2.status | number }}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<div *ngIf="loadingEmplacement === true">
+    <app-small-loading></app-small-loading>
+</div>
+
+
 <div class="row">
     <div class="col-md-12 text-right">
         <button class="btn btn-secondary" (click)="back()">Regresar</button>

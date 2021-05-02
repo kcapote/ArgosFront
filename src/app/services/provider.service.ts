@@ -4,8 +4,6 @@ import { Util } from '../util/util';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-
-
 @Injectable()
 export class ProviderService {
   loading: boolean = false; 

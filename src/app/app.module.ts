@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PagesModule } from './pages/pages.module';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
-import { ProviderService } from './services/provider.service';
+import { ProviderService, GanttService } from './services';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MsgBoxComponent } from './components/msg-box/msg-box.component';
@@ -22,7 +22,7 @@ import { FooterComponent } from './components/footer/footer.component';
     LoginComponent,
     MsgBoxComponent,
     FooterComponent,
-    LoaderComponent    
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +32,7 @@ import { FooterComponent } from './components/footer/footer.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [ProviderService, MsgBoxService, LoaderService ],
+  providers: [ProviderService, MsgBoxService, LoaderService, GanttService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
