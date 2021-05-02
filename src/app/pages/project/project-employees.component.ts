@@ -49,11 +49,11 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     try{
       this._ps.loading = true;
       
-
       let user = JSON.parse(localStorage.getItem('user'));
       const responseUser = await this._ps.getObject(Util.URL_USER,user._id).toPromise();
       this._ps.refresToken(responseUser);                                           
       this.userTemp = responseUser.users[0];
+      
       if(user.role != this.userTemp.role){
           localStorage.setItem('user','');
           this.router.navigate(['login'])
@@ -89,14 +89,13 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
         res => {
           this._ps.refresToken(res);  
           this.selCollection = res.employeeProjects;
-            // this.selCollection.forEach(
-            //    r => {
-            //      r.load = true;
-            //    }        
-            // );            
-            console.log(res);
-              
-            this.resfreshSelected();
+          this.selCollection.forEach( elemento => {
+            if(elemento.recordActive){
+              elemento.load = true;
+            }
+          });            
+          console.log(this.selCollection);
+          this.resfreshSelected();
 
         }
       )
@@ -121,23 +120,18 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
     
     let idTemp = this.collection[idx]._id;
     
-    let existOnDb = this.selCollection.find(
-                      sw => {
-                        return sw.load == true  
-                      }
-                    );
+    let existOnDb = this.selCollection.find(sw => {
+       return sw.load == true  
+    });
 
     if(value){
       //Si existe en bd pero esta inactivo
       if(existOnDb) {
-         this.selCollection.map(
-            m => {
-              if( m.employee == this.collection[idx]._id ){
-                m.recordActive = ValidTypesStatus.ACTIVE;
-              }
+        this.selCollection.map( m => {
+            if( m.employee == this.collection[idx]._id ){
+              m.recordActive = ValidTypesStatus.ACTIVE;
             }
-         ); 
-
+        }); 
       }else { // si no existe en bd y se agrega nuevo
         let fec: Date = new Date() ;
         let temp: ProjectEmployees = {
@@ -152,54 +146,38 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
 
     }else { // si se elimina el empleado del proyecto
       if(existOnDb){
-        this.selCollection.map(
-          m => {
-            if( m.employee == this.collection[idx]._id ){
-              m.recordActive = ValidTypesStatus.DELETED;
-              m.endDate = (new Date()).toDateString();
-            }
+        this.selCollection.map(m => {
+          if( m.employee == this.collection[idx]._id ){
+            m.recordActive = ValidTypesStatus.DELETED;
+            m.endDate = (new Date()).toDateString();
           }
-       );
+        });
       }else {
         this.selCollection = Util.removeFromArray( this.collection[idx]._id, this.selCollection);
-
       }
-
     }
-
   }
 
 
   resfreshSelected() {
-    this.collection.forEach(
-        e => {
-            if(this.selCollection.find( 
-                f => {
-                  return f.employee === e._id && f.recordActive == ValidTypesStatus.ACTIVE  ;
-                }
-              )){
-                e.sel = true;
-              }
-
-        }
-    ) 
-  
+    this.collection.forEach( e => {
+      if(this.selCollection.find(f => {
+          return f.employee === e._id && f.recordActive == ValidTypesStatus.ACTIVE  ;
+        })
+      ){
+        e.sel = true;
+      }
+    }) 
   }
 
 
   isActiveEmployeeProject(idEmployee: string) {
-
-   let d =  this.selCollection.find(
-      f => {
-        if(f.employee == idEmployee) {
-          return (f.recordActive === ValidTypesStatus.ACTIVE);  
-        }
+   let d =  this.selCollection.find(f => {
+      if(f.employee == idEmployee) {
+        return (f.recordActive === ValidTypesStatus.ACTIVE);  
       }
-    );
-    
-
+    });
     return d.recordActive == ValidTypesStatus.ACTIVE? true: false;
-
   }
 
 
@@ -227,49 +205,77 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   
   saveAll () {
     let listSave: ProjectEmployees[] = [];
-    let listExist: String[] = [];
+    let listExist: ProjectEmployees[] = [];
+    
     this.selCollection.forEach( e => {
-        if(e.load){
-          this.update(e);
-        }
         if(e.recordActive === 1){
           listSave.push(e)  
         }
-        listExist.push(e.employee._id)      
+        listExist.push(e)      
     })
+
     const employees = listSave.filter(function(item) {
       for (let i = 0; i < listExist.length; i++) {
-        if (String(item.employee) === String(listExist[i]))
+        if (String(item.employee) === String(listExist[i].employee._id))
           return false;
       }
       return true;
     });
+
+    const employeesUpdateTemp = listExist.filter(employee => employee.recordActive === 1);
+    let employeesUpdate = listExist.filter(employee => !employee.recordActive);
+    employeesUpdate = employeesUpdate.filter(function(item) {
+      for (let i = 0; i < employeesUpdateTemp.length; i++) {
+        if (String(item.employee._id) === String(employeesUpdateTemp[i].employee))
+          return true;
+      }
+      return false;
+    });
+
+    let employeesDelete = listExist.filter(function(item) {
+      for (let i = 0; i < listSave.length; i++) {
+        if (String(item.employee._id) === String(listSave[i].employee))
+          return false;
+      }
+      return true;
+    }).filter(employee => employee.recordActive !== 1).filter(employee => employee.recordActive);
+
     if(employees.length > 0){
       this.save(employees);
     }
+
+    employeesDelete.forEach(employee => {
+      this.delete(employee);
+    });
+
+    employeesUpdate.forEach(employee => {
+      this.update(employee);
+    });
+
     this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS).subscribe(
       res => {
           this.router.navigate(['/pages/projects']);
       }
     )
+
   }
-
-
 
   save(pe: ProjectEmployees[]) {
     this._ps.saveObject(Util.URL_PROJECT_EMPLOYEES, pe,0 ).subscribe(
       res => {}
     )
-
   }
 
-  update(pe: ProjectEmployees) {
-    this._ps.updateObject(Util.URL_PROJECT_EMPLOYEES,pe._id,pe,0).subscribe(
+  delete(pe: ProjectEmployees) {
+    this._ps.deleteObject(Util.URL_PROJECT_EMPLOYEES, pe._id, 0).subscribe(
       res => {}
     )
   }
 
-
-//http://localhost:4200/projectEmployees/5af78c5cc5dec70fb46f4784
+  update(pe: ProjectEmployees) {
+    this._ps.updateObject(Util.URL_PROJECT_EMPLOYEES, pe._id, pe, 0).subscribe(
+      res => {}
+    )
+  }
 
 }
