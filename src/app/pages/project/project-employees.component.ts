@@ -226,15 +226,27 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   
   
   saveAll () {
-    this.selCollection.forEach(
-      e => {
+    let listSave: ProjectEmployees[] = [];
+    let listExist: String[] = [];
+    this.selCollection.forEach( e => {
         if(e.load){
           this.update(e);
-        }else{
-          this.save(e);  
-        }        
+        }
+        if(e.recordActive === 1){
+          listSave.push(e)  
+        }
+        listExist.push(e.employee._id)      
+    })
+    const employees = listSave.filter(function(item) {
+      for (let i = 0; i < listExist.length; i++) {
+        if (String(item.employee) === String(listExist[i]))
+          return false;
       }
-    )
+      return true;
+    });
+    if(employees.length > 0){
+      this.save(employees);
+    }
     this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS).subscribe(
       res => {
           this.router.navigate(['/pages/projects']);
@@ -244,7 +256,7 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
 
 
 
-  save(pe: ProjectEmployees) {
+  save(pe: ProjectEmployees[]) {
     this._ps.saveObject(Util.URL_PROJECT_EMPLOYEES, pe,0 ).subscribe(
       res => {}
     )
