@@ -60,7 +60,7 @@ export class GanttFloorsComponent implements OnInit {
       if(force || this._gs.collectionGraphicUnderground.length === 0) this.loadUndergrounds();  
   
       // SE ARMA LA LISTA POR PISOS SC
-      if(force || this._gs.collectionGraphicFloorSC)this.loadFloorsSC();
+      if(force || this._gs.collectionGraphicFloorSC.length === 0)this.loadFloorsSC();
   
       // SE ARMA LA LISTA POR EMPLAZAMIENTOS
       if(force || this._gs.collectionGraphicEmplacement.length === 0) this.loadLocations();
