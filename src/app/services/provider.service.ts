@@ -10,8 +10,6 @@ export class ProviderService {
 
   constructor(public http: HttpClient) { }
 
-
-
   public getObjects(url: string, pagination: number = 0 ,term?: string, generateToken = 1 ): Observable<any> {
         let urlTemp;
         let user = JSON.parse(localStorage.getItem('user'));

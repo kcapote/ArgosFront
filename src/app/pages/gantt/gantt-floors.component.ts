@@ -81,60 +81,38 @@ export class GanttFloorsComponent implements OnInit {
       const responseDepartmentTasks = await this._ps.getObjectsByFather(Util.URL_DEPARTMENTS_TASKS,'project',0, this.idProject).toPromise();
       this._ps.refresToken(responseDepartmentTasks);
       this._gs.collectionDepartmentTasks = responseDepartmentTasks.departmentTasks;
-      console.log(this._gs.collectionDepartmentTasks);
-      let graphicFloor:any = {};
 
 
+      url = `${ Util.URL_DEPARTMENTS_TASKS }/taskstatus/${this.idProject}`;
+      const { statusTaskByFloors }  = await this._ps.getObjectsAny(url,0).toPromise();
+
+
+      url = `${ Util.URL_FLOORS }/project/${this.idProject}`;
+      let { floors } = await this._ps.getObjectsAny(url,0).toPromise();
       
-      //this.collectionTaskDepartment.forEach(task => {
-      for (let i = 0; i < this._gs.collectionTaskDepartment.length; i++) {  
-        const task = this._gs.collectionTaskDepartment[i]
-        graphicFloor.task = task;
-        let floors: Floors[] = [];
+      for (let i = 0; i < this._gs.collectionTaskDepartment.length; i++) {
+        const task = this._gs.collectionTaskDepartment[i];
+        const floorsTemp = [];  
+
+        for (let j = 0; j < floors.length; j++) {
+          const currentFloor = floors[j];
+          const statusFinded = statusTaskByFloors.find( status => status.task === task._id 
+                                                       && status.floor === currentFloor._id);
+
+          floorsTemp.push({
+            ...currentFloor,
+            status: statusFinded.status
+          })
+
+        }
+
+        let graphicFloor = {
+          task,
+          floors: floorsTemp
+        };
+        this._gs.collectionGraphicFloor.push(graphicFloor); 
         
-        for (let index = 0; index < this._gs.collectionDepartmentTasks.length; index++) {
-
-          const departmentTask2 = this._gs.collectionDepartmentTasks[index];
-          let exist=false;
-          if(departmentTask2.task._id === task._id){
-
-            floors.forEach(element => {
-              if(element._id === departmentTask2.floor._id){
-                exist=true;
-              }
-            });
-
-            if(!exist){
-              url = `${ Util.URL_DEPARTMENTS_TASKS }/taskstatus/${this.idProject}/${departmentTask2.floor._id}/${departmentTask2.task._id}`;
-              
-              const response = await this._ps.getObjectsAny(url,0).toPromise();
-              this._ps.refresToken(response);
-              departmentTask2.floor.status = response.statusTask;
-              floors.push(departmentTask2.floor);
-
-            }
-          }
-          
-        }
-
-        let floorTemp:any = {};
-        for(let i=0;i<(floors.length-1);i++){
-          for(let j=0;j<((floors.length-1)-i);j++){
-              if(floors[j].number>floors[j+1].number){
-                floorTemp=floors[j];
-                floors[j]=floors[j+1];
-                floors[j+1]=floorTemp;
-              }
-          }
-        }
-
-        graphicFloor.floors = floors;
-        if(graphicFloor.floors.length > 0){
-          this._gs.collectionGraphicFloor.push(graphicFloor); 
-        }
-        floors = [];
-        graphicFloor = {};
-      };
+      }
 
       this.loadingFloors = false;
 
