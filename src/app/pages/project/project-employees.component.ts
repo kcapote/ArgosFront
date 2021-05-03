@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, EventEmitter, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../../interfaces/employee.interface';
 import { Util } from '../../util/util';
@@ -9,6 +9,8 @@ import { ProjectEmployees } from '../../interfaces/project-employees.interface';
 import { ValidTypesStatus } from '../../enums/valid-types-status.enum';
 import { Validators } from '@angular/forms';
 import { LoaderService } from '../../components/loader/loader.service';
+import { element } from 'protractor';
+import { exit } from 'process';
 
 @Component({
   selector: 'app-project-employees',
@@ -91,74 +93,24 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
       this.loader.show();
   }
 
-
-
   ngAfterViewInit() {
     this.resfreshSelected();
-  
-    this.notify = this.pag['change'];
-  
-      this.notify.subscribe(
-        res => {
-         this.resfreshSelected();          
-        }
-      )
-          
   }
 
   updateSel(value, idx: number) {
-    
-    let idTemp = this.collection[idx]._id;
-    
-    let existOnDb = this.selCollection.find(sw => {
-       return sw.load == true  
-    });
-
-    if(value){
-      //Si existe en bd pero esta inactivo
-      if(existOnDb) {
-        this.selCollection.map( m => {
-            if( m.employee == this.collection[idx]._id ){
-              m.recordActive = ValidTypesStatus.ACTIVE;
-            }
-        }); 
-      }else { // si no existe en bd y se agrega nuevo
-        let fec: Date = new Date() ;
-        let temp: ProjectEmployees = {
-            employee: this.collection[idx]._id,
-            project: this.idProject,
-            startDate: fec.toString(),
-            recordActive: ValidTypesStatus.ACTIVE  
-        } 
-        this.selCollection.push(temp);
-
-      }
-
-    }else { // si se elimina el empleado del proyecto
-      if(existOnDb){
-        this.selCollection.map(m => {
-          if( m.employee == this.collection[idx]._id ){
-            m.recordActive = ValidTypesStatus.DELETED;
-            m.endDate = (new Date()).toDateString();
-          }
-        });
-      }else {
-        this.selCollection = Util.removeFromArray( this.collection[idx]._id, this.selCollection);
-      }
-    }
+    this.collection[idx].sel = !this.collection[idx].sel;
   }
 
 
   resfreshSelected() {
     this.collection.forEach( e => {
-      if(this.selCollection.find(f => {
-          return f.employee === e._id && f.recordActive === ValidTypesStatus.ACTIVE  ;
-        })
-      ){
+      const result = this.selCollection.find(f => {
+        return f.employee._id === e._id && f.recordActive;
+      });
+      if(result){
         e.sel = true;
       }
     });
-    console.log(this.collection)
   }
 
 
@@ -195,53 +147,64 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   
   
   saveAll () {
-    let listSave: ProjectEmployees[] = [];
-    let listExist: ProjectEmployees[] = [];
-    
-    this.selCollection.forEach( e => {
-        if(e.recordActive === 1){
-          listSave.push(e)  
-        }
-        listExist.push(e)      
-    })
+    const selectEmployees = this.collection.filter(element => element.sel);
+    const employeesBD = this.selCollection;
 
-    const employees = listSave.filter(function(item) {
-      for (let i = 0; i < listExist.length; i++) {
-        if (String(item.employee) === String(listExist[i].employee._id))
+    // se identifican los registros a elminar
+    let employeesDelete = employeesBD.filter(employee => employee.recordActive);
+    employeesDelete = employeesDelete.filter(function(item) {
+      for (let i = 0; i < selectEmployees.length; i++) {
+        if (String(item.employee._id) === String(selectEmployees[i]._id))
           return false;
       }
       return true;
     });
 
-    const employeesUpdateTemp = listExist.filter(employee => employee.recordActive === 1);
-    let employeesUpdate = listExist.filter(employee => !employee.recordActive);
+    // se identifican los registros a actualizar
+    let employeesUpdate = employeesBD.filter(employee => !employee.recordActive);
     employeesUpdate = employeesUpdate.filter(function(item) {
-      for (let i = 0; i < employeesUpdateTemp.length; i++) {
-        if (String(item.employee._id) === String(employeesUpdateTemp[i].employee))
+      for (let i = 0; i < selectEmployees.length; i++) {
+        if (String(item.employee._id) === String(selectEmployees[i]._id))
           return true;
       }
       return false;
+    })
+
+    // se identifican los registros a guardar
+    let employeesNews: ProjectEmployees[] = [];
+    selectEmployees.forEach(element => {
+      let exist = employeesBD.find(employee => employee.employee._id === element._id)
+      if(!exist){
+        let fec: Date = new Date() ;
+        employeesNews.push({
+          employee: element._id,
+          project: this.idProject,
+          startDate: fec.toString(),
+          recordActive: ValidTypesStatus.ACTIVE
+        });
+      }
     });
 
-    let employeesDelete = listExist.filter(function(item) {
-      for (let i = 0; i < listSave.length; i++) {
-        if (String(item.employee._id) === String(listSave[i].employee))
-          return false;
-      }
-      return true;
-    }).filter(employee => employee.recordActive !== 1).filter(employee => employee.recordActive);
-
-    if(employees.length > 0){
-      this.save(employees);
-    }
+    console.log("BD: ", this.selCollection)
+    console.log("SELECT: ", selectEmployees)
+    console.log("DELTE: ", employeesDelete)
+    console.log("UPDATE: ", employeesUpdate)
+    console.log("SAVE: ", employeesNews)
 
     employeesDelete.forEach(employee => {
-      this.delete(employee);
+      for (let i = 0; i < this.collection.length; i++) {
+        if (String(employee.employee._id) === String(this.collection[i]._id))
+          this.delete(employee);
+      }
     });
 
     employeesUpdate.forEach(employee => {
       this.update(employee);
     });
+
+    if(employeesNews.length > 0){
+      this.save(employeesNews);
+    }
 
     this._msg.show(Util.SAVE_TITLE, Util.MSJ_SAVE_SUCCESS, Util.ACTION_SUCCESS).subscribe(
       res => {

@@ -37,7 +37,7 @@
         </tbody>
     </table>
     
-    <pagination #p [(ngModel)]="collection" [url]="model" [term]="term" collectionName="employees" [totalRecords]="totalRecords"></pagination>
+    <pagination #p [(ngModel)]="collection" [url]="model" [term]="term" collectionName="employees" [totalRecords]="totalRecords" (change)="resfreshSelected()"></pagination>
     
     <div *ngIf="userTemp.role.match('ADMINISTRADOR') || userTemp.role.match('CARGA')" class="row space-elements animated fadeIn fast">
         <div class="col-md-12 text-right">
