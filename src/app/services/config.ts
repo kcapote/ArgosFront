@@ -5,4 +5,4 @@ export const URL_TASKS  = `${ URL_SERVER }/task` ;
 export const URL_SUB_TASKS  = `${ URL_SERVER }/subtask` ;
 export const URL_POSITIONS  = `${ URL_SERVER }/position` ;
 export const URL_EMPLOYEE  = `${ URL_SERVER }/employee` ;
-export const  URL_POJECTS  = `${ URL_SERVER }/project` ;
+export const  URL_POJECTS  = `${ URL_SERVER }/project` ; 

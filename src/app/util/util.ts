@@ -23,7 +23,7 @@ export class Util {
     public static  URL_LOGIN  = `${ Util.URL_SERVER }/security/login/`;
     public static  URL_LOGON  = `${ Util.URL_SERVER }/security/logon`;
     public static  URL_USER  = `${ Util.URL_SERVER }/user`;
-    public static  URL_EMPLOYEE_SUBTASK  = `${ Util.URL_SERVER }/employeesubtask`;
+    public static  URL_EMPLOYEE_SUBTASK  = `${ Util.URL_SERVER }/employeesubtask`; 
   
 
     
