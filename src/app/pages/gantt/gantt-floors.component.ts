@@ -337,6 +337,11 @@ export class GanttFloorsComponent implements OnInit {
     this.location.back()
   }
 
+  updateData(){
+    this._gs.cleanCollection();
+    this.loadData();
+  }
+
   detailByFloor(idTask:String, idFloor: string) {
 
     this.router.navigate(['/pages/ganttDepartment', this.idProject, 

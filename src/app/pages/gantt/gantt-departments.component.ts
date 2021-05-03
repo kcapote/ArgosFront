@@ -119,23 +119,12 @@ export class GanttDepartmentsComponent implements OnInit {
             console.log(error);
             }
         );
-
-
-
-
-
-
-
       }
     )
-
-   
-    
-
   } 
 
   ngOnInit(){
-     
+
   }
 
   ngAfterViewChecked() {
