@@ -105,7 +105,11 @@ export class ProjectEmployeesComponent implements OnInit, AfterViewInit {
   resfreshSelected() {
     this.collection.forEach( e => {
       const result = this.selCollection.find(f => {
-        return f.employee._id === e._id && f.recordActive;
+        let exist = false;
+        if(f.recordActive){
+          exist = f.employee._id === e._id;
+        }
+        return exist;
       });
       if(result){
         e.sel = true;
