@@ -109,15 +109,15 @@ export class EditHoursEmployeesComponent implements OnInit {
   loadData() {
    
     let urlTemp;
-    
-    if(this.fromDate && this.toDate){
+    if(this.fromDate !== undefined && this.toDate !== undefined){
       urlTemp = `${ Util.URL_EMPLOYEE_SUBTASK }/employee/calendar/project/${ this.project['_id']}/${ this.fromDate }/${ this.toDate }`
     } else {
       urlTemp = `${ Util.URL_EMPLOYEE_SUBTASK }/project/${ this.project['_id'] }` ;
     }
     
-    this._ps.getObjects(Util.URL_EMPLOYEE_SUBTASK, 0).subscribe(
+    this._ps.getObjectsAny(urlTemp, 0).subscribe(
       res => {
+        this._ps.refresToken(res);
         this.totalRecords = res.totalRecords;
         this.collection = res['employeeSubTasks'];
       }
