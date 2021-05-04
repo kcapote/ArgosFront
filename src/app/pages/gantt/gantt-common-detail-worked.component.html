@@ -1,8 +1,10 @@
 <br>
 <br>
 <h5 class="card-title" *ngIf="this.collectionEmployeeSubTasks.length > 0"><i class="fas fa-tasks configureIcon"></i> Porgreso Faenas del Proyecto {{this.collectionEmployeeSubTasks[0].project.name}}</h5>
+<h5 class="card-title" *ngIf="this.collectionEmployeeSubTasks.length === 0"><i class="fas fa-tasks configureIcon"></i> Porgreso Faenas del Proyecto</h5>
 <br>
 <h6 class="card-title" *ngIf="this.collectionEmployeeSubTasks.length > 0"><i class="fas fa-percent configureIcon"></i> Faena {{this.collectionEmployeeSubTasks[0].task.name}} / Tarea {{this.collectionEmployeeSubTasks[0].subTask.name}}</h6>
+<h6 class="card-title" *ngIf="this.collectionEmployeeSubTasks.length === 0"><i class="fas fa-percent configureIcon"></i> Faena / Tarea</h6>
 <br>
 <div *ngIf="type!='0'">
     <table class="table table-bordered" style="font-size: 12px">
@@ -104,6 +106,11 @@
             </tbody>
         </table>
     </div>
+</div>
+<div *ngIf="this.collectionEmployeeSubTasks.length === 0">
+    <br>
+    <h5 class="card-title" style="text-align: center;">No se han registrado horas a esta Faena / Tarea</h5>
+    <br>
 </div>
 
 
